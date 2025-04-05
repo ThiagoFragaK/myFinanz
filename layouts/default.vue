@@ -1,10 +1,9 @@
 <template>
-    <div>
-        <!-- <Navbar /> -->
-        <br/>
-        <h1>MAIN</h1>
-        <div class="mx-4 my-2">
-            <div class="card-body">
+    <div class="m-0 p-0 min-vh-100 d-flex flex-column">
+        <Navbar />
+        <div class=" mx-4 my-4 flex-grow-1 card text-white bg-primary rounded-0 m-0">
+            <div class="card-body h-100">
+                <Breadcrumb />
                 <NuxtPage />
             </div>
         </div>
@@ -12,10 +11,12 @@
 </template>
 
 <script>
-    // import Navbar from "@/components/global/NavbarComponent.vue";
+    import Navbar from "@/components/layout/Navbar.vue";
+    import Breadcrumb from "~/components/layout/MainMenu.vue";
     export default {
         components: {
-            // Navbar
+            Breadcrumb,
+            Navbar
         },
     };
 </script>
