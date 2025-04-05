@@ -7,7 +7,7 @@ export default defineNuxtConfig({
         '~/plugins/sweetalert.client.js',
     ], 
     css: [
-        '~/assets/darkly.css',
+        '~/assets/lux.css',
     ],
     app: {
         head: {
