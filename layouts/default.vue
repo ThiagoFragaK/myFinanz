@@ -1,8 +1,6 @@
 <template>
     <div>
-        <!-- <Navbar /> -->
-        <br/>
-        <h1>MAIN</h1>
+        <NavbarComponent />
         <div class="mx-4 my-2">
             <div class="card-body">
                 <NuxtPage />
@@ -12,10 +10,10 @@
 </template>
 
 <script>
-    // import Navbar from "@/components/global/NavbarComponent.vue";
+    import NavbarComponent from '~/components/global/NavbarComponent.vue';
     export default {
         components: {
-            // Navbar
+            NavbarComponent
         },
     };
 </script>
