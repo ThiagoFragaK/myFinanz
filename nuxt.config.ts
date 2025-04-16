@@ -5,16 +5,17 @@ export default defineNuxtConfig({
     },
     plugins: [
         '~/plugins/sweetalert.client.js',
+        '~/plugins/apexcharts.client.js'
     ], 
     css: [
-        '~/assets/styles.css',
+        '@/assets/scss/styles.scss' 
     ],
     app: {
         head: {
             link: [
                 {
-                  rel: 'stylesheet',
-                  href: 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css'
+                    rel: 'stylesheet',
+                    href: 'https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700&display=swap'
                 }
             ],
             script: [
@@ -23,7 +24,7 @@ export default defineNuxtConfig({
                     defer: true, 
                 },
             ],
-        },
+        }
     },
 })
   
