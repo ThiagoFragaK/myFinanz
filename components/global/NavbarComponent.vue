@@ -5,11 +5,15 @@
         </div>
         <div class="col">
             <div class=ms-4>
-                <img 
-                    src="@/assets/logo/my-finanz.png" 
-                    class="img-fluid"
-                    style="width: 300px;"
+                <NuxtLink 
+                    to="/"
                 >
+                    <img 
+                        src="@/assets/logo/my-finanz.png" 
+                        class="img-fluid"
+                        style="width: 300px;"
+                    >
+                </NuxtLink>
             </div>
         </div>
     </div>
