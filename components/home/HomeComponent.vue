@@ -3,41 +3,82 @@
         <div class="col-2"></div>
         <div class="col-2 mt-5">
             <div class="row mt-4">
-                <button type="button" class="btn btn-primary">Salary</button>
+                <div class="w-100">
+                    <button 
+                        type="button" 
+                        class="btn btn-primary menu-btn"
+                    >
+                        <IconsLucide icon="BanknoteArrowUp" />
+                        Salary
+                    </button>
+                </div>
             </div>
             <div class="row mt-4">
-                <button type="button" class="btn btn-primary">Expenses</button>
+                <div class="w-100">
+                    <button 
+                        type="button" 
+                        class="btn btn-primary menu-btn"
+                    >
+                        <IconsLucide icon="BanknoteArrowDown" />
+                        Expenses
+                    </button>
+                </div>
             </div>
             <div class="row mt-4">
-                <button type="button" class="btn btn-primary">Payments</button>
+                <div class="w-100">
+                    <button 
+                        type="button" 
+                        class="btn btn-primary menu-btn"
+                    >
+                        <IconsLucide icon="Receipt" />
+                        Payments
+                    </button>
+                </div>
             </div>
             <div class="row mt-4">
-                <button type="button" class="btn btn-primary">Reports</button>
+                <div class="w-100">
+                    <button 
+                        type="button" 
+                        class="btn btn-primary menu-btn"
+                    >
+                        <IconsLucide icon="PiggyBank" />
+                        Savings
+                    </button>
+                </div>
             </div>
-            <div class="row mt-4">
-                <button type="button" class="btn btn-primary">Cards</button>
-            </div>
-            <div class="row mt-4">
-                <button type="button" class="btn btn-primary">Configs</button>
+            <div class="row">
+                <div class="w-100 mt-4">
+                    <NuxtLink to="/reports" class="d-block w-100">
+                        <button 
+                            type="button" 
+                            class="btn btn-primary w-100 d-flex align-items-center justify-content-center gap-2"
+                        >
+                            <IconsLucide icon="ChartColumn" />
+                            Reports
+                        </button>
+                    </NuxtLink>
+                </div>
+                <div class="w-100 mt-4">
+                    <NuxtLink to="/settings" class="d-block w-100">
+                        <button 
+                            type="button" 
+                            class="btn btn-primary w-100 d-flex align-items-center justify-content-center gap-2"
+                        >
+                            <IconsLucide icon="Settings2" />
+                            Settings
+                        </button>
+                    </NuxtLink>
+                </div>
             </div>
         </div>
+        
         <div class="col-2"></div>
         <div class="col-5">
             <div class="row">
-                <apexchart
-                  type="line"
-                  :options="barChartOptions"
-                  :series="barSeries"
-                  height="350"
-                />
+                <GraphsLines />
             </div>
             <div class="row">
-                <apexchart 
-                    type="pie" 
-                    height="350" 
-                    :options="pieChartOptions" 
-                    :series="pieSeries" 
-                />
+                <GraphsPie />
             </div>
         </div>
     </div>
@@ -49,36 +90,17 @@
 export default {
     data() {
         return {
-            // Bar Chart
-            barChartOptions: {
-                chart: {
-                id: 'sales-bar',
-                toolbar: { show: false }
-                },
-                xaxis: {
-                categories: ['Jan', 'Feb', 'Mar', 'Apr']
-                },
-                colors: ['#347571', '#533f41', '#344c5b']
-            },
-            barSeries: [
-                { name: 'Online Sales', data: [90, 30, 65, 50] },
-                { name: 'In-Store Sales', data: [30, 40, 15, 30] },
-                { name: 'Wholesale', data: [30, 20, 15, 50] }
-            ],
-
-            // Pie Chart
-            pieChartOptions: {
-                chart: {
-                type: 'pie'
-                },
-                labels: ['Online', 'In-Store', 'Wholesale'],
-                legend: {
-                position: 'bottom'
-                },
-                colors: ['#347571', '#533f41', '#344c5b']
-            },
-            pieSeries: [215, 115, 100] // Total of each category
         }
     }
 }
 </script>
+
+<style>
+.menu-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+</style>
