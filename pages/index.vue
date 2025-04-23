@@ -1,3 +1,12 @@
 <template>
-    <h2>SECOND</h2>
+    <HomeComponent />
 </template>
+
+<script>
+    import HomeComponent from '@/components/home/HomeComponent.vue';
+    export default {
+        components: {
+            HomeComponent,
+        }
+    }
+</script>
