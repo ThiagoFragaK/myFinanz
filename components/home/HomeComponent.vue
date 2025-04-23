@@ -4,46 +4,22 @@
         <div class="col-2 mt-5">
             <div class="row mt-4">
                 <div class="w-100">
-                    <button 
-                        type="button" 
-                        class="btn btn-primary menu-btn"
-                    >
-                        <IconsLucide icon="BanknoteArrowUp" />
-                        Salary
-                    </button>
+                    <SalaryModal />
                 </div>
             </div>
             <div class="row mt-4">
                 <div class="w-100">
-                    <button 
-                        type="button" 
-                        class="btn btn-primary menu-btn"
-                    >
-                        <IconsLucide icon="BanknoteArrowDown" />
-                        Expenses
-                    </button>
+                    <ExpensesModal />
                 </div>
             </div>
             <div class="row mt-4">
                 <div class="w-100">
-                    <button 
-                        type="button" 
-                        class="btn btn-primary menu-btn"
-                    >
-                        <IconsLucide icon="Receipt" />
-                        Payments
-                    </button>
+                    <PaymentsModal />
                 </div>
             </div>
             <div class="row mt-4">
-                <div class="w-100">
-                    <button 
-                        type="button" 
-                        class="btn btn-primary menu-btn"
-                    >
-                        <IconsLucide icon="PiggyBank" />
-                        Savings
-                    </button>
+                <div class="w-100">                    
+                    <SavingsModal />
                 </div>
             </div>
             <div class="row">
@@ -82,25 +58,23 @@
             </div>
         </div>
     </div>
-    <div>
-    </div>
 </template>
 
 <script>
-export default {
-    data() {
-        return {
-        }
+    import SalaryModal from "@/components/home/modals/SalaryModal.vue";
+    import ExpensesModal from "@/components/home/modals/ExpensesModal.vue";
+    import PaymentsModal from "@/components/home/modals/PaymentsModal.vue";
+    import SavingsModal from "@/components/home/modals/SavingsModal.vue";
+    export default {
+        components: {
+            SalaryModal,
+            ExpensesModal,
+            PaymentsModal,
+            SavingsModal
+        },
+        data() {
+            return {
+            }
+        },
     }
-}
 </script>
-
-<style>
-.menu-btn {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-}
-</style>
