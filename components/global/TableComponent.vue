@@ -1,9 +1,8 @@
 <template>
     <table 
-        class="table table-striped table-hover table-bordered border-secondary table-sm table-responsive"
+        class="table table-striped table-hover table-light table-sm table-responsive"
     >
-        <caption>Linhas</caption>
-        <thead >
+        <thead>
             <tr>
                 <th v-if="hasSelection">
                     <input
@@ -52,7 +51,7 @@
             <tr>
                 <td 
                     :colspan="columns.length + (hasSelection ? 1 : 0)" 
-                    class="text-center"
+                    class="text-center text-primary bg-primary/5 py-4 italic"
                 >
                     No data available.
                 </td>
@@ -82,11 +81,6 @@
                 selectedRows: [],
             };
         },
-        computed: {
-            allSelected() {
-                return this.data.length > 0 && this.selectedRows.length === this.data.length;
-            },
-        },
         methods: {
             selectAllRow() {
                 if (this.allSelected) {
@@ -111,6 +105,11 @@
             cleanSelection() {
                 this.selectedRows = [];
             }
+        },
+        computed: {
+            allSelected() {
+                return this.data.length > 0 && this.selectedRows.length === this.data.length;
+            },
         },
         mounted() {
             this.cleanSelection();
