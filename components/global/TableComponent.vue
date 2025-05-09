@@ -1,6 +1,6 @@
 <template>
     <table 
-        class="table table-striped table-hover table-light table-sm table-responsive"
+        class="table table-striped table-hover table-info table-sm table-responsive"
     >
         <thead>
             <tr>
