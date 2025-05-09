@@ -1,24 +1,32 @@
-$primary: #347571;
-$secondary: #03354e;
-$success:#2098A3;
-$info:#addade;
-$light:#E7F4E0;
-// $light:#a9d2bf;
-$dark:#19252B;
-$warning: #F7C863;
-$danger: #d26671;
+$theme-colors: (
+  "primary": #347571,
+  "secondary": #03354e,
+  "success": #2098A3,
+  "info": #addade,
+  "light": #E7F4E0,
+  "dark": #19252B,
+  "warning": #F7C863,
+  "danger": #d26671
+);
+
+$table-variants: $theme-colors;
 
 @import "bootstrap/scss/bootstrap";
 
 body {
-    background-color: #ecf8e5;
-    font-family: 'League Spartan', sans-serif;
+  background-color: #ecf8e5;
+  font-family: 'League Spartan', sans-serif;
 }
 
 .menu-btn {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.form-check-input:checked {
+  background-color: map-get($theme-colors, "primary");
+  border-color: map-get($theme-colors, "primary");
 }
