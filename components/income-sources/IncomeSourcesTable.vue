@@ -3,13 +3,18 @@
         :data="data"
         :columns="columns"
     >
+        <template #cell-status="{ data }">
+            <StatusBadge :status="data.row.status" />
+        </template>
     </TableComponent>
 </template>
 
 <script>
-    import TableComponent from "@/components/global/TableComponent.vue"
+    import StatusBadge from "@/components/global/StatusBadgeComponent.vue";
+    import TableComponent from "@/components/global/TableComponent.vue";
     export default {
         components: {
+            StatusBadge,
             TableComponent
         },
         data: () => ({
@@ -17,24 +22,15 @@
                 { key: "id", label: "Id" },
                 { key: "name", label: "Name" },
                 { key: "status", label: "Status" },
-                { key: "actions", label: "Actions" },
             ],
-            data: [
-                { id: 1, name: "TechNova Ltd.", status: 1 },
-                { id: 2, name: "GreenField Solutions", status: 0 },
-                { id: 3, name: "Skyline Ventures", status: 0 },
-                { id: 4, name: "BrightPath Corp.", status: 1 },
-                { id: 5, name: "FusionWorks", status: 0 },
-                { id: 6, name: "BlueOcean Enterprises", status: 0 },
-                { id: 7, name: "CoreLogic Systems", status: 1 },
-                { id: 8, name: "NexaDigital", status: 0 },
-                { id: 9, name: "AltaTech Industries", status: 1 },
-                { id: 10, name: "VeraSoft", status: 0 }
-            ],
+            data: [],
         }),
         methods: {
             getIncomeSources() {
-
+                this.$axios.get(`income/sources`)
+                    .then(({ data }) => {
+                        this.data = data;
+                    });
             },
         },
         created() {
