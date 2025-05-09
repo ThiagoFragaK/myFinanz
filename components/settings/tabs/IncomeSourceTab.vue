@@ -1,17 +1,14 @@
 <template>
-    <button 
-        type="button" 
-        class="btn btn-light mb-4"
-    >
-        <IconsLucide icon="Plus" />
-    </button>
+    <IncomeSourcesForm />
     <IncomeSourcesTable />
 </template>
 
 <script>
-    import IncomeSourcesTable from "@/components/income-sources/IncomeSourcesTable.vue"
+    import IncomeSourcesForm from "@/components/income-sources/IncomeSourcesForm.vue";
+    import IncomeSourcesTable from "@/components/income-sources/IncomeSourcesTable.vue";
     export default {
         components: {
+            IncomeSourcesForm,
             IncomeSourcesTable,
         }
     }

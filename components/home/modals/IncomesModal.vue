@@ -19,7 +19,7 @@
             <div class="modal-content bg-light">                
                 <div class="modal-header">
                     <IconsLucide icon="BanknoteArrowDown" />
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm income modal</h1>
+                    <h1 class="modal-title ms-2 fs-5" id="exampleModalLabel">Confirm income modal</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -101,8 +101,14 @@
         methods: {
             getIncomeByUser() {
                 this.$axios.get(`income/sources`)
-                    .then((response) => {
-                        this.incomeList = response.data;
+                    .then(({ data }) => {
+                        console.log(data)
+                        this.incomeList = data.map((income) => {
+                            return {
+                                value: income.id,
+                                label: income.name
+                            }
+                        });
                     });
             },
             getIncomeTypes() {
