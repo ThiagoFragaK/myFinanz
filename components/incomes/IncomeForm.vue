@@ -1,6 +1,6 @@
 <template>
-    <div >                
-        <div >
+    <div>
+        <div>
             <h1 class="ms-1 fs-5">
                 New Income
             </h1>
@@ -121,9 +121,18 @@
                     });
             },
             getIncomeById() {
-                this.$axios.get(`incomes`)
-                    .then((response) => {
-                        console.log(response)
+                if(!this.isEdit) return;
+
+                this.$axios.get(`incomes/${this.id}`)
+                    .then(({ data }) => {
+                        const income = data[0];
+                        this.income = {
+                            name: income.name,
+                            value: income.value,
+                            entry_day: income.entry_day,
+                            source_id: income.source_id,
+                            type_id: income.type_id,
+                        }
                     });
             },
             save() {
@@ -135,30 +144,30 @@
             createIncome() {
                 this.$axios.post(`incomes`, this.income)
                     .then((response) => {
-                        console.log(response)
+                        this.$notify({
+                            title: 'Income',
+                            text: 'Income created successfully!',
+                            icon: 'success'
+                        });
+                        this.$emit("save");
                     });
             },
             editIncome() {
                 this.$axios.put(`incomes/${this.id}`, this.income)
                     .then((response) => {
-                        console.log(response)
+                        this.$notify({
+                            title: 'Income',
+                            text: 'Income edited successfully!',
+                            icon: 'success'
+                        });
+                        this.$emit("save");
                     });
             },
-            confirmIncome() {
-                const form = {
-                    income: this.selectedIncome,
-                    type: this.selectedType,
-                    value: this.incomeValue,
-                };
-                console.log(form)
-            },
-        },
-        computed: {
         },
         created() {
             this.getIncomeSources();
             this.getIncomeTypes();
-            
+            this.getIncomeById();
         }
     };
 </script>  
