@@ -2,6 +2,7 @@
     <TableComponent
         :data="data"
         :columns="columns"
+        @selectedRows="updateSelectedRows"
     >
         <template #cell-status="{ data }">
             <StatusBadge :status="data.row.status" />
@@ -31,6 +32,10 @@
                     .then(({ data }) => {
                         this.data = data;
                     });
+            },
+            updateSelectedRows(rows) {
+                this.selectedRows = rows;
+                this.$emit("allowActions", rows);
             },
         },
         created() {

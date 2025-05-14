@@ -1,51 +1,27 @@
 <template>
-    <button 
-        type="button" 
-        class="btn btn-info mb-4"
-        data-bs-toggle="modal" 
-        data-bs-target="#IncomeSources"
-    >
-        <IconsLucide icon="Plus" />
-    </button>
-
-    <div 
-        class="modal fade" 
-        id="IncomeSources" 
-        tabindex="-1" 
-        aria-hidden="true"
-    >
-        <div class="modal-dialog">
-            <div class="modal-content bg-light">                
-                <div class="modal-header">
-                    <IconsLucide icon="Building2" />
-                    <h1 class="modal-title ms-1 fs-5" id="exampleModalLabel">New Income Source</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="container text-center">
-                        <div class="row">
-                            <div class="input-group mb-3">
-                                <input 
-                                    type="text" 
-                                    class="form-control" 
-                                    placeholder="Income Source Name"
-                                    v-model="incomeSource.name"
-                                >
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button 
-                        type="button" 
-                        class="btn btn-secondary btn-sm"
-                        @click="save"
-                    >
-                        Save
-                    </button>
-                </div>
+    <div>
+        <div>
+            <h1 class="ms-1 fs-5">
+                New Income Source
+            </h1>
+        </div>
+        <div class="row mb-4">
+            <div class="col-4">
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    placeholder="Income Source Name"
+                    v-model="incomeSource.name"
+                >
             </div>
         </div>
+        <button 
+            type="button" 
+            class="btn btn-secondary btn-sm"
+            @click="save"
+        >
+            Save
+        </button>
     </div>
 </template>
   
