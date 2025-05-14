@@ -73,6 +73,7 @@
         }),
         methods: {
             returnToTable() {
+                this.selectedRows = [];
                 this.showTable = true;
             },
             updateSelection(selectedRows) {
