@@ -31,17 +31,28 @@
             id: {
                 type: Number,
                 required: false,
+            },
+            isEdit: {
+                type: Boolean,
+                required: false,
             }
         },
         data() {
             return {
-                isEdit: false,
                 incomeSource: {
                     "name": ""
                 }
             };
         },
         methods: {
+            getIncomeSourceById() {
+                if(!this.isEdit) return;
+
+                this.$axios.get(`income/sources/${this.id}`)
+                    .then(({ data }) => {
+                        this.incomeSource = data;
+                    });
+            },
             save() {
                 if(this.isEdit) {
                     this.editNewIncomeSource();
@@ -50,12 +61,12 @@
             },
             createNewIncomeSource() {
                 this.$axios.post(`income/sources`, this.incomeSource)
-                    .then((response) => {
-                        console.log(response)
+                    .then(({ data }) => {
+                        this.incomeSource = data;
                     });
             },
             editNewIncomeSource() {
-                this.$axios.put(`income/sources/${this.id}`, { param: this.incomeSource })
+                this.$axios.put(`income/sources/${this.id}`, this.incomeSource)
                     .then((response) => {
                         console.log(response)
                     });
@@ -69,9 +80,8 @@
                 console.log(form)
             },
         },
-        computed: {
-        },
         mounted() {
+            this.getIncomeSourceById();
         }
     };
 </script>  

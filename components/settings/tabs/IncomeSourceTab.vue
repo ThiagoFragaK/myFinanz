@@ -33,7 +33,7 @@
     />
     <IncomeSourcesForm 
         v-else
-        :incomeType="selectedIncomeSource"
+        :id="selectedIncomeSource.id"
         :isEdit="isEdit"
         @save="saveIncomeSource"
         ref="IncomeSourcesForm"
@@ -85,7 +85,7 @@
                 if(this.disableBtns) return true;
                 return this.selectedRows.length !== 1;
             },
-            selectedIncomeType() {
+            selectedIncomeSource() {
                 if(this.selectedRows.length === 0) {
                     return [];
                 }
