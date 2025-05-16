@@ -34,7 +34,7 @@
             </div>
         </div>
     </div>
-  </template>
+</template>
 
 <script>
     import TabsComponent from '@/components/global/TabsComponent.vue';

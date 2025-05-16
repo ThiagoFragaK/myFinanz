@@ -90,7 +90,7 @@
                 required: false,
             },
             isEdit: {
-                type: Number,
+                type: Boolean,
                 required: false,
             }
         },
@@ -122,16 +122,15 @@
             },
             getIncomeById() {
                 if(!this.isEdit) return;
-
+                
                 this.$axios.get(`incomes/${this.id}`)
                     .then(({ data }) => {
-                        const income = data[0];
                         this.income = {
-                            name: income.name,
-                            value: income.value,
-                            entry_day: income.entry_day,
-                            source_id: income.source_id,
-                            type_id: income.type_id,
+                            name: data.name,
+                            value: data.value,
+                            entry_day: data.entry_day,
+                            source_id: data.source_id,
+                            type_id: data.type_id,
                         }
                     });
             },
