@@ -51,7 +51,7 @@
     />
     <IncomeForm 
         v-else 
-        :income="selectedIncome"
+        :id="selectedIncome.id"
         :isEdit="isEdit"
         @save="saveIncome"
         ref="IncomeForm"

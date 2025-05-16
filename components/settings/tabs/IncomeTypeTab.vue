@@ -33,9 +33,9 @@
     />
     <IncomeTypesForm 
         v-else
-        :incomeType="selectedIncomeType"
+        :id="selectedIncomeType.id"
         :isEdit="isEdit"
-        @save="saveIncomeType"
+        @save="save"
         ref="IncomeTypesForm"
     />
 </template>
@@ -68,7 +68,7 @@
                 this.showTable = false;
                 this.isEdit = true;
             },
-            saveIncome() {
+            save() {
                 this.returnToTable();
                 this.$refs.IncomeTypeTable.getIncomeTypes();
             },

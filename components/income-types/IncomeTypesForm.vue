@@ -31,11 +31,14 @@
             id: {
                 type: Number,
                 required: false,
+            },
+            isEdit: {
+                type: Boolean,
+                required: false,
             }
         },
         data() {
             return {
-                isEdit: false,
                 incomeType: {
                     "name": ""
                 }
@@ -50,11 +53,10 @@
             },
             getIncomeTypeById() {
                 if(!this.isEdit) return;
-                console.log("get")
+
                 this.$axios.get(`income/types/${this.id}`)
                     .then(({ data }) => {
-                        const incomeType = data;
-                        console.log(incomeType)
+                        this.incomeType = data;
                     });
             },
             createIncomeType() {
@@ -69,8 +71,6 @@
                         console.log(response)
                     });
             },
-        },
-        computed: {
         },
         created() {
             this.getIncomeTypeById();
