@@ -26,6 +26,24 @@
     >
         <IconsLucide icon="Pencil" />
     </button>
+    <button 
+        type="button"
+        title="Disable Income"
+        class="btn btn-info ms-2 mb-4"
+        :disabled="hasntOnlyOneSelected"
+        @click="disableIncomeSource"
+    >
+        <IconsLucide icon="CircleSlash" />
+    </button>
+    <button 
+        type="button"
+        title="Enable Income"
+        class="btn btn-info ms-2 mb-4"
+        :disabled="hasntOnlyOneSelected"
+        @click="enableIncomeSource"
+    >
+        <IconsLucide icon="CircleCheckBig" />
+    </button>
     <IncomeSourcesTable 
         v-if="showTable"
         @allowActions="updateSelection"
@@ -71,6 +89,24 @@
             saveIncomeSource() {
                 this.returnToTable();
                 this.$refs.IncomeSourcesTable.getIncomeSources();
+            },
+            disableIncomeSource() {
+                this.$axios.patch(`incomes/source/disable/${this.selectedIncomeSource.id}`)
+                    .then(({ data }) => {
+                        this.data = data;
+                    })
+                    .finally(() => {
+                        this.$refs.IncomeTable.getIncomeSources();
+                    });
+            },
+            enableIncomeSource() {
+                this.$axios.patch(`incomes/source/enable/${this.selectedIncomeSource.id}`)
+                    .then(({ data }) => {
+                        this.data = data;
+                    })
+                    .finally(() => {
+                        this.$refs.IncomeTable.getIncomeSources();
+                    });
             },
         },
         computed: {

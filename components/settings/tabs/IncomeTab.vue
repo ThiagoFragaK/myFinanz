@@ -42,7 +42,7 @@
         :disabled="hasntOnlyOneSelected"
         @click="enableIncome"
     >
-        <IconsLucide icon="CircleCheck" />
+        <IconsLucide icon="CircleCheckBig" />
     </button>
     <IncomeTable 
         v-if="showTable" 
