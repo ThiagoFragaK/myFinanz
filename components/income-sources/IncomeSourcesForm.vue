@@ -50,12 +50,12 @@
 
                 this.$axios.get(`income/sources/${this.id}`)
                     .then(({ data }) => {
-                        this.incomeSource = data;
+                        this.incomeSource = data.data;
                     });
             },
             save() {
                 if(this.isEdit) {
-                    this.editNewIncomeSource();
+                    return this.editNewIncomeSource();
                 }
                 this.createNewIncomeSource();
             },

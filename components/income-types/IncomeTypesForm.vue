@@ -47,7 +47,7 @@
         methods: {
             save() {
                 if(this.isEdit) {
-                    this.editIncomeTypes();
+                    return this.editIncomeTypes();
                 }
                 this.createIncomeType();
             },
@@ -56,7 +56,7 @@
 
                 this.$axios.get(`income/types/${this.id}`)
                     .then(({ data }) => {
-                        this.incomeType = data;
+                        this.incomeType = data.data;
                     });
             },
             createIncomeType() {

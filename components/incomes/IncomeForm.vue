@@ -111,13 +111,13 @@
             getIncomeSources() {
                 this.$axios.get(`income/sources`)
                     .then(({ data }) => {
-                        this.incomeSourcesList = data;
+                        this.incomeSourcesList = data.data;
                     });
             },
             getIncomeTypes() {
                 this.$axios.get(`income/types`)
                     .then(({ data }) => {
-                        this.incomeTypesList = data;
+                        this.incomeTypesList = data.data;
                     });
             },
             getIncomeById() {
@@ -125,18 +125,19 @@
                 
                 this.$axios.get(`incomes/${this.id}`)
                     .then(({ data }) => {
+                        let income = data.data;
                         this.income = {
-                            name: data.name,
-                            value: data.value,
-                            entry_day: data.entry_day,
-                            source_id: data.source_id,
-                            type_id: data.type_id,
+                            name: income.name,
+                            value: income.value,
+                            entry_day: income.entry_day,
+                            source_id: income.source_id,
+                            type_id: income.type_id,
                         }
                     });
             },
             save() {
                 if(this.isEdit) {
-                    this.editIncome();
+                    return this.editIncome();
                 }
                 this.createIncome();
             },

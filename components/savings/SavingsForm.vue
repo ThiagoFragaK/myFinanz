@@ -10,25 +10,20 @@
                 <input 
                     type="text" 
                     class="form-control" 
-                    placeholder="Card name"
-                    v-model="card.name"
+                    placeholder="Saving value"
+                    v-model="saving.value"
                 >
             </div>
-            <div class="col-2">
-                <input 
-                    type="number" 
-                    class="form-control" 
-                    placeholder="Card limit"
-                    v-model="card.limit"
+            <div class="col-4 form-check form-switch">
+                <input
+                    class="form-check-input"
+                    type="checkbox"
+                    v-model="saving.is_positive"
+                    :class="{ 'bg-success border-light': saving.is_positive }"
+                    :true-value="1"
+                    :false-value="0"
                 >
-            </div>
-            <div class="col-2">
-                <input 
-                    type="number" 
-                    class="form-control" 
-                    placeholder="Card turn day"
-                    v-model="card.turn_day"
-                >
+                <label class="form-check-label">{{ checkTitle }}</label>
             </div>
         </div>
         <button 
@@ -55,37 +50,35 @@
         },
         data() {
             return {
-                card: {
-                    name: "",
-                    turn_day: "",
-                    limit: 0,
+                saving: {
+                    value: 0,
+                    is_positive: 1,
                 }
             };
         },
         methods: {
             save() {
                 if(this.isEdit) {
-                    return this.editCard();
+                    return this.editSaving();
                 }
-                this.createCard();
+                this.createSaving();
             },
-            getCardById() {
+            getSavingById() {
                 if(!this.isEdit) return;
 
-                this.$axios.get(`cards/${this.id}`)
+                this.$axios.get(`savings/${this.id}`)
                     .then(({ data }) => {
-                        console.log(data)
-                        this.card = data.data;
+                        this.saving = data.data;
                     });
             },
-            createCard() {
-                this.$axios.post(`cards`, this.card)
+            createSaving() {
+                this.$axios.post(`savings`, this.saving)
                     .then((response) => {
                         console.log(response)
                     });
             },
-            editCard() {
-                this.$axios.put(`cards/${this.id}`, this.card)
+            editSaving() {
+                this.$axios.put(`savings/${this.id}`, this.saving)
                     .then((response) => {
                         console.log(response)
                     });
@@ -93,11 +86,14 @@
         },
         computed: {
             title() {
-                return this.isEdit ? "Edit Card" : "New Card";
+                return this.isEdit ? "Edit Saving" : "New Saving";
+            },
+            checkTitle() {
+                return this.saving.is_positive === 1 ? "Positive" : "Negative";
             },
         },
         created() {
-            this.getCardById();
+            this.getSavingById();
         }
     };
 </script>  
