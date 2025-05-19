@@ -29,7 +29,6 @@
         },
         data: () => ({
             columns: [
-                { key: "id", label: "Id" },
                 { key: "name", label: "Name" },
                 { key: "value", label: "Value" },
                 { key: "entry_day", label: "Entry day" },
@@ -44,7 +43,7 @@
             getIncomeSources() {
                 this.$axios.get(`incomes`)
                     .then(({ data }) => {
-                        this.data = data;
+                        this.data = data.data;
                     });
             },
             updateSelectedRows(rows) {

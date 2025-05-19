@@ -4,10 +4,16 @@
         :columns="columns"
         @selectedRows="updateSelectedRows"
     >
-        <template #cell-turn_day="{ data }">
-            {{ data.row.turn_day + "th"}}
+        <template #cell-value="{ data }">
+            {{ "R$" + data.row.value }}
+        </template>
+        <template #cell-due_day="{ data }">
+            {{ data.row.due_day + "th"}}
         </template>
         <template #cell-status="{ data }">
+            <StatusBadge :status="data.row.status" />
+        </template>
+        <template #cell-open="{ data }">
             <StatusBadge :status="data.row.status" />
         </template>
     </TableComponent>
@@ -18,22 +24,24 @@
     import TableComponent from "@/components/global/TableComponent.vue";
     export default {
         components: {
+            StatusBadge,
             TableComponent,
-            StatusBadge
         },
         data: () => ({
             columns: [
                 { key: "name", label: "Name" },
-                { key: "turn_day", label: "Turn Day" },
-                { key: "limit", label: "Limit" },
+                { key: "description", label: "Description" },
+                { key: "value", label: "Value" },
+                { key: "due_day", label: "Due Date" },
                 { key: "status", label: "Status" },
+                { key: "open", label: "Payment status" },
             ],
             data: [],
             selectedRows: [],
         }),
         methods: {
-            getCards() {
-                this.$axios.get(`cards`)
+            getPayments() {
+                this.$axios.get(`payments`)
                     .then(({ data }) => {
                         this.data = data.data;
                     });
@@ -44,7 +52,7 @@
             },
         },
         created() {
-            this.getCards();
+            this.getPayments();
         }
     }
 </script>
