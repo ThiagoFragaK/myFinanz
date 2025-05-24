@@ -7,38 +7,71 @@
             <div class="card-body">
                 <TabsComponent :tabs="tabs">
                     <template #main>
-                        <div>Home tab content goes here.</div>
+                        <MainTab />
                     </template>
                     <template #cards>
-                        <div>Profile tab content goes here.</div>
+                        <CardsTab />
                     </template>
-                    <template #salaries>
-                        <div>Contact tab content goes here.</div>
+                    <template #expenses>
+                        <ExpensesTab />
+                    </template>
+                    <template #income>
+                        <IncomeTab />
+                    </template>
+                    <template #income_type>
+                        <IncomeTypeTab />
+                    </template>
+                    <template #income_sources>
+                        <IncomeSourceTab />
                     </template>
                     <template #payments>
-                        <div>Contact tab content goes here.</div>
+                        <PaymentsTab />
+                    </template>
+                    <template #savings>
+                        <SavingsTab />
                     </template>
                 </TabsComponent>
             </div>
         </div>
     </div>
-  </template>
+</template>
 
 <script>
     import TabsComponent from '@/components/global/TabsComponent.vue';
+    import MainTab from '@/components/settings/tabs/MainTab.vue';
+    import CardsTab from '@/components/settings/tabs/CardsTab.vue';
+    import ExpensesTab from '@/components/settings/tabs/ExpensesTab.vue';
+    import IncomeSourceTab from '@/components/settings/tabs/IncomeSourceTab.vue';
+    import IncomeTypeTab from '@/components/settings/tabs/IncomeTypeTab.vue';
+    import IncomeTab from '@/components/settings/tabs/IncomeTab.vue';
+    import PaymentsTab from '@/components/settings/tabs/PaymentsTab.vue';
+    import SavingsTab from '@/components/settings/tabs/SavingsTab.vue';
+
     export default {
-    components: {
-        TabsComponent,
-    },
-    data() {
-        return {
-            tabs: [
-                { name: "main", label: "Main settings" },
-                { name: "cards", label: "Cards" },
-                { name: "salaries", label: "Salaries" },
-                { name: "payments", label: "Constant payments" },
-            ],
-        };
-    },
+        components: {
+            TabsComponent,
+            MainTab,
+            CardsTab,
+            ExpensesTab,
+            IncomeSourceTab,
+            IncomeTypeTab,
+            IncomeTab,
+            PaymentsTab,
+            SavingsTab,
+        },
+        data() {
+            return {
+                tabs: [
+                    // { name: "main", label: "Main settings" },
+                    { name: "cards", label: "Cards" },
+                    { name: "expenses", label: "Expenses" },
+                    { name: "income", label: "Incomes" },
+                    { name: "income_type", label: "Incomes Types" },
+                    { name: "income_sources", label: "Incomes Sources" },
+                    { name: "payments", label: "Payments" },
+                    { name: "savings", label: "Savings" },
+                ],
+            };
+        },
     };
 </script>

@@ -4,59 +4,36 @@
         <div class="col-2 mt-5">
             <div class="row mt-4">
                 <div class="w-100">
-                    <button 
-                        type="button" 
-                        class="btn btn-primary menu-btn"
-                    >
-                        <IconsLucide icon="BanknoteArrowUp" />
-                        Salary
-                    </button>
+                    <IncomeModal />
                 </div>
             </div>
             <div class="row mt-4">
                 <div class="w-100">
-                    <button 
-                        type="button" 
-                        class="btn btn-primary menu-btn"
-                    >
-                        <IconsLucide icon="BanknoteArrowDown" />
-                        Expenses
-                    </button>
+                    <ExpensesModal />
                 </div>
             </div>
             <div class="row mt-4">
                 <div class="w-100">
-                    <button 
-                        type="button" 
-                        class="btn btn-primary menu-btn"
-                    >
-                        <IconsLucide icon="Receipt" />
-                        Payments
-                    </button>
+                    <PaymentsModal />
                 </div>
             </div>
             <div class="row mt-4">
-                <div class="w-100">
-                    <button 
-                        type="button" 
-                        class="btn btn-primary menu-btn"
-                    >
-                        <IconsLucide icon="PiggyBank" />
-                        Savings
-                    </button>
+                <div class="w-100">                    
+                    <SavingsModal />
                 </div>
             </div>
             <div class="row">
                 <div class="w-100 mt-4">
-                    <NuxtLink to="/reports" class="d-block w-100">
-                        <button 
-                            type="button" 
-                            class="btn btn-primary w-100 d-flex align-items-center justify-content-center gap-2"
-                        >
-                            <IconsLucide icon="ChartColumn" />
-                            Reports
-                        </button>
-                    </NuxtLink>
+                    <button
+                        disabled 
+                        type="button" 
+                        class="btn btn-primary w-100 d-flex align-items-center justify-content-center gap-2"
+                    >
+                        <IconsLucide icon="ChartColumn" />
+                        Reports
+                    </button>
+                    <!-- <NuxtLink to="/reports" class="d-block w-100">
+                    </NuxtLink> -->
                 </div>
                 <div class="w-100 mt-4">
                     <NuxtLink to="/settings" class="d-block w-100">
@@ -82,25 +59,23 @@
             </div>
         </div>
     </div>
-    <div>
-    </div>
 </template>
 
 <script>
-export default {
-    data() {
-        return {
-        }
+    import IncomeModal from "@/components/home/modals/IncomesModal.vue";
+    import ExpensesModal from "@/components/home/modals/ExpensesModal.vue";
+    import PaymentsModal from "@/components/home/modals/PaymentsModal.vue";
+    import SavingsModal from "@/components/home/modals/SavingsModal.vue";
+    export default {
+        components: {
+            IncomeModal,
+            ExpensesModal,
+            PaymentsModal,
+            SavingsModal
+        },
+        data() {
+            return {
+            }
+        },
     }
-}
 </script>
-
-<style>
-.menu-btn {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-}
-</style>
