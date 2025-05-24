@@ -4,13 +4,13 @@
             v-if="status === 1" 
             class="badge text-bg-success"
         >
-            Active
+            <div class="text-light">Active</div>
         </span>
         <span 
             v-else
             class="badge text-bg-danger"
         >
-            Inactive
+            <div class="text-light">Inactive</div>
         </span>
     </div>
 </template>

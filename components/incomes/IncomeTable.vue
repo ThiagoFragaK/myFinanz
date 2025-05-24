@@ -4,6 +4,9 @@
         :columns="columns"
         @selectedRows="updateSelectedRows"
     >
+        <template #cell-value="{ data }">
+            {{ `R$ ${data.row.value}` }}
+        </template>
         <template #cell-income_sources="{ data }">
             {{ data.row.income_sources.name }}
         </template>

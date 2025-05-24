@@ -5,7 +5,7 @@
         @selectedRows="updateSelectedRows"
     >
         <template #cell-value="{ data }">
-            {{ "R$" + data.row.value }}
+            {{ `R$ ${data.row.value}` }}
         </template>
         <template #cell-due_day="{ data }">
             {{ data.row.due_day + "th"}}

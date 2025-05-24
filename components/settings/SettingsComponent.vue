@@ -62,7 +62,7 @@
         data() {
             return {
                 tabs: [
-                    { name: "main", label: "Main settings" },
+                    // { name: "main", label: "Main settings" },
                     { name: "cards", label: "Cards" },
                     { name: "expenses", label: "Expenses" },
                     { name: "income", label: "Incomes" },
