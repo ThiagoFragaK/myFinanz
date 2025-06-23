@@ -9,11 +9,12 @@
         Income
     </button>
 
-    <div 
+    <div
         class="modal fade" 
         id="SalaryModal" 
         tabindex="-1" 
         aria-hidden="true"
+        ref="salaryModal"
     >
         <div class="modal-dialog">
             <div class="modal-content bg-light">                
@@ -103,7 +104,7 @@
                 this.$axios.get(`income/sources`)
                     .then(({ data }) => {
                         console.log(data)
-                        this.incomeList = data.map((income) => {
+                        this.incomeList = data.data.map((income) => {
                             return {
                                 value: income.id,
                                 label: income.name
@@ -113,8 +114,9 @@
             },
             getIncomeTypes() {
                 this.$axios.get(`income/types`)
-                    .then((response) => {
-                        this.incomeTypeList = response.data;
+                    .then(({ data }) => {
+                        console.log(data)
+                        this.incomeTypeList = data.data;
                     });
                 
                 this.$notify({
@@ -123,15 +125,33 @@
                     icon: 'success'
                 });
             },
-            confirmIncome() {
-                //confirm
-                const form = {
-                    income: this.selectedIncome,
-                    type: this.selectedType,
-                    value: this.incomeValue,
-                };
-                console.log(form)
-            },
+            async confirmIncome() {
+                const result = await this.$confirm({
+                    title: 'Confirm Income?',
+                    text: 'Do you want to save this income entry?',
+                });
+
+                if (result.isConfirmed) {
+                    const form = {
+                        income: this.selectedIncome,
+                        type: this.selectedType,
+                        value: this.incomeValue,
+                    };
+
+                    this.$notify({
+                        title: 'Saved!',
+                        text: 'Income entry has been saved.',
+                        icon: 'success'
+                    });
+
+                } else {
+                    this.$notify({
+                        title: 'Cancelled',
+                        text: 'Income entry was not saved.',
+                        icon: 'info'
+                    });
+                }
+            }
         },
         computed: {
             mustShowValue() {

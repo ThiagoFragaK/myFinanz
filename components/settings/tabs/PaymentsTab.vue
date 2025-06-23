@@ -10,7 +10,7 @@
     </button>
     <button 
         type="button"
-        title="New Income"
+        title="New Payment"
         class="btn btn-info ms-2 mb-4"
         @click="newPayment"
         :disabled="disableBtns"
@@ -19,7 +19,7 @@
     </button>
     <button 
         type="button"
-        title="Edit Income"
+        title="Edit payment"
         class="btn btn-info ms-2 mb-4"
         @click="editPayment"
         :disabled="hasntOnlyOneSelected"
@@ -28,9 +28,18 @@
     </button>
     <button 
         type="button"
+        title="Show payments open"
+        class="btn btn-info ms-2 mb-4"
+        @click="showOpenPayments"
+        :disabled="disableBtns"
+    >
+        <IconsLucide icon="ListChecks" />
+    </button>
+    <button 
+        type="button"
         title="Disable payment"
         class="btn btn-info ms-2 mb-4"
-        @click="editPayment"
+        @click="disablePayment"
         :disabled="hasntOnlyOneSelected"
     >
         <IconsLucide icon="CircleSlash" />
@@ -39,7 +48,7 @@
         type="button"
         title="Enable payment"
         class="btn btn-info ms-2 mb-4"
-        @click="editPayment"
+        @click="enablePayment"
         :disabled="hasntOnlyOneSelected"
     >
         <IconsLucide icon="CircleCheckBig" />
@@ -48,7 +57,7 @@
         type="button"
         title="Open debt"
         class="btn btn-info ms-2 mb-4"
-        @click="editPayment"
+        @click="openDebt"
         :disabled="hasntOnlyOneSelected"
     >
         <IconsLucide icon="X" />
@@ -57,7 +66,7 @@
         type="button"
         title="Pay debt"
         class="btn btn-info ms-2 mb-4"
-        @click="editPayment"
+        @click="payDebt"
         :disabled="hasntOnlyOneSelected"
     >
         <IconsLucide icon="Check" />
@@ -66,6 +75,10 @@
         v-if="showTable" 
         @allowActions="updateSelection"
         ref="PaymentsTable"
+    />
+    <PaymentsOpen
+        v-else-if="showOpen"
+        ref="PaymentOpen"
     />
     <PaymentsForm 
         v-else 
@@ -92,21 +105,71 @@
         methods: {
             returnToTable() {
                 this.selectedRows = [];
+                this.showOpen = false;
                 this.showTable = true;
             },
             updateSelection(selectedRows) {
                 this.selectedRows = selectedRows;
             },
             newPayment() {
+                this.showOpen = false;
                 this.showTable = this.isEdit = false;
             },
             editPayment() {
-                this.showTable = false;
+                this.showTable = this.showOpen = false;
                 this.isEdit = true;
             },
             savePayment() {
                 this.returnToTable();
                 this.$refs.PaymentTable.getPayments();
+            },
+            showOpenPayments() {
+                this.showTable = false;
+                this.showOpen = true;
+            },
+            openDebt() {
+                this.$axios.patch(`payments/open/${this.id}`)
+                    .then(({data}) => {
+                        console.log(data)
+                        this.$notify({
+                            title: 'Success',
+                            text: 'Debt opened successfully',
+                            icon: 'success'
+                        });
+                    });
+            },
+            payDebt() {
+                this.$axios.patch(`payments/pay/${this.id}`)
+                    .then(({data}) => {
+                        console.log(data)
+                        this.$notify({
+                            title: 'Success',
+                            text: 'Debt payid successfully',
+                            icon: 'success'
+                        });
+                    });
+            },
+            disablePayment() {
+                this.$axios.patch(`payments/disable/${this.id}`)
+                    .then(({data}) => {
+                        console.log(data)
+                        this.$notify({
+                            title: 'Success',
+                            text: 'Payment disabled successfully',
+                            icon: 'success'
+                        });
+                    });
+            },
+            enablePayment() {
+                this.$axios.patch(`payments/enable/${this.id}`)
+                    .then(({data}) => {
+                        console.log(data)
+                        this.$notify({
+                            title: 'Success',
+                            text: 'Payment enabled successfully',
+                            icon: 'success'
+                        });
+                    });
             },
         },
         computed: {
