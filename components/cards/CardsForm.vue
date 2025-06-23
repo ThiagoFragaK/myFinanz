@@ -81,13 +81,25 @@
             createCard() {
                 this.$axios.post(`cards`, this.card)
                     .then((response) => {
-                        console.log(response)
+                        console.log(response);
+                        this.$notify({
+                            title: 'Success',
+                            text: 'Card created successfully',
+                            icon: 'success'
+                        });
+                        this.$emit("save");
                     });
             },
             editCard() {
                 this.$axios.put(`cards/${this.id}`, this.card)
                     .then((response) => {
-                        console.log(response)
+                        console.log(response);
+                        this.$notify({
+                            title: 'Success',
+                            text: 'Card updated successfully',
+                            icon: 'success'
+                        });
+                        this.$emit("save");
                     });
             },
         },

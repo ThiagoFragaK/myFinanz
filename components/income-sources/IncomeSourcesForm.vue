@@ -63,12 +63,24 @@
                 this.$axios.post(`income/sources`, this.incomeSource)
                     .then(({ data }) => {
                         this.incomeSource = data;
+                        this.$notify({
+                            title: 'Success',
+                            text: 'Income source created successfully',
+                            icon: 'success'
+                        });
+                        this.$emit("save");
                     });
             },
             editNewIncomeSource() {
                 this.$axios.put(`income/sources/${this.id}`, this.incomeSource)
                     .then((response) => {
-                        console.log(response)
+                        console.log(response);
+                        this.$notify({
+                            title: 'Success',
+                            text: 'Income source updated successfully',
+                            icon: 'success'
+                        });
+                        this.$emit("save");
                     });
             },
             confirmIncome() {

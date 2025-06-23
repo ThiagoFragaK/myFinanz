@@ -94,6 +94,11 @@
                 this.$axios.patch(`incomes/disable/${this.selectedIncome.id}`)
                     .then(({ data }) => {
                         this.data = data;
+                        this.$notify({
+                            title: 'Success',
+                            text: 'Income disabled successfully',
+                            icon: 'success'
+                        });
                     })
                     .finally(() => {
                         this.$refs.IncomeTable.getIncomeSources();
@@ -103,6 +108,11 @@
                 this.$axios.patch(`incomes/enable/${this.selectedIncome.id}`)
                     .then(({ data }) => {
                         this.data = data;
+                        this.$notify({
+                            title: 'Success',
+                            text: 'Income enabled successfully',
+                            icon: 'success'
+                        });
                     })
                     .finally(() => {
                         this.$refs.IncomeTable.getIncomeSources();
