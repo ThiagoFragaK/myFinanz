@@ -20,7 +20,7 @@ export default defineNuxtPlugin(() => {
             text: text || '',
             icon: icon || 'warning',
             showCancelButton: true,
-            confirmButtonText: confirmText || 'Ok',
+            confirmButtonText: confirmText || 'Confirm',
             cancelButtonText: cancelText || 'Cancel'
         });
     };
