@@ -9,13 +9,17 @@
             {{ translateTransitionType(data.row.is_positive) }}
         </template>
         <template #cell-created_at="{ data }">
-            {{ data.row.created_at }}
+            {{ formateDate(data.row.created_at) }}
+        </template>
+        <template #cell-value="{ data }">
+            {{ "R$ " + data.row.value }}
         </template>
     </TableComponent>
 </template>
 
 <script>
-    import TableComponent from "@/components/global/TableComponent.vue"
+    import Dates from "@/helpers/Dates";
+    import TableComponent from "@/components/global/TableComponent.vue";
     export default {
         components: {
             TableComponent
@@ -34,6 +38,7 @@
             getIncomeTypes() {
                 this.$axios.get(`savings`)
                     .then(({ data }) => {
+                        console.log(data)
                         this.data = data.data;
                         this.totalValue = data.sum;
                     });
@@ -44,6 +49,9 @@
             },
             translateTransitionType(type) {
                 return type === 1 ? "Increase" : "Decrease";
+            },
+            formateDate(date) {
+                return Dates.getFormatedDate(date);
             }
         },
         created() {

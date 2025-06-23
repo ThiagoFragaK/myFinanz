@@ -8,7 +8,7 @@
             {{ data.row.cards.name }}
         </template>
         <template #cell-value="{ data }">
-            {{ "R$" + data.row.value }}
+            {{ "R$ " + data.row.value }}
         </template>
     </TableComponent>
 </template>
