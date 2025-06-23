@@ -1,62 +1,36 @@
 <template>
-    <div class="row">
-        <div class="col-2"></div>
-        <div class="col-2 mt-5">
-            <div class="row mt-4">
-                <div class="w-100">
-                    <IncomeModal />
-                </div>
-            </div>
-            <div class="row mt-4">
-                <div class="w-100">
-                    <ExpensesModal />
-                </div>
-            </div>
-            <div class="row mt-4">
-                <div class="w-100">
-                    <PaymentsModal />
-                </div>
-            </div>
-            <div class="row mt-4">
-                <div class="w-100">                    
-                    <SavingsModal />
-                </div>
-            </div>
-            <div class="row">
-                <div class="w-100 mt-4">
-                    <button
-                        disabled 
-                        type="button" 
-                        class="btn btn-primary w-100 d-flex align-items-center justify-content-center gap-2"
-                    >
-                        <IconsLucide icon="ChartColumn" />
-                        Reports
-                    </button>
-                    <!-- <NuxtLink to="/reports" class="d-block w-100">
-                    </NuxtLink> -->
-                </div>
-                <div class="w-100 mt-4">
-                    <NuxtLink to="/settings" class="d-block w-100">
-                        <button 
-                            type="button" 
-                            class="btn btn-primary w-100 d-flex align-items-center justify-content-center gap-2"
-                        >
-                            <IconsLucide icon="Settings2" />
-                            Settings
-                        </button>
-                    </NuxtLink>
+    <div class="row justify-content-center mt-4">
+        <div class="col">
+            <div class="card border-success bg-transparent mb-3">
+                <div class="card-body text-success">
+                    <h5 class="card-title">Success card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
                 </div>
             </div>
         </div>
-        
-        <div class="col-2"></div>
-        <div class="col-5">
-            <div class="row">
-                <GraphsLines />
+        <div class="col">
+            <div class="card text-bg-primary mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Primary card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+                </div>
             </div>
-            <div class="row">
-                <GraphsPie />
-            </div>
+        </div>
+        <div class="col">
+            <div class="card border-success bg-transparent mb-3">
+                <div class="card-body text-success">
+                    <h5 class="card-title">Success card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+                </div>
+            </div>          
+        </div>
+    </div>
+    <div class="row justify-content-center mt-4">
+        <div class="col-6">
+            <GraphsLines />
+        </div>
+        <div class="col-6">
+            <GraphsPie />
         </div>
     </div>
 </template>
