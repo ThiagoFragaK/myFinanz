@@ -7,6 +7,9 @@
         <template #cell-turn_day="{ data }">
             {{ data.row.turn_day + "th"}}
         </template>
+        <template #cell-limit="{ data }">
+            {{ `R$ ${data.row.limit}`}}
+        </template>
         <template #cell-status="{ data }">
             <StatusBadge :status="data.row.status" />
         </template>
