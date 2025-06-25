@@ -3,6 +3,7 @@
     <TableComponent
         :data="data"
         :columns="columns"
+        :isLoading="isLoading"
         @selectedRows="updateSelectedRows"
     >
         <template #cell-is_positive="{ data }">
@@ -36,11 +37,14 @@
         }),
         methods: {
             getIncomeTypes() {
+                this.isLoading = true;
                 this.$axios.get(`savings`)
                     .then(({ data }) => {
-                        console.log(data)
                         this.data = data.data;
                         this.totalValue = data.sum;
+                    })
+                    .finally(() => {
+                        this.isLoading = false;
                     });
             },
             updateSelectedRows(rows) {

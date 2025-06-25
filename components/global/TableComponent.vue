@@ -20,7 +20,21 @@
                 </th>
             </tr>
         </thead>
-        <tbody v-if="data.length > 0">
+        <tbody v-if="isLoading">
+            <tr>
+                <td 
+                    :colspan="columns.length + (hasSelection ? 1 : 0)" 
+                    class="text-center text-primary bg-primary/5 py-4 italic"
+                >
+                    <div class="d-flex justify-content-center">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        <tbody v-else-if="data.length > 0">
             <tr
                 v-for="(row, index) in data" 
                 :key="index"
@@ -70,6 +84,10 @@
             columns: {
                 type: Array,
                 required: true,
+            },
+            isLoading: {
+                type: Boolean,
+                default: true,
             },
             hasSelection: {
                 type: Boolean,
