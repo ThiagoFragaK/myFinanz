@@ -34,6 +34,7 @@
             data: [],
             selectedRows: [],
             totalValue: 0,
+            isLoading: true,
         }),
         methods: {
             getIncomeTypes() {
