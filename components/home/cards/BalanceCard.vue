@@ -50,9 +50,9 @@
                 this.isLoading = true;
                 this.$axios.get(`dashboard/balance`)
                     .then(({ data }) => {
-                        this.balance.total = NumbersFormatter.formatCurrencyBR(data.data.net_balance);
-                        this.balance.expenses = NumbersFormatter.formatCurrencyBR(data.data.total_expense);
-                        this.balance.income = NumbersFormatter.formatCurrencyBR(data.data.total_income);
+                        this.balance.total = NumbersFormatter.formatCurrencyBR(data.data.net_balance) ?? 0;
+                        this.balance.expenses = NumbersFormatter.formatCurrencyBR(data.data.total_expense) ?? 0;
+                        this.balance.income = NumbersFormatter.formatCurrencyBR(data.data.total_income) ?? 0;
                     })
                     .finally(() => {
                         this.isLoading = false;
