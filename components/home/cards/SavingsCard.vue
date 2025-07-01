@@ -6,28 +6,29 @@
                     v-if="isLoading" 
                     :status="isLoading"
                 />
-                <div v-else class="col-auto">
-                    <h1>
-                        <strong>Savings: </strong>
-                        <span> {{ savings.total }}</span>
-                    </h1>
-                </div>
-            </div>
-
-            <div class="row justify-content-center">
-                <div class="col-auto">
-                    <h5>
-                        <strong>Previously: </strong>
-                        <span> {{ savings.previous }}</span>
-                    </h5>
-                </div>
-                <div class="col-auto">
-                    <h5>
-                        <strong>Variação: </strong>
-                        <span
-                            :class="{ 'text-danger': savings.variation < 0, 'text-success': savings.variation >= 0 }"
-                        >{{ variationNumber }}</span>
-                    </h5>
+                <div v-else>
+                    <div class="col-auto">
+                        <h1>
+                            <strong>Savings: </strong>
+                            <span> {{ savings.total }}</span>
+                        </h1>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-auto">
+                            <h5>
+                                <strong>Previously: </strong>
+                                <span> {{ savings.previous }}</span>
+                            </h5>
+                        </div>
+                        <div class="col-auto">
+                            <h5>
+                                <strong>Variação: </strong>
+                                <span
+                                    :class="{ 'text-danger': savings.variation < 0, 'text-success': savings.variation >= 0 }"
+                                >{{ variationNumber }}</span>
+                            </h5>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
