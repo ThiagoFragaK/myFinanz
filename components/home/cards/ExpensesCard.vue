@@ -12,9 +12,19 @@
                 :key="index" 
                 class="d-flex justify-content-between mb-2"
             >
-                <strong>{{ expense.name }}</strong>
-                <span>{{ expense.date }}</span>
-                <span>{{ expense.value }}</span>
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <strong>{{ expense.name }}</strong>
+                        </div>
+                        <div class="col">
+                            <span>{{ expense.date }}</span>
+                        </div>
+                        <div class="col">
+                            <span>{{ expense.value }}</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
