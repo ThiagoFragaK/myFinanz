@@ -1,13 +1,13 @@
 <template>
-    <div class="row justify-content-center mt-4 d-flex align-items-stretch">
-        <div class="col d-flex">
-            <BalanceCard class="h-100"/>
+    <div class="row justify-content-center mt-4 align-items-stretch">
+        <div class="col-4 d-flex flex-fill">
+            <BalanceCard class="flex-grow-1" />
         </div>
-        <div class="col d-flex">
-            <ExpensesCard class="h-100"/>
+        <div class="col-4 d-flex flex-fill">
+            <ExpensesCard class="flex-grow-1" />
         </div>
-        <div class="col d-flex">
-            <SavingsCard class="h-100"/>
+        <div class="col-4 d-flex flex-fill">
+            <SavingsCard class="flex-grow-1" />
         </div>
     </div>
     <div class="row justify-content-center mt-4">
