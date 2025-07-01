@@ -1,14 +1,28 @@
 <template>
     <div class="card text-bg-primary">
-        <div class="card-body">
-            <h5 class="card-title">Last transations</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+        <div v-if="isLoading" class="card-body text-info text-center">
+            <LoadingComponent
+                :status="isLoading"
+            />
+        </div>
+        <div v-else class="card-body scrollable-card-body">
+            <h5>Last expenses</h5>
+            <div 
+                v-for="(expense, index) in expenses" 
+                :key="index" 
+                class="d-flex justify-content-between mb-2"
+            >
+                <strong>{{ expense.name }}</strong>
+                <span>{{ expense.date }}</span>
+                <span>{{ expense.value }}</span>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
     import NumbersFormatter from "@/helpers/Numbers";
+    import DatesFormatter from "@/helpers/Dates";
     import LoadingComponent from "@/components/global/LoadingComponent.vue";
     export default {
         components: {
@@ -16,19 +30,24 @@
         },
         data: () => ({
             isLoading: true,
-            expenses: {
-                total: 0,
-            },
+            expenses: [],
         }),
         methods: {
             getExpenses() {
                 this.isLoading = true;
                 this.$axios.get(`dashboard/expenses`)
                     .then(({ data }) => {
-                        console.log(data)
-                        this.expenses.total = 0;
+                        //check length: if zero, returns message saying it has none
+                        this.expenses = data.data.map(item => {
+                            return {
+                                "name": item.name,
+                                "value": NumbersFormatter.formatCurrencyBR(item.value),
+                                "date": DatesFormatter.getFormatedMonthDate(item.created_at),
+                            }
+                        });
                     })
                     .finally(() => {
+                        console.log(this.expenses)
                         this.isLoading = false;
                     });
             },
@@ -38,3 +57,10 @@
         },
     }
 </script>
+
+<style>
+    .scrollable-card-body {
+        max-height: 120px;
+        overflow-y: auto;
+    }
+</style>
