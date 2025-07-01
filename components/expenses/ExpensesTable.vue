@@ -2,13 +2,14 @@
     <TableComponent
         :data="data"
         :columns="columns"
+        :isLoading="isLoading"
         @selectedRows="updateSelectedRows"
     >
         <template #cell-cards="{ data }">
             {{ data.row.cards.name }}
         </template>
         <template #cell-value="{ data }">
-            {{ "R$" + data.row.value }}
+            {{ "R$ " + data.row.value }}
         </template>
     </TableComponent>
 </template>
@@ -31,12 +32,17 @@
             ],
             data: [],
             selectedRows: [],
+            isLoading: true,
         }),
         methods: {
             getExpenses() {
+                this.isLoading = true;
                 this.$axios.get(`expenses`)
                     .then(({ data }) => {
                         this.data = data.data;
+                    })
+                    .finally(() => {
+                        this.isLoading = false;
                     });
             },
             updateSelectedRows(rows) {

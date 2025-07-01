@@ -121,13 +121,25 @@
             createPayment() {
                 this.$axios.post(`payments`, this.payment)
                     .then(({data}) => {
-                        console.log(data)
+                        console.log(data);
+                        this.$notify({
+                            title: 'Success',
+                            text: 'Payment created successfully',
+                            icon: 'success'
+                        });
+                        this.$emit("save");
                     });
             },
             editPayment() {
                 this.$axios.put(`payments/${this.id}`, this.payment)
                     .then(({data}) => {
                         console.log(data)
+                        this.$notify({
+                            title: 'Success',
+                            text: 'Payment updated successfully',
+                            icon: 'success'
+                        });
+                        this.$emit("save");
                     });
             },
         },

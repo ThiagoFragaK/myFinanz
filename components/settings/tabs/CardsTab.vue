@@ -94,6 +94,11 @@
                 this.$axios.patch(`cards/${this.selectedCard.id}`)
                     .then(({ data }) => {
                         this.data = data;
+                        this.$notify({
+                            title: 'Success',
+                            text: 'Card disabled successfully',
+                            icon: 'success'
+                        });
                     })
                     .finally(() => {
                         this.$refs.IncomeTable.getIncomeSources();
@@ -103,6 +108,11 @@
                 this.$axios.patch(`cards/${this.selectedCard.id}`)
                     .then(({ data }) => {
                         this.data = data;
+                        this.$notify({
+                            title: 'Success',
+                            text: 'Card enabled successfully',
+                            icon: 'success'
+                        });
                     })
                     .finally(() => {
                         this.$refs.IncomeTable.getIncomeSources();

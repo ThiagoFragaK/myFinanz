@@ -1,77 +1,35 @@
 <template>
-    <div class="row">
-        <div class="col-2"></div>
-        <div class="col-2 mt-5">
-            <div class="row mt-4">
-                <div class="w-100">
-                    <IncomeModal />
-                </div>
-            </div>
-            <div class="row mt-4">
-                <div class="w-100">
-                    <ExpensesModal />
-                </div>
-            </div>
-            <div class="row mt-4">
-                <div class="w-100">
-                    <PaymentsModal />
-                </div>
-            </div>
-            <div class="row mt-4">
-                <div class="w-100">                    
-                    <SavingsModal />
-                </div>
-            </div>
-            <div class="row">
-                <div class="w-100 mt-4">
-                    <button
-                        disabled 
-                        type="button" 
-                        class="btn btn-primary w-100 d-flex align-items-center justify-content-center gap-2"
-                    >
-                        <IconsLucide icon="ChartColumn" />
-                        Reports
-                    </button>
-                    <!-- <NuxtLink to="/reports" class="d-block w-100">
-                    </NuxtLink> -->
-                </div>
-                <div class="w-100 mt-4">
-                    <NuxtLink to="/settings" class="d-block w-100">
-                        <button 
-                            type="button" 
-                            class="btn btn-primary w-100 d-flex align-items-center justify-content-center gap-2"
-                        >
-                            <IconsLucide icon="Settings2" />
-                            Settings
-                        </button>
-                    </NuxtLink>
-                </div>
-            </div>
+    <div class="row justify-content-center mt-4 align-items-stretch">
+        <div class="col-4 d-flex flex-fill">
+            <BalanceCard class="flex-grow-1" />
         </div>
-        
-        <div class="col-2"></div>
-        <div class="col-5">
-            <div class="row">
-                <GraphsLines />
-            </div>
-            <div class="row">
-                <GraphsPie />
-            </div>
+        <div class="col-4 d-flex flex-fill">
+            <ExpensesCard class="flex-grow-1" />
+        </div>
+        <div class="col-4 d-flex flex-fill">
+            <SavingsCard class="flex-grow-1" />
+        </div>
+    </div>
+    <div class="row justify-content-center mt-4">
+        <div class="col-6">
+            <GraphsLines />
+        </div>
+        <div class="col-6">
+            <GraphsPie />
         </div>
     </div>
 </template>
 
 <script>
-    import IncomeModal from "@/components/home/modals/IncomesModal.vue";
-    import ExpensesModal from "@/components/home/modals/ExpensesModal.vue";
-    import PaymentsModal from "@/components/home/modals/PaymentsModal.vue";
-    import SavingsModal from "@/components/home/modals/SavingsModal.vue";
+    import BalanceCard from "@/components/home/cards/BalanceCard.vue";
+    import ExpensesCard from "@/components/home/cards/ExpensesCard.vue";
+    import SavingsCard from "@/components/home/cards/SavingsCard.vue";
+
     export default {
         components: {
-            IncomeModal,
-            ExpensesModal,
-            PaymentsModal,
-            SavingsModal
+            BalanceCard,
+            ExpensesCard,
+            SavingsCard
         },
         data() {
             return {

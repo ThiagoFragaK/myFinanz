@@ -62,13 +62,25 @@
             createIncomeType() {
                 this.$axios.post(`income/types`, this.incomeType)
                     .then((response) => {
-                        console.log(response)
+                        console.log(response);
+                        this.$notify({
+                            title: 'Success',
+                            text: 'Income type created successfully',
+                            icon: 'success'
+                        });
+                        this.$emit("save");
                     });
             },
             editIncomeTypes() {
                 this.$axios.put(`income/types/${this.id}`, this.incomeType)
                     .then((response) => {
-                        console.log(response)
+                        console.log(response);
+                        this.$notify({
+                            title: 'Success',
+                            text: 'Income type updated successfully',
+                            icon: 'success'
+                        });
+                        this.$emit("save");
                     });
             },
         },

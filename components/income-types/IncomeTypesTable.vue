@@ -2,6 +2,7 @@
     <TableComponent
         :data="data"
         :columns="columns"
+        :isLoading="isLoading"
         @selectedRows="updateSelectedRows"
     ></TableComponent>
 </template>
@@ -19,12 +20,17 @@
             ],
             data: [],
             selectedRows: [],
+            isLoading: true,
         }),
         methods: {
             getIncomeTypes() {
+                this.isLoading = true;
                 this.$axios.get(`income/types`)
                     .then(({ data }) => {
                         this.data = data.data;
+                    })
+                    .finally(() => {
+                        this.isLoading = false;
                     });
             },
             updateSelectedRows(rows) {
