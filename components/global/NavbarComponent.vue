@@ -7,6 +7,7 @@
             <div class=ms-4>
                 <NuxtLink 
                     to="/"
+                    @click="$refs.TabsComponent.setActiveTab(tabs[0].name)"
                 >
                     <img 
                         src="@/assets/logo/my-finanz.png" 
@@ -22,6 +23,7 @@
                     :tabs="tabs"
                     color="primary"
                     @selected="redirectToPage"
+                    ref="TabsComponent"
                 />
             </div>
         </div>

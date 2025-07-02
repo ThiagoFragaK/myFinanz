@@ -7,7 +7,8 @@
         </div>
         <div v-else class="card-body scrollable-card-body">
             <h5>Last expenses</h5>
-            <div 
+            <div
+                v-if="expenses.length > 0"
                 v-for="(expense, index) in expenses" 
                 :key="index" 
                 class="d-flex justify-content-between mb-2"
@@ -25,6 +26,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div v-else class="d-flex justify-content-center align-items-center">
+                <span class="mt-3">There has been no expenses yet.</span>
             </div>
         </div>
     </div>
@@ -47,7 +51,6 @@
                 this.isLoading = true;
                 this.$axios.get(`dashboard/expenses`)
                     .then(({ data }) => {
-                        //check length: if zero, returns message saying it has none
                         this.expenses = data.data.map(item => {
                             return {
                                 "name": item.name,
@@ -57,7 +60,6 @@
                         });
                     })
                     .finally(() => {
-                        console.log(this.expenses)
                         this.isLoading = false;
                     });
             },

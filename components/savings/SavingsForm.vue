@@ -8,7 +8,7 @@
         <div class="row mb-4">
             <div class="col-4">
                 <input 
-                    type="text" 
+                    type="number"
                     class="form-control" 
                     placeholder="Saving value"
                     v-model="saving.value"

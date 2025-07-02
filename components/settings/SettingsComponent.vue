@@ -24,9 +24,6 @@
                     <template #income_sources>
                         <IncomeSourceTab />
                     </template>
-                    <template #payments>
-                        <PaymentsTab />
-                    </template>
                     <template #savings>
                         <SavingsTab />
                     </template>
@@ -44,7 +41,6 @@
     import IncomeSourceTab from '@/components/settings/tabs/IncomeSourceTab.vue';
     import IncomeTypeTab from '@/components/settings/tabs/IncomeTypeTab.vue';
     import IncomeTab from '@/components/settings/tabs/IncomeTab.vue';
-    import PaymentsTab from '@/components/settings/tabs/PaymentsTab.vue';
     import SavingsTab from '@/components/settings/tabs/SavingsTab.vue';
 
     export default {
@@ -56,7 +52,6 @@
             IncomeSourceTab,
             IncomeTypeTab,
             IncomeTab,
-            PaymentsTab,
             SavingsTab,
         },
         data() {
@@ -68,7 +63,6 @@
                     { name: "income", label: "Incomes" },
                     { name: "income_type", label: "Incomes Types" },
                     { name: "income_sources", label: "Incomes Sources" },
-                    { name: "payments", label: "Payments" },
                     { name: "savings", label: "Savings" },
                 ],
             };
