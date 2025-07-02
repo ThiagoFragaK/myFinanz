@@ -8,25 +8,25 @@
                 />
                 <div v-else>
                     <div class="col-auto">
-                        <h1>
+                        <h2>
                             <strong>Savings: </strong>
                             <span> {{ savings.total }}</span>
-                        </h1>
+                        </h2>
                     </div>
                     <div class="row justify-content-center">
-                        <div class="col-auto">
-                            <h5>
+                        <div class="col-7">
+                            <h6>
                                 <strong>Previously: </strong>
                                 <span> {{ savings.previous }}</span>
-                            </h5>
+                            </h6>
                         </div>
-                        <div class="col-auto">
-                            <h5>
+                        <div class="col-5">
+                            <h6>
                                 <strong>Variação: </strong>
                                 <span
                                     :class="{ 'text-danger': savings.variation < 0, 'text-success': savings.variation >= 0 }"
                                 >{{ variationNumber }}</span>
-                            </h5>
+                            </h6>
                         </div>
                     </div>
                 </div>

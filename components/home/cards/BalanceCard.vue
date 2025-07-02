@@ -8,25 +8,25 @@
         <div v-else class="card-body text-success text-center">
             <div class="row justify-content-center mb-2">
                 <div class="col-auto">
-                    <h1>
+                    <h2>
                         <strong>Balance: </strong>
                         <span> {{ balance.total }}</span>
-                    </h1>
+                    </h2>
                 </div>
             </div>
 
             <div class="row justify-content-center">
-                <div class="col-auto">
-                    <h5>
+                <div class="col-6">
+                    <h6>
                         <strong>Income: </strong>
                         <span> {{ balance.income }}</span>
-                    </h5>
+                    </h6>
                 </div>
-                <div class="col-auto">
-                    <h5>
+                <div class="col-6">
+                    <h6>
                         <strong>Expenses: </strong>
                         <span> {{ balance.expenses }}</span>
-                    </h5>
+                    </h6>
                 </div>
             </div>
         </div>
