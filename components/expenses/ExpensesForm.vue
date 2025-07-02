@@ -116,7 +116,6 @@
             createExpense() {
                 this.$axios.post(`expenses`, this.expense)
                     .then((response) => {
-                        console.log(response);
                         this.$notify({
                             title: 'Success',
                             text: 'Expense created successfully',
@@ -128,7 +127,6 @@
             editExpense() {
                 this.$axios.put(`expenses/${this.id}`, this.expense)
                     .then((response) => {
-                        console.log(response);
                         this.$notify({
                             title: 'Success',
                             text: 'Expense updated successfully',

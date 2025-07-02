@@ -74,14 +74,12 @@
 
                 this.$axios.get(`cards/${this.id}`)
                     .then(({ data }) => {
-                        console.log(data)
                         this.card = data.data;
                     });
             },
             createCard() {
                 this.$axios.post(`cards`, this.card)
                     .then((response) => {
-                        console.log(response);
                         this.$notify({
                             title: 'Success',
                             text: 'Card created successfully',
@@ -93,7 +91,6 @@
             editCard() {
                 this.$axios.put(`cards/${this.id}`, this.card)
                     .then((response) => {
-                        console.log(response);
                         this.$notify({
                             title: 'Success',
                             text: 'Card updated successfully',
