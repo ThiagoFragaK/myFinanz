@@ -56,6 +56,14 @@
                     </option>
                 </select>
             </div>
+            <div class="col-3">
+                <input 
+                    type="date" 
+                    class="form-control" 
+                    placeholder="Expense date"
+                    v-model="expense.created_at"
+                >
+            </div>
         </div>
         <button 
             type="button" 
@@ -68,6 +76,7 @@
 </template>
   
 <script>
+    import Dates from "@/helpers/Dates";
     export default {
         props: {
             id: {
@@ -88,6 +97,7 @@
                     card_id: "",
                     parcel_numbers: "",
                     value: 0,
+                    created_at: "",
                 }
             };
         },
@@ -109,8 +119,9 @@
 
                 this.$axios.get(`expenses/${this.id}`)
                     .then(({ data }) => {
-                        console.log(data)
                         this.expense = data.data;
+                        this.expense.created_at = Dates.getFormatedDate(this.expense.created_at, "yyyy-MM-dd");
+                        console.log(this.expense)
                     });
             },
             createExpense() {
