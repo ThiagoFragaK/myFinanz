@@ -40,8 +40,8 @@
             return {
                 tabs: [
                     { name: "/", label: "Home" },
-                    // { name: "Budget", label: "Budget" },
-                    { name: "reports", label: "Reports" },
+                    // { name: "budget", label: "Budget" },
+                    // { name: "reports", label: "Reports" },
                     { name: "settings", label: "Settings" },
                 ],
             };
