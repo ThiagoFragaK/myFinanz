@@ -55,7 +55,7 @@
                             return {
                                 "name": item.name,
                                 "value": NumbersFormatter.formatCurrencyBR(item.value),
-                                "date": DatesFormatter.getFormatedMonthDate(item.created_at),
+                                "date": DatesFormatter.getFormatedDate(item.created_at, "dd/MM"),
                             }
                         });
                     })
