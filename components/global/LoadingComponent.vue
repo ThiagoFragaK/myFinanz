@@ -1,6 +1,6 @@
 <template>
     <div v-if="status" class="d-flex justify-content-center align-items-center">
-        <div class="spinner-border" role="status">
+        <div class="spinner-border text-primary" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
     </div>
@@ -20,7 +20,7 @@
   
 <style scoped>
 .d-flex {
-min-height: 100px; /* Adjust height as needed */
+min-height: 100px;
 }
 </style>
   
