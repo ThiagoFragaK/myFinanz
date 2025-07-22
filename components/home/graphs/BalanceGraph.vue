@@ -43,6 +43,14 @@
                 colors: ['#347571', '#533f41', '#344c5b'],
                 tooltip: {
                     theme: 'light',
+                    y: {
+                        formatter: function (value) {
+                            return new Intl.NumberFormat('pt-BR', {
+                                style: 'currency',
+                                currency: 'BRL'
+                            }).format(value);
+                        }
+                    }
                 }
             },
         }),

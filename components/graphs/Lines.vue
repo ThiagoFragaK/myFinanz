@@ -11,9 +11,19 @@
 
 <script>
 export default {
+    props: {
+        series: {
+            type: Object,
+            required: true,
+        },
+        options: {
+            type: Object,
+            required: true,
+        },
+    },
     data() {
         return {
-            options: {
+            optionsD: {
                 chart: {
                     id: 'sales-bar',
                     toolbar: { show: false }
@@ -23,7 +33,7 @@ export default {
                 },
                 colors: ['#347571', '#533f41', '#344c5b']
             },
-            series: [
+            seriesD: [
                 { name: 'Online Sales', data: [90, 30, 65, 50] },
                 { name: 'In-Store Sales', data: [30, 40, 15, 30] },
                 { name: 'Wholesale', data: [30, 20, 15, 50] }
