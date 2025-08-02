@@ -8,6 +8,9 @@
         <template #cell-cards="{ data }">
             {{ data.row.cards.name }}
         </template>
+        <template #cell-created_at="{ data }">
+            {{ formatDate(data.row.created_at) }}
+        </template>
         <template #cell-value="{ data }">
             {{ "R$ " + data.row.value }}
         </template>
@@ -15,6 +18,7 @@
 </template>
 
 <script>
+    import DateHelper from "@/helpers/Dates";
     import StatusBadge from "@/components/global/StatusBadgeComponent.vue";
     import TableComponent from "@/components/global/TableComponent.vue";
     export default {
@@ -27,6 +31,7 @@
                 { key: "name", label: "Name" },
                 { key: "description", label: "Description" },
                 { key: "cards", label: "Card" },
+                { key: "created_at", label: "Date" },
                 { key: "parcel_numbers", label: "Parcels" },
                 { key: "value", label: "Value" },
             ],
@@ -48,6 +53,9 @@
             updateSelectedRows(rows) {
                 this.selectedRows = rows;
                 this.$emit("allowActions", rows);
+            },
+            formatDate(date) {
+                return DateHelper.getFormatedDate(date);
             },
         },
         created() {
