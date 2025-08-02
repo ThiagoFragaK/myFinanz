@@ -1,77 +1,79 @@
 <template>
-    <table 
-        class="table table-striped table-hover table-primary table-sm table-responsive rounded"
-    >
-        <thead>
-            <tr>
-                <th v-if="hasSelection">
-                    <input
-                        type="checkbox"
-                        class="form-check-input"
-                        :checked="allSelected"
-                        @change="selectAllRow"
-                    />
-                </th>
-                <th 
-                    v-for="(column, index) in columns" 
-                    :key="index" 
-                >
-                    {{ column.label || column }}
-                </th>
-            </tr>
-        </thead>
-        <tbody v-if="isLoading">
-            <tr>
-                <td 
-                    :colspan="columns.length + (hasSelection ? 1 : 0)" 
-                    class="text-center text-light bg-primary/5 py-4 italic"
-                >
-                    <div class="d-flex justify-content-center">
-                        <div class="spinner-border" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-        <tbody v-else-if="data.length > 0">
-            <tr
-                v-for="(row, index) in data" 
-                :key="index"
-            >
-                <td v-if="hasSelection">
-                    <input
-                        type="checkbox"
-                        class="form-check-input"
-                        :value="row"
-                        :checked="isSelected(row)"
-                        @change="selectRow(row)"
-                    />
-                </td>
-                <td 
-                    v-for="column in columns" 
-                    :key="column.key"
-                >
-                    <slot 
-                        :name="`cell-${column.key}`" 
-                        :data="{ row, column }" 
+    <div class="rounded overflow-hidden border">
+        <table 
+            class="table table-striped table-hover table-primary table-sm mb-0"
+        >
+            <thead>
+                <tr>
+                    <th v-if="hasSelection">
+                        <input
+                            type="checkbox"
+                            class="form-check-input"
+                            :checked="allSelected"
+                            @change="selectAllRow"
+                        />
+                    </th>
+                    <th 
+                        v-for="(column, index) in columns" 
+                        :key="index" 
                     >
-                        {{ row[column.key] }}
-                    </slot>
-                </td>
-            </tr>
-        </tbody>
-        <tbody v-else>
-            <tr>
-                <td 
-                    :colspan="columns.length + (hasSelection ? 1 : 0)" 
-                    class="text-center text-primary bg-primary/5 py-4 italic"
+                        {{ column.label || column }}
+                    </th>
+                </tr>
+            </thead>
+            <tbody v-if="isLoading">
+                <tr>
+                    <td 
+                        :colspan="columns.length + (hasSelection ? 1 : 0)" 
+                        class="text-center text-light bg-primary/5 py-4 italic"
+                    >
+                        <div class="d-flex justify-content-center">
+                            <div class="spinner-border" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody v-else-if="data.length > 0">
+                <tr
+                    v-for="(row, index) in data" 
+                    :key="index"
                 >
-                    No data available.
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                    <td v-if="hasSelection">
+                        <input
+                            type="checkbox"
+                            class="form-check-input"
+                            :value="row"
+                            :checked="isSelected(row)"
+                            @change="selectRow(row)"
+                        />
+                    </td>
+                    <td 
+                        v-for="column in columns" 
+                        :key="column.key"
+                    >
+                        <slot 
+                            :name="`cell-${column.key}`" 
+                            :data="{ row, column }" 
+                        >
+                            {{ row[column.key] }}
+                        </slot>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody v-else>
+                <tr>
+                    <td 
+                        :colspan="columns.length + (hasSelection ? 1 : 0)" 
+                        class="text-center text-primary bg-primary/5 py-4 italic"
+                    >
+                        No data available.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </template>
   
 <script>
