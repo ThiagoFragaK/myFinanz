@@ -2,7 +2,7 @@
     <div>
         <span
             v-if="status === 1" 
-            class="badge text-bg-success"
+            class="badge text-bg-secondary"
         >
             <div class="text-light">Active</div>
         </span>

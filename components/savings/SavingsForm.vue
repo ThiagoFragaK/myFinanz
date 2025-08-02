@@ -7,6 +7,7 @@
         </div>
         <div class="row mb-4">
             <div class="col-4">
+                <label>Value</label>
                 <input 
                     type="number"
                     class="form-control" 
@@ -14,21 +15,24 @@
                     v-model="saving.value"
                 >
             </div>
-            <div class="col-4 form-check form-switch">
-                <input
-                    class="form-check-input"
-                    type="checkbox"
-                    v-model="saving.is_positive"
-                    :class="{ 'bg-success border-light': saving.is_positive }"
-                    :true-value="1"
-                    :false-value="0"
-                >
-                <label class="form-check-label">{{ checkTitle }}</label>
+            <div class="col-4">
+                <label>Value status</label>
+                <div class="form-check form-switch">
+                    <input
+                        class="form-check-input"
+                        type="checkbox"
+                        v-model="saving.is_positive"
+                        :class="{ 'bg-success border-light': saving.is_positive }"
+                        :true-value="1"
+                        :false-value="0"
+                    >
+                    <label class="form-check-label">{{ checkTitle }}</label>
+                </div>
             </div>
         </div>
         <button 
             type="button" 
-            class="btn btn-secondary btn-sm"
+            class="btn btn-primary btn-sm"
             @click="save"
         >
             Save

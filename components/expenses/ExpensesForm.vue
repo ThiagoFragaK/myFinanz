@@ -7,6 +7,7 @@
         </div>
         <div class="row mb-4">
             <div class="col-4">
+                <label>Name</label>
                 <input 
                     type="text" 
                     class="form-control" 
@@ -15,6 +16,7 @@
                 >
             </div>
             <div class="col-4">
+                <label>Description</label>
                 <input 
                     type="text" 
                     class="form-control" 
@@ -23,6 +25,7 @@
                 >
             </div>
             <div class="col-2">
+                <label>Parcel number</label>
                 <input 
                     type="number" 
                     class="form-control" 
@@ -31,6 +34,7 @@
                 >
             </div>
             <div class="col-2">
+                <label>Value</label>
                 <input 
                     type="number" 
                     class="form-control" 
@@ -41,6 +45,7 @@
         </div>
         <div class="row mb-4">
             <div class="col-4">
+                <label>Payment method</label>
                 <select 
                     class="form-select form-select mb-3" 
                     aria-label="Large select example"
@@ -57,6 +62,7 @@
                 </select>
             </div>
             <div class="col-3">
+                <label>Date</label>
                 <input 
                     type="date" 
                     class="form-control" 
@@ -67,7 +73,7 @@
         </div>
         <button 
             type="button" 
-            class="btn btn-secondary btn-sm"
+            class="btn btn-primary btn-sm"
             @click="save"
         >
             Save

@@ -1,6 +1,6 @@
 <template>
     <table 
-        class="table table-striped table-hover table-info table-sm table-responsive"
+        class="table table-striped table-hover table-primary table-sm table-responsive rounded"
     >
         <thead>
             <tr>
@@ -24,7 +24,7 @@
             <tr>
                 <td 
                     :colspan="columns.length + (hasSelection ? 1 : 0)" 
-                    class="text-center text-primary bg-primary/5 py-4 italic"
+                    class="text-center text-light bg-primary/5 py-4 italic"
                 >
                     <div class="d-flex justify-content-center">
                         <div class="spinner-border" role="status">
