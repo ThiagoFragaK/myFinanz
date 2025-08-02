@@ -7,6 +7,7 @@
         </div>
         <div class="row">
             <div class="col-6">
+                <label>Income source</label>
                 <select 
                     class="form-select form-select mb-3" 
                     aria-label="Large select example"
@@ -23,6 +24,7 @@
                 </select>
             </div>
             <div class="col-6">
+                <label>Income type</label>
                 <select 
                     class="form-select form-select mb-3" 
                     aria-label="Large select example"
@@ -41,6 +43,7 @@
         </div>
         <div class="row">
             <div class="col-4">
+                <label>Name</label>
                 <input 
                     type="text" 
                     class="form-control" 
@@ -49,6 +52,7 @@
                 >
             </div>
             <div class="col-4">
+                <label>Value</label>
                 <div class="input-group mb-3">
                     <span class="input-group-text">R$</span>
                     <input 
@@ -60,6 +64,7 @@
                 </div>
             </div>
             <div class="col-2">
+                <label>Entry day</label>
                 <div class="input-group mb-3">
                     <input 
                         type="number" 
@@ -74,7 +79,7 @@
         </div>
         <button 
             type="button" 
-            class="btn btn-secondary btn-sm"
+            class="btn btn-primary btn-sm"
             @click="save"
         >
             Save

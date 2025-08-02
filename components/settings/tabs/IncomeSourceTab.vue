@@ -2,7 +2,7 @@
     <button 
         type="button"
         title="Return"
-        class="btn btn-info mb-4"
+        class="btn btn-primary mb-4"
         @click="returnToTable"
         :disabled="showTable"
     >
@@ -11,7 +11,7 @@
     <button 
         type="button"
         title="New Income Type"
-        class="btn btn-info ms-2 mb-4"
+        class="btn btn-primary ms-2 mb-4"
         @click="newIncomeSource"
         :disabled="disableBtns"
     >
@@ -20,7 +20,7 @@
     <button 
         type="button"
         title="Edit Income Type"
-        class="btn btn-info ms-2 mb-4"
+        class="btn btn-primary ms-2 mb-4"
         @click="editIncomeSource"
         :disabled="hasntOnlyOneSelected"
     >
@@ -29,7 +29,7 @@
     <button 
         type="button"
         title="Disable Income"
-        class="btn btn-info ms-2 mb-4"
+        class="btn btn-primary ms-2 mb-4"
         :disabled="hasntOnlyOneSelected"
         @click="disableIncomeSource"
     >
@@ -38,7 +38,7 @@
     <button 
         type="button"
         title="Enable Income"
-        class="btn btn-info ms-2 mb-4"
+        class="btn btn-primary ms-2 mb-4"
         :disabled="hasntOnlyOneSelected"
         @click="enableIncomeSource"
     >

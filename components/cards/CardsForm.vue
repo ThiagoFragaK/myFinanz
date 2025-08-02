@@ -7,6 +7,7 @@
         </div>
         <div class="row mb-4">
             <div class="col-4">
+                <label>Name</label>
                 <input 
                     type="text" 
                     class="form-control" 
@@ -15,6 +16,7 @@
                 >
             </div>
             <div class="col-2">
+                <label>Limit</label>
                 <input 
                     type="number" 
                     class="form-control" 
@@ -23,6 +25,7 @@
                 >
             </div>
             <div class="col-2">
+                <label>Turn day</label>
                 <input 
                     type="number" 
                     class="form-control" 
@@ -33,7 +36,7 @@
         </div>
         <button 
             type="button" 
-            class="btn btn-secondary btn-sm"
+            class="btn btn-primary btn-sm"
             @click="save"
         >
             Save

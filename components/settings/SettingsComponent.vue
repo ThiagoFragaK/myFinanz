@@ -1,11 +1,11 @@
 <template>
     <div class="container my-5">
-        <div class="card text-bg-primary shadow rounded-3">
-            <div class="card-header fw-semibold">
+        <div class="card border-success bg-transparent rounded-3">
+            <!-- <div class="card-header fw-semibold">
                 Settings
-            </div>
+            </div> -->
             <div class="card-body">
-                <TabsComponent :tabs="tabs">
+                <TabsComponent :tabs="tabs" color="primary">
                     <template #main>
                         <MainTab />
                     </template>
