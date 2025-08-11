@@ -9,7 +9,7 @@
             {{ data.row.cards.name }}
         </template>
         <template #cell-created_at="{ data }">
-            {{ formatDate(data.row.created_at) }}
+            {{ formatDate(data.row.date) }}
         </template>
         <template #cell-value="{ data }">
             {{ "R$ " + data.row.value }}
