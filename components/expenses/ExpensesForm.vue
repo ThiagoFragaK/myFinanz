@@ -67,7 +67,7 @@
                     type="date" 
                     class="form-control" 
                     placeholder="Expense date"
-                    v-model="expense.created_at"
+                    v-model="expense.date"
                 >
             </div>
         </div>
@@ -103,7 +103,7 @@
                     card_id: "",
                     parcel_numbers: "",
                     value: 0,
-                    created_at: "",
+                    date: "",
                 }
             };
         },
@@ -126,7 +126,7 @@
                 this.$axios.get(`expenses/${this.id}`)
                     .then(({ data }) => {
                         this.expense = data.data;
-                        this.expense.created_at = Dates.getFormatedDate(this.expense.created_at, "yyyy-MM-dd");
+                        this.expense.date = Dates.getFormatedDate(this.expense.date, "yyyy-MM-dd");
                         console.log(this.expense)
                     });
             },
