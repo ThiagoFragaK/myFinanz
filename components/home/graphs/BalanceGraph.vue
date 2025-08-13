@@ -32,7 +32,7 @@
                 },
                 stroke: {
                     curve: 'smooth',
-                    width: 2
+                    width: 1
                 },
                 markers: {
                     size: 2,
@@ -40,7 +40,11 @@
                 xaxis: {
                     categories: []
                 },
-                colors: ['#347571', '#533f41', '#344c5b'],
+                colors: [
+                    '#207236',
+                    '#b13933', 
+                    '#091b2b', 
+                ],
                 tooltip: {
                     theme: 'light',
                     y: {
