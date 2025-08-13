@@ -11,9 +11,26 @@
                 <input 
                     type="text" 
                     class="form-control" 
-                    placeholder="Card name"
-                    v-model="card.name"
+                    placeholder="Name"
+                    v-model="paymentMethod.name"
                 >
+            </div>
+            <div class="col-3">
+                <label>Type</label>
+                <select 
+                    class="form-select form-select mb-3" 
+                    aria-label="Large select example"
+                    v-model="paymentMethod.type"
+                >
+                    <option disabled selected value="">Select the type</option>
+                    <option 
+                        v-for="option in typesList"
+                        :key="option.id" 
+                        :value="option.id"
+                    >
+                        {{ option.name }}
+                    </option>
+                </select>
             </div>
             <div class="col-2">
                 <label>Limit</label>
@@ -21,7 +38,7 @@
                     type="number" 
                     class="form-control" 
                     placeholder="Card limit"
-                    v-model="card.limit"
+                    v-model="paymentMethod.limit"
                 >
             </div>
             <div class="col-2">
@@ -30,7 +47,7 @@
                     type="number" 
                     class="form-control" 
                     placeholder="Card turn day"
-                    v-model="card.turn_day"
+                    v-model="paymentMethod.turn_day"
                 >
             </div>
         </div>
@@ -58,45 +75,51 @@
         },
         data() {
             return {
-                card: {
+                typesList: [
+                    { id: 0, name: "Debt" },
+                    { id: 1, name: "Credit" },
+                ],
+                paymentMethod: {
                     name: "",
+                    type: "",
+                    credict_card: "",
                     turn_day: "",
                     limit: 0,
                 }
             };
         },
         methods: {
-            save() {
-                if(this.isEdit) {
-                    return this.editCard();
-                }
-                this.createCard();
-            },
-            getCardById() {
+            getPaymentMethodById() {
                 if(!this.isEdit) return;
 
-                this.$axios.get(`cards/${this.id}`)
+                this.$axios.get(`payment_methods/${this.id}`)
                     .then(({ data }) => {
                         this.card = data.data;
                     });
             },
-            createCard() {
-                this.$axios.post(`cards`, this.card)
-                    .then((response) => {
+            save() {
+                if(this.isEdit) {
+                    return this.editPaymentMethod();
+                }
+                this.createPaymentMethod();
+            },            
+            createPaymentMethod() {
+                this.$axios.post(`payment_methods`, this.paymentMethod)
+                    .then(() => {
                         this.$notify({
                             title: 'Success',
-                            text: 'Card created successfully',
+                            text: 'Payment Method created successfully',
                             icon: 'success'
                         });
                         this.$emit("save");
                     });
             },
-            editCard() {
-                this.$axios.put(`cards/${this.id}`, this.card)
-                    .then((response) => {
+            editPaymentMethod() {
+                this.$axios.put(`payment_methods/${this.id}`, this.paymentMethod)
+                    .then(() => {
                         this.$notify({
                             title: 'Success',
-                            text: 'Card updated successfully',
+                            text: 'Payment Method updated successfully',
                             icon: 'success'
                         });
                         this.$emit("save");
@@ -105,11 +128,14 @@
         },
         computed: {
             title() {
-                return this.isEdit ? "Edit Card" : "New Card";
+                return this.isEdit ? "Edit Method" : "New Payment method";
+            },
+            isCredictCard() {
+                return this.paymentMethod.type === 1;
             },
         },
         created() {
-            this.getCardById();
+            this.getPaymentMethodById();
         }
     };
 </script>  

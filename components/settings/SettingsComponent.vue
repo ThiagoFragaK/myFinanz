@@ -9,8 +9,8 @@
                     <template #main>
                         <MainTab />
                     </template>
-                    <template #cards>
-                        <CardsTab />
+                    <template #payment_methods>
+                        <PaymentMethodsTab />
                     </template>
                     <template #expenses>
                         <ExpensesTab />
@@ -36,7 +36,7 @@
 <script>
     import TabsComponent from '@/components/global/TabsComponent.vue';
     import MainTab from '@/components/settings/tabs/MainTab.vue';
-    import CardsTab from '@/components/settings/tabs/CardsTab.vue';
+    import PaymentMethodsTab from '@/components/settings/tabs/PaymentMethodsTab.vue';
     import ExpensesTab from '@/components/settings/tabs/ExpensesTab.vue';
     import IncomeSourceTab from '@/components/settings/tabs/IncomeSourceTab.vue';
     import IncomeTypeTab from '@/components/settings/tabs/IncomeTypeTab.vue';
@@ -47,7 +47,7 @@
         components: {
             TabsComponent,
             MainTab,
-            CardsTab,
+            PaymentMethodsTab,
             ExpensesTab,
             IncomeSourceTab,
             IncomeTypeTab,
@@ -58,7 +58,7 @@
             return {
                 tabs: [
                     // { name: "main", label: "Main settings" },
-                    { name: "cards", label: "Cards" },
+                    { name: "payment_methods", label: "Payment methods" },
                     { name: "expenses", label: "Expenses" },
                     { name: "income", label: "Incomes" },
                     { name: "income_type", label: "Incomes Types" },

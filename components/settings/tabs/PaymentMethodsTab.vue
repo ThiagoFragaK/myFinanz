@@ -44,27 +44,27 @@
     >
         <IconsLucide icon="CircleCheckBig" />
     </button>
-    <CardsTable 
+    <PaymentMethodsTable 
         v-if="showTable"
         @allowActions="updateSelection"
-        ref="CardsTable"
+        ref="PaymentMethodsTable"
     />
-    <CardsForm 
+    <PaymentMethodsForm 
         v-else
         :id="selectedCard.id"
         :isEdit="isEdit"
         @save="save"
-        ref="CardsForm"
+        ref="PaymentMethodsForm"
     />
 </template>
 
 <script>
-    import CardsForm from "@/components/cards/CardsForm.vue";
-    import CardsTable from "@/components/cards/CardsTable.vue";
+    import PaymentMethodsForm from "@/components/payment-methods/PaymentMethodsForm.vue";
+    import PaymentMethodsTable from "@/components/payment-methods/PaymentMethodsTable.vue";
     export default {
         components: {
-            CardsForm,
-            CardsTable,
+            PaymentMethodsForm,
+            PaymentMethodsTable,
         },
         data: () => ({
             selectedRows: [],
@@ -88,7 +88,7 @@
             },
             save() {
                 this.returnToTable();
-                this.$refs.CardsTable.getCards();
+                this.$refs.PaymentMethodsTable.getCards();
             },
             disableCard() {
                 this.$axios.patch(`cards/${this.selectedCard.id}`)
