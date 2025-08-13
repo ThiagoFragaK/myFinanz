@@ -49,11 +49,11 @@
                 <select 
                     class="form-select form-select mb-3" 
                     aria-label="Large select example"
-                    v-model="expense.card_id"
+                    v-model="expense.payment_methods_id"
                 >
-                    <option disabled selected value="">Select the card</option>
+                    <option disabled selected value="">Select the method</option>
                     <option 
-                        v-for="option in cardsList"
+                        v-for="option in paymentMethodsList"
                         :key="option.id" 
                         :value="option.id"
                     >
@@ -96,11 +96,11 @@
         },
         data() {
             return {
-                cardsList: [],
+                paymentMethodsList: [],
                 expense: {
                     name: "",
                     description: "",
-                    card_id: "",
+                    payment_methods_id: "",
                     parcel_numbers: "",
                     value: 0,
                     date: "",
@@ -108,10 +108,10 @@
             };
         },
         methods: {
-            getCards() {
-                this.$axios.get(`cards`)
+            getPaymentMethods() {
+                this.$axios.get(`payment_methods`)
                     .then(({ data }) => {
-                        this.cardsList = data.data;
+                        this.paymentMethodsList = data.data;
                     });
             },
             save() {
@@ -159,7 +159,7 @@
             },
         },
         created() {
-            this.getCards();
+            this.getPaymentMethods();
             this.getExpenseById();
         }
     };
