@@ -5,6 +5,9 @@
         :isLoading="isLoading"
         @selectedRows="updateSelectedRows"
     >
+        <template #cell-type="{ data }">
+            {{ data.row.type === 1 ? "Credict Card" : "Debt" }}
+        </template>
         <template #cell-turn_day="{ data }">
             {{ data.row.turn_day + "th"}}
         </template>
@@ -28,6 +31,7 @@
         data: () => ({
             columns: [
                 { key: "name", label: "Name" },
+                { key: "type", label: "Type" },
                 { key: "turn_day", label: "Turn Day" },
                 { key: "limit", label: "Limit" },
                 { key: "status", label: "Status" },
@@ -37,9 +41,9 @@
             isLoading: true,
         }),
         methods: {
-            getCards() {
+            getPaymentMethods() {
                 this.isLoading = true;
-                this.$axios.get(`cards`)
+                this.$axios.get(`payment_methods`)
                     .then(({ data }) => {
                         this.data = data.data;
                     })
@@ -53,7 +57,7 @@
             },
         },
         created() {
-            this.getCards();
+            this.getPaymentMethods();
         }
     }
 </script>

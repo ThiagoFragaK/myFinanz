@@ -5,8 +5,8 @@
         :isLoading="isLoading"
         @selectedRows="updateSelectedRows"
     >
-        <template #cell-cards="{ data }">
-            {{ data.row.cards.name }}
+        <template #cell-payment_methods="{ data }">
+            {{ data.row.payment_methods.name }}
         </template>
         <template #cell-created_at="{ data }">
             {{ formatDate(data.row.date) }}
@@ -30,7 +30,7 @@
             columns: [
                 { key: "name", label: "Name" },
                 { key: "description", label: "Description" },
-                { key: "cards", label: "Card" },
+                { key: "payment_methods", label: "Payment methods" },
                 { key: "created_at", label: "Date" },
                 { key: "parcel_numbers", label: "Parcels" },
                 { key: "value", label: "Value" },
