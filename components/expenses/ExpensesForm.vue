@@ -127,7 +127,6 @@
                     .then(({ data }) => {
                         this.expense = data.data;
                         this.expense.date = Dates.getFormatedDate(this.expense.date, "yyyy-MM-dd");
-                        console.log(this.expense)
                     });
             },
             createExpense() {
