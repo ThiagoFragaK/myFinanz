@@ -6,7 +6,7 @@
             />
         </div>
         <div v-else class="card-body text-success text-center">
-            <div class="row justify-content-center mb-2">
+            <div class="row justify-content-center">
                 <div class="col-auto">
                     <h2>
                         <strong>Balance: </strong>
@@ -16,17 +16,39 @@
             </div>
 
             <div class="row justify-content-center">
-                <div class="col-6">
-                    <h6>
-                        <strong>Income: </strong>
-                        <span> {{ balance.income }}</span>
-                    </h6>
+                <div class="col-5">
+                    <div class="row align-items-center">
+                        <div class="col-2">
+                            <button
+                                class="btn btn-outline-primary btn-sm border-0"
+                            >
+                                <IconsLucide icon="BanknoteArrowDown" />
+                            </button>
+                        </div>
+                        <div class="col-10">
+                            <h6 class="mb-0">
+                                <strong>Income: </strong>
+                                <span>{{ balance.income }}</span>
+                            </h6>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-6">
-                    <h6>
-                        <strong>Expenses: </strong>
-                        <span> {{ balance.expenses }}</span>
-                    </h6>
+                    <div class="row align-items-center">
+                        <div class="col-2">
+                            <button
+                                class="btn btn-outline-primary btn-sm border-0"
+                            >
+                                <IconsLucide icon="BanknoteArrowUp" />
+                            </button>
+                        </div>
+                        <div class="col-10">
+                            <h6 class="mb-0">
+                                <strong>Expenses: </strong>
+                                <span>{{ balance.expenses }}</span>
+                            </h6>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
