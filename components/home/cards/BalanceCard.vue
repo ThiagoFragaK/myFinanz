@@ -20,6 +20,7 @@
                     <div class="row align-items-center">
                         <div class="col-2">
                             <button
+                                v-tooltip="'New income'"
                                 class="btn btn-outline-primary btn-sm border-0"
                                 @click="openIncomesModal"
                             >
@@ -38,6 +39,7 @@
                     <div class="row align-items-center">
                         <div class="col-2">
                             <button
+                                v-tooltip="'New expense'"
                                 class="btn btn-outline-primary btn-sm border-0"
                                 @click="openExpensesModal"
                             >
