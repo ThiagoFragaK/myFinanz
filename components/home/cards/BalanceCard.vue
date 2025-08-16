@@ -21,6 +21,7 @@
                         <div class="col-2">
                             <button
                                 class="btn btn-outline-primary btn-sm border-0"
+                                @click="openIncomesModal"
                             >
                                 <IconsLucide icon="BanknoteArrowDown" />
                             </button>
@@ -38,6 +39,7 @@
                         <div class="col-2">
                             <button
                                 class="btn btn-outline-primary btn-sm border-0"
+                                @click="openExpensesModal"
                             >
                                 <IconsLucide icon="BanknoteArrowUp" />
                             </button>
@@ -52,13 +54,22 @@
                 </div>
             </div>
         </div>
+
+        <ExpenseModal
+            ref="ExpenseModal"
+        />
     </div>
 </template>
 
 <script>
     import NumbersFormatter from "@/helpers/Numbers";
     import LoadingComponent from "@/components/global/LoadingComponent.vue";
+    import ExpenseModal from "@/components/home/modals/ExpenseModal.vue";
+
     export default {
+        components: {
+            ExpenseModal,
+        },
         data: () => ({
             isLoading: true,
             balance: {
@@ -79,6 +90,13 @@
                     .finally(() => {
                         this.isLoading = false;
                     });
+            },
+            openExpensesModal() {
+                console.log('Expense Modal')
+                this.$refs.ExpenseModal.open();
+            },
+            openIncomesModal() {
+                console.log('Incomes Modal')
             },
         },
         created() {
