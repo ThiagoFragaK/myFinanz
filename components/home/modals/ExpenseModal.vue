@@ -40,23 +40,23 @@
                         >
                     </div>
                     <div class="col-2">
+                        <label>Parcel</label>
+                        <input 
+                            type="number" 
+                            class="form-control" 
+                            placeholder="Parcel number"
+                            v-model="expense.parcel_numbers"
+                        >
+                    </div>                    
+                </div>
+                <div class="row mt-4">
+                    <div class="col-3">
                         <label>Value</label>
                         <input 
                             type="number" 
                             class="form-control" 
                             placeholder="Expense value"
                             v-model="expense.value"
-                        >
-                    </div>
-                </div>
-                <div class="row mt-4">
-                    <div class="col-3">
-                        <label>Parcel number</label>
-                        <input 
-                            type="number" 
-                            class="form-control" 
-                            placeholder="Parcel number"
-                            v-model="expense.parcel_numbers"
                         >
                     </div>
                     <div class="col-5">
@@ -143,7 +143,9 @@
                             text: 'Expense created successfully',
                             icon: 'success'
                         });
+                        this.$emit("reload");
                         this.close();
+                        this.resetData();
                     });
             },
         },
