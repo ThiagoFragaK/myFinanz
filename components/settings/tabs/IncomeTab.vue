@@ -1,7 +1,7 @@
 <template>
     <button 
+        v-tooltip="'Return'"
         type="button"
-        title="Return"
         class="btn btn-primary mb-4"
         @click="returnToTable"
         :disabled="showTable"
@@ -9,17 +9,17 @@
         <IconsLucide icon="ChevronLeft" />
     </button>
     <button 
+        v-tooltip="'New income'"
         type="button"
-        title="New Income"
         class="btn btn-primary ms-2 mb-4"
         @click="newIncome"
         :disabled="disableBtns"
     >
         <IconsLucide icon="Plus" />
     </button>
-    <button 
+    <button
+        v-tooltip="'Edit income'"
         type="button"
-        title="Edit Income"
         class="btn btn-primary ms-2 mb-4"
         @click="editIncome"
         :disabled="hasntOnlyOneSelected"
@@ -27,8 +27,8 @@
         <IconsLucide icon="Pencil" />
     </button>
     <button 
+        v-tooltip="'Disable income'"
         type="button"
-        title="Disable Income"
         class="btn btn-primary ms-2 mb-4"
         :disabled="hasntOnlyOneSelected"
         @click="disableIncome"
@@ -36,14 +36,15 @@
         <IconsLucide icon="CircleSlash" />
     </button>
     <button 
+        v-tooltip="'Enable income'"
         type="button"
-        title="Enable Income"
         class="btn btn-primary ms-2 mb-4"
         :disabled="hasntOnlyOneSelected"
         @click="enableIncome"
     >
         <IconsLucide icon="CircleCheckBig" />
     </button>
+    
     <IncomeTable 
         v-if="showTable" 
         @allowActions="updateSelection"
