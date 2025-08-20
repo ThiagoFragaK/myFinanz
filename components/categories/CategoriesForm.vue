@@ -26,12 +26,17 @@
             </div>
             <div class="col-4">
                 <label>Icon</label>
-                <input 
-                    type="text"
-                    class="form-control" 
-                    placeholder="Lucide icon name"
-                    v-model="category.icon"
-                >
+                 <div class="input-group mb-3">
+                    <span class="input-group-text">
+                        <IconsLucide :icon="category.icon || 'TextCursor'" />
+                    </span>
+                    <input 
+                        type="text"
+                        class="form-control" 
+                        placeholder="Category icon (Lucide)"
+                        v-model="category.icon"
+                    >
+                </div>
             </div>
         </div>
         <button 
@@ -62,7 +67,7 @@ export default {
                 name: '',
                 description: '',
                 icon: '',
-            }
+            },
         };
     },
     methods: {
@@ -82,8 +87,7 @@ export default {
         },
         createCategory() {
             this.$axios.post(`categories`, this.category)
-                .then((response) => {
-                    console.log(response);
+                .then(() => {
                     this.$notify({
                         title: 'Success',
                         text: 'Category created successfully',
@@ -94,8 +98,7 @@ export default {
         },
         editCategory() {
             this.$axios.put(`categories/${this.id}`, this.category)
-                .then((response) => {
-                    console.log(response);
+                .then(() => {
                     this.$notify({
                         title: 'Success',
                         text: 'Category edited successfully',
