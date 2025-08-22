@@ -58,6 +58,7 @@
         </div>
 
         <ExpenseModal
+            @reload="getBalance()"
             ref="ExpenseModal"
         />
     </div>
