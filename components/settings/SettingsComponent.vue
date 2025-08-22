@@ -12,6 +12,9 @@
                     <template #payment_methods>
                         <PaymentMethodsTab />
                     </template>
+                    <template #categories>
+                        <CategoriesTab />
+                    </template>
                     <template #expenses>
                         <ExpensesTab />
                     </template>
@@ -42,6 +45,7 @@
     import IncomeTypeTab from '@/components/settings/tabs/IncomeTypeTab.vue';
     import IncomeTab from '@/components/settings/tabs/IncomeTab.vue';
     import SavingsTab from '@/components/settings/tabs/SavingsTab.vue';
+    import CategoriesTab from '@/components/settings/tabs/CategoriesTab.vue';
 
     export default {
         components: {
@@ -52,6 +56,7 @@
             IncomeSourceTab,
             IncomeTypeTab,
             IncomeTab,
+            CategoriesTab,
             SavingsTab,
         },
         data() {
@@ -59,6 +64,7 @@
                 tabs: [
                     // { name: "main", label: "Main settings" },
                     { name: "payment_methods", label: "Payment methods" },
+                    { name: "categories", label: "Categories" },
                     { name: "expenses", label: "Expenses" },
                     { name: "income", label: "Incomes" },
                     { name: "income_type", label: "Incomes Types" },

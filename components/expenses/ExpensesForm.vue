@@ -61,7 +61,24 @@
                     </option>
                 </select>
             </div>
-            <div class="col-3">
+            <div class="col-4">
+                <label>Categories</label>
+                <select 
+                    class="form-select form-select mb-3" 
+                    aria-label="Large select example"
+                    v-model="expense.category_id"
+                >
+                    <option disabled selected value="">Select the category</option>
+                    <option 
+                        v-for="option in categoriesList"
+                        :key="option.id"
+                        :value="option.id"
+                    >
+                        {{ option.name }}
+                    </option>
+                </select>
+            </div>
+            <div class="col-4">
                 <label>Date</label>
                 <input 
                     type="date" 
@@ -97,6 +114,7 @@
         data() {
             return {
                 paymentMethodsList: [],
+                categoriesList: [],
                 expense: {
                     name: "",
                     description: "",
@@ -104,6 +122,7 @@
                     parcel_numbers: "",
                     value: 0,
                     date: "",
+                    category_id: "",
                 }
             };
         },
@@ -112,6 +131,12 @@
                 this.$axios.get(`payment_methods`)
                     .then(({ data }) => {
                         this.paymentMethodsList = data.data;
+                    });
+            },
+            getCategories() {
+                this.$axios.get(`categories`)
+                    .then(({ data }) => {
+                        this.categoriesList = data.data;
                     });
             },
             save() {
@@ -130,8 +155,9 @@
                     });
             },
             createExpense() {
+                console.log(this.expense)
                 this.$axios.post(`expenses`, this.expense)
-                    .then((response) => {
+                    .then(() => {
                         this.$notify({
                             title: 'Success',
                             text: 'Expense created successfully',
@@ -158,6 +184,7 @@
             },
         },
         created() {
+            this.getCategories();
             this.getPaymentMethods();
             this.getExpenseById();
         }

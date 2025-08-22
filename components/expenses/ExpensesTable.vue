@@ -5,6 +5,10 @@
         :isLoading="isLoading"
         @selectedRows="updateSelectedRows"
     >
+        <template #cell-categories="{ data }">
+            <span v-if="data.row.category_id === null">-</span>
+            <IconsLucide v-else :icon="data.row.categories.icon" />
+        </template>
         <template #cell-payment_methods="{ data }">
             {{ data.row.payment_methods.name }}
         </template>
@@ -31,6 +35,7 @@
                 { key: "name", label: "Name" },
                 { key: "description", label: "Description" },
                 { key: "payment_methods", label: "Payment methods" },
+                { key: "categories", label: "Category" },
                 { key: "created_at", label: "Date" },
                 { key: "parcel_numbers", label: "Parcels" },
                 { key: "value", label: "Value" },
@@ -44,6 +49,7 @@
                 this.isLoading = true;
                 this.$axios.get(`expenses`)
                     .then(({ data }) => {
+                        console.log(data)
                         this.data = data.data;
                     })
                     .finally(() => {
