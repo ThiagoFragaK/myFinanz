@@ -21,7 +21,7 @@
         <template #body>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-5">
+                    <div class="col-6">
                         <label>Name</label>
                         <input 
                             type="text" 
@@ -30,7 +30,7 @@
                             v-model="expense.name"
                         >
                     </div>
-                    <div class="col-5">
+                    <div class="col-6">
                         <label>Description</label>
                         <input 
                             type="text" 
@@ -39,7 +39,9 @@
                             v-model="expense.description"
                         >
                     </div>
-                    <div class="col-2">
+                </div>
+                <div class="row mt-4">
+                    <div class="col-4">
                         <label>Value</label>
                         <input 
                             type="number" 
@@ -48,8 +50,6 @@
                             v-model="expense.value"
                         >
                     </div>
-                </div>
-                <div class="row mt-4">
                     <div class="col-3">
                         <label>Parcel number</label>
                         <input 
@@ -60,6 +60,17 @@
                         >
                     </div>
                     <div class="col-5">
+                        <label>Date</label>
+                        <input 
+                            type="date" 
+                            class="form-control" 
+                            placeholder="Expense date"
+                            v-model="expense.date"
+                        >
+                    </div>                
+                </div>
+                <div class="row mt-4">
+                    <div class="col-6">
                         <label>Payment method</label>
                         <select 
                             class="form-select form-select mb-3" 
@@ -76,19 +87,26 @@
                             </option>
                         </select>
                     </div>
-                    <div class="col-4">
-                        <label>Date</label>
-                        <input 
-                            type="date" 
-                            class="form-control" 
-                            placeholder="Expense date"
-                            v-model="expense.date"
+                    <div class="col-6">
+                        <label>Categories</label>
+                        <select 
+                            class="form-select form-select mb-3" 
+                            aria-label="Large select example"
+                            v-model="expense.category_id"
                         >
+                            <option disabled selected value="">Select the category</option>
+                            <option 
+                                v-for="option in categoriesList"
+                                :key="option.id"
+                                :value="option.id"
+                            >
+                                {{ option.name }}
+                            </option>
+                        </select>
                     </div>
                 </div>
             </div>
         </template>
-
     </ModalComponent>
 </template>
 
@@ -108,6 +126,7 @@
                 parcel_numbers: 1,
                 value: 0,
                 date: "",
+                category_id: "",
             },
         }),
         computed: {
@@ -117,6 +136,12 @@
                 this.$axios.get(`payment_methods`)
                     .then(({ data }) => {
                         this.paymentMethodsList = data.data;
+                    });
+            },
+            getCategories() {
+                this.$axios.get(`categories`)
+                    .then(({ data }) => {
+                        this.categoriesList = data.data;
                     });
             },
             open() {
@@ -136,6 +161,7 @@
                 }
             },
             save() {
+                this.isLoading = true;
                 this.$axios.post(`expenses`, this.expense)
                     .then(() => {
                         this.$notify({
@@ -143,8 +169,12 @@
                             text: 'Expense created successfully',
                             icon: 'success'
                         });
+                        this.$emit("reload");
                         this.close();
-                    });
+                    })
+                    .finally(() => {
+                        this.isLoading = false;
+                    })
             },
         },
         created() {
