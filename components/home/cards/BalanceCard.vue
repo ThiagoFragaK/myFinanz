@@ -29,8 +29,12 @@
                         </div>
                         <div class="col-10">
                             <h6 class="mb-0">
-                                <strong>Income: </strong>
-                                <span>{{ balance.income }}</span>
+                                <div class="row">
+                                    <strong>Income: </strong>
+                                </div>
+                                <div class="row">
+                                    <span>{{ balance.income }}</span>
+                                </div>
                             </h6>
                         </div>
                     </div>
@@ -48,8 +52,12 @@
                         </div>
                         <div class="col-10">
                             <h6 class="mb-0">
-                                <strong>Expenses: </strong>
-                                <span>{{ balance.expenses }}</span>
+                                <div class="row">
+                                    <strong>Expenses: </strong>
+                                </div>
+                                <div class="row">
+                                    <span>{{ balance.expenses }}</span>
+                                </div>
                             </h6>
                         </div>
                     </div>
