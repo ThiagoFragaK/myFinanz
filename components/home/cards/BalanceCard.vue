@@ -6,7 +6,7 @@
             />
         </div>
         <div v-else class="card-body text-success text-center">
-            <div class="row justify-content-center mb-2">
+            <div class="row justify-content-center">
                 <div class="col-auto">
                     <h2>
                         <strong>Balance: </strong>
@@ -16,27 +16,71 @@
             </div>
 
             <div class="row justify-content-center">
-                <div class="col-6">
-                    <h6>
-                        <strong>Income: </strong>
-                        <span> {{ balance.income }}</span>
-                    </h6>
+                <div class="col-5">
+                    <div class="row align-items-center">
+                        <div class="col-2">
+                            <button
+                                v-tooltip="'New income'"
+                                class="btn btn-outline-primary btn-sm border-0"
+                                @click="openIncomesModal"
+                            >
+                                <IconsLucide icon="BanknoteArrowDown" />
+                            </button>
+                        </div>
+                        <div class="col-10">
+                            <h6 class="mb-0">
+                                <div class="row">
+                                    <strong>Income: </strong>
+                                </div>
+                                <div class="row">
+                                    <span>{{ balance.income }}</span>
+                                </div>
+                            </h6>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-6">
-                    <h6>
-                        <strong>Expenses: </strong>
-                        <span> {{ balance.expenses }}</span>
-                    </h6>
+                    <div class="row align-items-center">
+                        <div class="col-2">
+                            <button
+                                v-tooltip="'New expense'"
+                                class="btn btn-outline-primary btn-sm border-0"
+                                @click="openExpensesModal"
+                            >
+                                <IconsLucide icon="BanknoteArrowUp" />
+                            </button>
+                        </div>
+                        <div class="col-10">
+                            <h6 class="mb-0">
+                                <div class="row">
+                                    <strong>Expenses: </strong>
+                                </div>
+                                <div class="row">
+                                    <span>{{ balance.expenses }}</span>
+                                </div>
+                            </h6>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <IncomeModal @reload="getBalance" ref="IncomeModal" />
+        <ExpenseModal @reload="getBalance" ref="ExpenseModal" />
     </div>
 </template>
 
 <script>
     import NumbersFormatter from "@/helpers/Numbers";
     import LoadingComponent from "@/components/global/LoadingComponent.vue";
+    import ExpenseModal from "@/components/home/modals/ExpenseModal.vue";
+    import IncomeModal from "@/components/home/modals/IncomeModal.vue";
+
     export default {
+        components: {
+            IncomeModal,
+            ExpenseModal,
+        },
         data: () => ({
             isLoading: true,
             balance: {
@@ -57,6 +101,14 @@
                     .finally(() => {
                         this.isLoading = false;
                     });
+            },
+            openExpensesModal() {
+                console.log('Expense Modal')
+                this.$refs.ExpenseModal.open();
+            },
+            openIncomesModal() {
+                console.log('Incomes Modal')
+                this.$refs.IncomeModal.open();
             },
         },
         created() {
