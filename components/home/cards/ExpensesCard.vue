@@ -3,6 +3,7 @@
         <div v-if="isLoading" class="card-body text-info text-center">
             <LoadingComponent
                 :status="isLoading"
+                color="light"
             />
         </div>
         <div v-else class="card-body scrollable-card-body">

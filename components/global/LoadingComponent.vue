@@ -1,26 +1,29 @@
 <template>
     <div v-if="status" class="d-flex justify-content-center align-items-center">
-        <div class="spinner-border text-primary" role="status">
+        <div :class="['spinner-border', `text-${color}`]" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
     </div>
 </template>
   
 <script>
-    export default {
-        name: "Loading Component",
-        props: {
-            status: {
-                type: Boolean,
-                required: true,
-            },
+export default {
+    name: "LoadingComponent",
+    props: {
+        status: {
+            type: Boolean,
+            required: true,
         },
-    };
+        color: {
+            type: String,
+            default: "primary",
+        },
+    },
+};
 </script>
   
 <style scoped>
-.d-flex {
-min-height: 100px;
-}
+    .d-flex {
+        min-height: 100px;
+    }
 </style>
-  
