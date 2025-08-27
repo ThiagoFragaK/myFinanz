@@ -21,54 +21,16 @@
         <template #body>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-5">
-                        <label>Name</label>
-                        <input 
-                            type="text" 
-                            class="form-control" 
-                            placeholder="Expense name"
-                            v-model="expense.name"
-                        >
-                    </div>
-                    <div class="col-5">
-                        <label>Description</label>
-                        <input 
-                            type="text" 
-                            class="form-control" 
-                            placeholder="Description"
-                            v-model="expense.description"
-                        >
-                    </div>
-                    <div class="col-2">
-                        <label>Parcel</label>
-                        <input 
-                            type="number" 
-                            class="form-control" 
-                            placeholder="Parcel number"
-                            v-model="expense.parcel_numbers"
-                        >
-                    </div>                    
-                </div>
-                <div class="row mt-4">
-                    <div class="col-3">
-                        <label>Value</label>
-                        <input 
-                            type="number" 
-                            class="form-control" 
-                            placeholder="Expense value"
-                            v-model="expense.value"
-                        >
-                    </div>
-                    <div class="col-5">
-                        <label>Payment method</label>
+                    <div class="col-6">
+                        <label>Income source</label>
                         <select 
                             class="form-select form-select mb-3" 
                             aria-label="Large select example"
-                            v-model="expense.payment_methods_id"
+                            v-model="income.source_id"
                         >
-                            <option disabled selected value="">Select the method</option>
+                            <option disabled selected value="">Select your income</option>
                             <option 
-                                v-for="option in paymentMethodsList"
+                                v-for="option in incomeSourcesList" 
                                 :key="option.id" 
                                 :value="option.id"
                             >
@@ -76,14 +38,58 @@
                             </option>
                         </select>
                     </div>
-                    <div class="col-4">
-                        <label>Date</label>
-                        <input 
-                            type="date" 
-                            class="form-control" 
-                            placeholder="Expense date"
-                            v-model="expense.date"
+                    <div class="col-6">
+                        <label>Income type</label>
+                        <select 
+                            class="form-select form-select mb-3" 
+                            aria-label="Large select example"
+                            v-model="income.type_id"
                         >
+                            <option disabled selected value="">Select the type</option>
+                            <option 
+                                v-for="option in incomeTypesList" 
+                                :key="option.id" 
+                                :value="option.id"
+                            >
+                                {{ option.name }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <label>Name</label>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            placeholder="Income Name"
+                            v-model="income.name"
+                        >
+                    </div>
+                    <div class="col-5">
+                        <label>Value</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">R$</span>
+                            <input 
+                                type="number" 
+                                class="form-control" 
+                                placeholder="Income Value"
+                                v-model="income.value"
+                            >
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <label>Entry day</label>
+                        <div class="input-group mb-3">
+                            <input 
+                                type="number" 
+                                class="form-control" 
+                                min="1"
+                                max="31"
+                                placeholder="Entry day"
+                                v-model="income.entry_day"
+                            >
+                        </div>
                     </div>
                 </div>
             </div>
@@ -99,24 +105,30 @@
             ModalComponent
         },
         data: () => ({
-            paymentMethodsList: [],
             isLoading: false,
-            expense: {
+            incomeSourcesList: [],
+            incomeTypesList: [],
+            income: {
                 name: "",
-                description: "",
-                payment_methods_id: "",
-                parcel_numbers: 1,
-                value: 0,
-                date: "",
+                value: "",
+                entry_day: 5,
+                source_id: "",
+                type_id: "",
             },
         }),
         computed: {
         },
         methods: {
-            getPaymentMethods() {
-                this.$axios.get(`payment_methods`)
+            getIncomeSources() {
+                this.$axios.get(`income/sources`)
                     .then(({ data }) => {
-                        this.paymentMethodsList = data.data;
+                        this.incomeSourcesList = data.data;
+                    });
+            },
+            getIncomeTypes() {
+                this.$axios.get(`income/types`)
+                    .then(({ data }) => {
+                        this.incomeTypesList = data.data;
                     });
             },
             open() {
@@ -128,19 +140,18 @@
             resetData() {
                 this.expense = {
                     name: "",
-                    description: "",
-                    payment_methods_id: "",
-                    parcel_numbers: 1,
-                    value: 0,
-                    date: "",
+                    value: "",
+                    entry_day: 5,
+                    source_id: "",
+                    type_id: "",
                 }
             },
             save() {
-                this.$axios.post(`expenses`, this.expense)
+                this.$axios.post(`incomes`, this.income)
                     .then(() => {
                         this.$notify({
-                            title: 'Success',
-                            text: 'Expense created successfully',
+                            title: 'Income',
+                            text: 'Income created successfully!',
                             icon: 'success'
                         });
                         this.$emit("reload");
@@ -150,7 +161,8 @@
             },
         },
         created() {
-            this.getPaymentMethods();
+            this.getIncomeSources();
+            this.getIncomeTypes();
         }
     }
 </script>
