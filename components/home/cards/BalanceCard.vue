@@ -29,8 +29,12 @@
                         </div>
                         <div class="col-10">
                             <h6 class="mb-0">
-                                <strong>Income: </strong>
-                                <span>{{ balance.income }}</span>
+                                <div class="row">
+                                    <strong>Income: </strong>
+                                </div>
+                                <div class="row">
+                                    <span>{{ balance.income }}</span>
+                                </div>
                             </h6>
                         </div>
                     </div>
@@ -48,8 +52,12 @@
                         </div>
                         <div class="col-10">
                             <h6 class="mb-0">
-                                <strong>Expenses: </strong>
-                                <span>{{ balance.expenses }}</span>
+                                <div class="row">
+                                    <strong>Expenses: </strong>
+                                </div>
+                                <div class="row">
+                                    <span>{{ balance.expenses }}</span>
+                                </div>
                             </h6>
                         </div>
                     </div>
@@ -57,10 +65,8 @@
             </div>
         </div>
 
-        <ExpenseModal
-            @reload="getBalance()"
-            ref="ExpenseModal"
-        />
+        <IncomeModal @reload="getBalance()" ref="IncomeModal" />
+        <ExpenseModal @reload="getBalance()" ref="ExpenseModal" />
     </div>
 </template>
 
@@ -68,9 +74,11 @@
     import NumbersFormatter from "@/helpers/Numbers";
     import LoadingComponent from "@/components/global/LoadingComponent.vue";
     import ExpenseModal from "@/components/home/modals/ExpenseModal.vue";
+    import IncomeModal from "@/components/home/modals/IncomeModal.vue";
 
     export default {
         components: {
+            IncomeModal,
             ExpenseModal,
         },
         data: () => ({
@@ -100,6 +108,7 @@
             },
             openIncomesModal() {
                 console.log('Incomes Modal')
+                this.$refs.IncomeModal.open();
             },
         },
         created() {

@@ -174,7 +174,7 @@
                     })
                     .finally(() => {
                         this.isLoading = false;
-                    })
+                    });
             },
         },
         created() {
