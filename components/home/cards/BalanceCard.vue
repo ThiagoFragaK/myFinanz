@@ -65,8 +65,8 @@
             </div>
         </div>
 
-        <IncomeModal @reload="getBalance" ref="IncomeModal" />
-        <ExpenseModal @reload="getBalance" ref="ExpenseModal" />
+        <IncomeModal @reload="getBalance()" ref="IncomeModal" />
+        <ExpenseModal @reload="getBalance()" ref="ExpenseModal" />
     </div>
 </template>
 
@@ -103,11 +103,9 @@
                     });
             },
             openExpensesModal() {
-                console.log('Expense Modal')
                 this.$refs.ExpenseModal.open();
             },
             openIncomesModal() {
-                console.log('Incomes Modal')
                 this.$refs.IncomeModal.open();
             },
         },

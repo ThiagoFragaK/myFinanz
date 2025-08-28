@@ -66,7 +66,7 @@
                 <tr>
                     <td 
                         :colspan="columns.length + (hasSelection ? 1 : 0)" 
-                        class="text-center text-primary bg-primary/5 py-4 italic"
+                        class="text-center text-light bg-primary/5 py-4 italic"
                     >
                         No data available.
                     </td>
