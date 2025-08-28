@@ -50,6 +50,7 @@ npm run dev
 ```
 
 ## 📂 Project Structure
+```
 financial-app-frontend/
 │── public/              # Static assets
 │── src/
@@ -62,7 +63,7 @@ financial-app-frontend/
 │
 │── package.json
 │── README.md
-
+```
 ## 🔮 Roadmap
 ✅ Frontend MVP
 -⏳ API integration
