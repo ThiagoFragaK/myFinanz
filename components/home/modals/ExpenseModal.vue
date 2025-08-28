@@ -117,8 +117,9 @@
             ModalComponent
         },
         data: () => ({
-            paymentMethodsList: [],
             isLoading: false,
+            paymentMethodsList: [],
+            categoriesList: [],
             expense: {
                 name: "",
                 description: "",
@@ -179,6 +180,7 @@
         },
         created() {
             this.getPaymentMethods();
+            this.getCategories();
         }
     }
 </script>
