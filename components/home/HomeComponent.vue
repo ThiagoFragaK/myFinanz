@@ -11,7 +11,17 @@
         </div>
     </div>
     <div class="row justify-content-center mt-4">
-        <BalanceGraph />
+        <div class="row">
+            <BalanceGraph />
+        </div>
+        <div class="row">
+            <div class="col">
+                <SavingsGraph />
+            </div>
+            <div class="col">
+                <CategoriesGraph />
+            </div>
+        </div>
     </div>
 </template>
 
@@ -20,9 +30,13 @@
     import ExpensesCard from "@/components/home/cards/ExpensesCard.vue";
     import SavingsCard from "@/components/home/cards/SavingsCard.vue";
     import BalanceGraph from "@/components/home/graphs/BalanceGraph.vue";
+    import SavingsGraph from "@/components/home/graphs/SavingsGraph.vue";
+    import CategoriesGraph from "@/components/home/graphs/CategoriesGraph.vue";
 
     export default {
         components: {
+            CategoriesGraph,
+            SavingsGraph,
             BalanceGraph,
             BalanceCard,
             ExpensesCard,
