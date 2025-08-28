@@ -29,9 +29,21 @@ export default {
             },
             plotOptions: {
                 bar: {
-                     horizontal: true,
+                    horizontal: true,
                     borderRadius: 2,
                     columnWidth: '40%' 
+                }
+            },
+            dataLabels: {
+                enabled: true,
+                formatter: value => new Intl.NumberFormat('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL'
+                }).format(value),
+                style: {
+                    fontSize: '12px',
+                    fontWeight: 'bold',
+                    colors: ['#fff']
                 }
             },
             xaxis: {

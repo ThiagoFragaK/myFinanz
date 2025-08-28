@@ -31,8 +31,11 @@ export default {
             plotOptions: {
                 bar: { 
                     borderRadius: 2, 
-                    columnWidth: '80%' 
-                }
+                    columnWidth: '90%' 
+                },
+            },
+            dataLabels: {
+                enabled: false
             },
             xaxis: {
                 categories: []
