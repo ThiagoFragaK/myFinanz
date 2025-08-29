@@ -49,7 +49,6 @@
                 this.isLoading = true;
                 this.$axios.get(`expenses`)
                     .then(({ data }) => {
-                        console.log(data)
                         this.data = data.data;
                     })
                     .finally(() => {

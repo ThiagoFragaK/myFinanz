@@ -75,7 +75,6 @@
             editNewIncomeSource() {
                 this.$axios.put(`income/sources/${this.id}`, this.incomeSource)
                     .then((response) => {
-                        console.log(response);
                         this.$notify({
                             title: 'Success',
                             text: 'Income source updated successfully',
@@ -90,7 +89,6 @@
                     type: this.selectedType,
                     value: this.incomeValue,
                 };
-                console.log(form)
             },
         },
         mounted() {

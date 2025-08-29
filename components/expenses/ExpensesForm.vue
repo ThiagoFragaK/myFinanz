@@ -155,7 +155,6 @@
                     });
             },
             createExpense() {
-                console.log(this.expense)
                 this.$axios.post(`expenses`, this.expense)
                     .then(() => {
                         this.$notify({

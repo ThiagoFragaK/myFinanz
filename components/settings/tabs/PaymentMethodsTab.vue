@@ -88,7 +88,7 @@
             },
             save() {
                 this.returnToTable();
-                this.$refs.PaymentMethodsTable.getCards();
+                this.$refs.PaymentMethodsTable.getPaymentMethods();
             },
             disableCard() {
                 this.$axios.patch(`cards/${this.selectedCard.id}`)
