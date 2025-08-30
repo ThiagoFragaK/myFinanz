@@ -1,12 +1,12 @@
 $theme-colors: (
-  "primary": #347571,
-  "secondary": #7A9199,
-  "success": #2098A3,
-  "info": #ADDADE,
-  "light": #E7F4E0,
-  "dark": #19252B,
-  "warning": #F7C863,
-  "danger": #d26671
+    "primary": #347571,
+    "secondary": #7A9199,
+    "success": #2098A3,
+    "info": #ADDADE,
+    "light": #E7F4E0,
+    "dark": #19252B,
+    "warning": #F7C863,
+    "danger": #d26671
 );
 
 $table-variants: $theme-colors;
@@ -14,34 +14,34 @@ $table-variants: $theme-colors;
 @import "bootstrap/scss/bootstrap";
 
 body {
-  background-color: #ecf8e5;
-  font-family: 'League Spartan', sans-serif;
+    background-color: #ecf8e5;
+    font-family: 'League Spartan', sans-serif;
 }
 
 .menu-btn {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
 }
 
 .form-check-input:checked {
-  background-color: map-get($theme-colors, "primary");
-  border-color: map-get($theme-colors, "primary");
+    background-color: map-get($theme-colors, "primary");
+    border-color: map-get($theme-colors, "primary");
 }
 
 .apexcharts-tooltip {
-  background-color: #ecf8e5 !important;
-  color: #347571 !important;
-  border: none !important;
-  border-radius: 6px !important;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3) !important;
-  font-family: 'Inter', sans-serif !important;
+    background-color: #ecf8e5 !important;
+    color: #347571 !important;
+    border: none !important;
+    border-radius: 6px !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3) !important;
+    font-family: 'Inter', sans-serif !important;
 }
 
 .apexcharts-tooltip-title {
-  background-color: #ecf8e5 !important;
-  color: #347571 !important;
-  font-weight: bold;
+    background-color: #ecf8e5 !important;
+    color: #347571 !important;
+    font-weight: bold;
 }
