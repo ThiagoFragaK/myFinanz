@@ -1,12 +1,12 @@
 <template>
     <div class="row justify-content-center mt-4 align-items-stretch">
-        <div class="col-4 d-flex flex-fill">
+        <div class="col-12 col-md-4 d-flex flex-fill mt-2">
             <BalanceCard class="flex-grow-1" />
         </div>
-        <div class="col-4 d-flex flex-fill">
+        <div class="col-12 col-md-4 d-flex flex-fill mt-2">
             <ExpensesCard class="flex-grow-1" />
         </div>
-        <div class="col-4 d-flex flex-fill">
+        <div class="col-12 col-md-4 d-flex flex-fill mt-2">
             <SavingsCard class="flex-grow-1" />
         </div>
     </div>
@@ -15,10 +15,10 @@
             <BalanceGraph />
         </div>
         <div class="row">
-            <div class="col">
+            <div class="col-12 col-md-6">
                 <SavingsGraph />
             </div>
-            <div class="col">
+            <div class="col-12 col-md-6">
                 <CategoriesGraph />
             </div>
         </div>
