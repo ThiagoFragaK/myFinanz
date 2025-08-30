@@ -78,7 +78,6 @@
             createSaving() {
                 this.$axios.post(`savings`, this.saving)
                     .then((response) => {
-                        console.log(response);
                         this.$notify({
                             title: 'Success',
                             text: 'Saving created successfully',
@@ -90,7 +89,6 @@
             editSaving() {
                 this.$axios.put(`savings/${this.id}`, this.saving)
                     .then((response) => {
-                        console.log(response);
                         this.$notify({
                             title: 'Success',
                             text: 'Saving edited successfully',
