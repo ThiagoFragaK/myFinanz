@@ -65,8 +65,8 @@
             </div>
         </div>
 
-        <IncomeModal @reload="getBalance()" ref="IncomeModal" />
-        <ExpenseModal @reload="getBalance()" ref="ExpenseModal" />
+        <IncomeModal @reload="reloadIncomes()" ref="IncomeModal" />
+        <ExpenseModal @reload="reloadExpenses()" ref="ExpenseModal" />
     </div>
 </template>
 
@@ -101,6 +101,14 @@
                     .finally(() => {
                         this.isLoading = false;
                     });
+            },
+            reloadIncomes() {
+                this.$emit("updateIncome");
+                this.getBalance("updateExpenses");
+            },
+            reloadExpenses() {
+                this.$emit();
+                this.getBalance();
             },
             openExpensesModal() {
                 this.$refs.ExpenseModal.open();
