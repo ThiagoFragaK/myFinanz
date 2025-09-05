@@ -55,16 +55,16 @@
         },
         data() {
             return {
-                reloadIncomes: false,
-                reloadExpenses: false,
+                reloadIncomes: 0,
+                reloadExpenses: 0,
             }
         },
         methods: {
             updateIncome() {
-                this.reloadIncomes = !this.reloadIncomes;
+                this.reloadIncomes++;
             },
             updateExpenses() {
-                this.reloadExpenses = !this.reloadExpenses;
+                this.reloadExpenses++;
             },
         },
         computed: {
