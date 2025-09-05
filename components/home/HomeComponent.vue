@@ -1,10 +1,17 @@
 <template>
     <div class="row justify-content-center mt-4 align-items-stretch">
         <div class="col-4 d-flex flex-fill">
-            <BalanceCard class="flex-grow-1" />
+            <BalanceCard 
+                class="flex-grow-1"
+                @updateIncome="updateIncome"
+                @updateExpenses="updateExpenses"
+            />
         </div>
         <div class="col-4 d-flex flex-fill">
-            <ExpensesCard class="flex-grow-1" />
+            <ExpensesCard 
+                class="flex-grow-1"
+                :key="reloadExpenses"
+            />
         </div>
         <div class="col-4 d-flex flex-fill">
             <SavingsCard class="flex-grow-1" />
@@ -12,14 +19,18 @@
     </div>
     <div class="row justify-content-center mt-4">
         <div class="row">
-            <BalanceGraph />
+            <BalanceGraph
+                :key="reloadBalanceGraph"
+            />
         </div>
         <div class="row">
             <div class="col">
                 <SavingsGraph />
             </div>
             <div class="col">
-                <CategoriesGraph />
+                <CategoriesGraph
+                    :key="reloadExpenses"
+                />
             </div>
         </div>
     </div>
@@ -44,7 +55,22 @@
         },
         data() {
             return {
+                reloadIncomes: false,
+                reloadExpenses: false,
             }
         },
+        methods: {
+            updateIncome() {
+                this.reloadIncomes = !this.reloadIncomes;
+            },
+            updateExpenses() {
+                this.reloadExpenses = !this.reloadExpenses;
+            },
+        },
+        computed: {
+            reloadBalanceGraph() {
+                return `${this.reloadIncomes}-${this.reloadExpenses}`;
+            }
+        }
     }
 </script>
