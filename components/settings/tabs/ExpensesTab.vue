@@ -97,7 +97,7 @@
             },
             filterTableData(filters) {
                 this.$refs.ExpensesTable.filters = filters;
-                this.$refs.ExpensesTable.getCategories();
+                this.$refs.ExpensesTable.getExpenses();
             },
         },
         computed: {
