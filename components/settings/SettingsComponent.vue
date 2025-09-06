@@ -1,14 +1,8 @@
 <template>
     <div class="container my-5">
         <div class="card border-success bg-transparent rounded-3">
-            <!-- <div class="card-header fw-semibold">
-                Settings
-            </div> -->
             <div class="card-body">
                 <TabsComponent :tabs="tabs" color="primary">
-                    <template #main>
-                        <MainTab />
-                    </template>
                     <template #payment_methods>
                         <PaymentMethodsTab />
                     </template>
@@ -38,7 +32,6 @@
 
 <script>
     import TabsComponent from '@/components/global/TabsComponent.vue';
-    import MainTab from '@/components/settings/tabs/MainTab.vue';
     import PaymentMethodsTab from '@/components/settings/tabs/PaymentMethodsTab.vue';
     import ExpensesTab from '@/components/settings/tabs/ExpensesTab.vue';
     import IncomeSourceTab from '@/components/settings/tabs/IncomeSourceTab.vue';
@@ -50,7 +43,6 @@
     export default {
         components: {
             TabsComponent,
-            MainTab,
             PaymentMethodsTab,
             ExpensesTab,
             IncomeSourceTab,
@@ -62,7 +54,6 @@
         data() {
             return {
                 tabs: [
-                    // { name: "main", label: "Main settings" },
                     { name: "payment_methods", label: "Payment methods" },
                     { name: "categories", label: "Categories" },
                     { name: "expenses", label: "Expenses" },

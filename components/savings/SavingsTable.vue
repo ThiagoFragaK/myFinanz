@@ -1,5 +1,5 @@
 <template>
-    <h4>Total: R$ {{ totalValue }}</h4>
+    <h4>Total: {{ totalValue }}</h4>
     <TableComponent
         :data="data"
         :columns="columns"
@@ -20,6 +20,7 @@
 
 <script>
     import Dates from "@/helpers/Dates";
+    import NumbersFormatter from "@/helpers/Numbers";
     import TableComponent from "@/components/global/TableComponent.vue";
     export default {
         components: {
@@ -35,14 +36,16 @@
             selectedRows: [],
             totalValue: 0,
             isLoading: true,
+            filters: {},
         }),
         methods: {
-            getIncomeTypes() {
+            getSavings() {
                 this.isLoading = true;
-                this.$axios.get(`savings`)
+                this.$axios.get(`savings`, { params: { filters: this.filters }})
                     .then(({ data }) => {
                         this.data = data.data;
                         this.totalValue = data.sum;
+                        this.totalValue = NumbersFormatter.formatCurrencyBR(data.sum);
                     })
                     .finally(() => {
                         this.isLoading = false;
@@ -60,7 +63,7 @@
             }
         },
         created() {
-            this.getIncomeTypes();
+            this.getSavings();
         }
     }
 </script>

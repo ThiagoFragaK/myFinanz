@@ -1,5 +1,6 @@
 <template>
-    <button 
+    <button
+        v-tooltip="'Return'" 
         type="button"
         title="Return"
         class="btn btn-primary mb-4"
@@ -8,7 +9,17 @@
     >
         <IconsLucide icon="ChevronLeft" />
     </button>
-    <button 
+    <button
+        v-tooltip="'Filters'"
+        type="button"
+        title="Open filters"
+        class="btn btn-primary ms-2 mb-4"
+        @click="toggleFilters"
+    >
+        <IconsLucide icon="Funnel" />
+    </button>
+    <button
+        v-tooltip="'New expense'" 
         type="button"
         title="New Expense"
         class="btn btn-primary ms-2 mb-4"
@@ -17,7 +28,8 @@
     >
         <IconsLucide icon="Plus" />
     </button>
-    <button 
+    <button
+        v-tooltip="'Edit expense'" 
         type="button"
         title="Edit Expense"
         class="btn btn-primary ms-2 mb-4"
@@ -26,6 +38,12 @@
     >
         <IconsLucide icon="Pencil" />
     </button>
+    <ExpensesFilters
+        id="filters"
+        class="mb-4"
+        @filterData="filterTableData"
+        ref="ExpensesFilters"
+    />
     <ExpensesTable 
         v-if="showTable"
         @allowActions="updateSelection"
@@ -43,8 +61,10 @@
 <script>
     import ExpensesForm from "@/components/expenses/ExpensesForm.vue";
     import ExpensesTable from "@/components/expenses/ExpensesTable.vue";
+    import ExpensesFilters from "@/components/expenses/ExpensesFilters.vue";
     export default {
         components: {
+            ExpensesFilters,
             ExpensesForm,
             ExpensesTable,
         },
@@ -70,6 +90,13 @@
             },
             save() {
                 this.returnToTable();
+                this.$refs.ExpensesTable.getExpenses();
+            },
+            toggleFilters() {
+                this.$refs.ExpensesFilters.toggle();
+            },
+            filterTableData(filters) {
+                this.$refs.ExpensesTable.filters = filters;
                 this.$refs.ExpensesTable.getExpenses();
             },
         },

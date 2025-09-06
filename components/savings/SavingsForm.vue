@@ -26,7 +26,7 @@
                         :true-value="1"
                         :false-value="0"
                     >
-                    <label class="form-check-label">{{ checkTitle }}</label>
+                    <label class="form-check-label ms-2 mt-2">{{ checkTitle }}</label>
                 </div>
             </div>
         </div>
