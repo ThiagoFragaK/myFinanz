@@ -35,11 +35,12 @@
             selectedRows: [],
             totalValue: 0,
             isLoading: true,
+            filters: {},
         }),
         methods: {
-            getIncomeTypes() {
+            getSavings() {
                 this.isLoading = true;
-                this.$axios.get(`savings`)
+                this.$axios.get(`savings`, { params: { filters: this.filters }})
                     .then(({ data }) => {
                         this.data = data.data;
                         this.totalValue = data.sum;
@@ -60,7 +61,7 @@
             }
         },
         created() {
-            this.getIncomeTypes();
+            this.getSavings();
         }
     }
 </script>
