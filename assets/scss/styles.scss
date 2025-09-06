@@ -45,3 +45,40 @@ body {
     color: #347571 !important;
     font-weight: bold;
 }
+
+.form-switch .form-check-input {
+    width: 60px;
+    height: 34px;
+    margin-left: 0;
+    background-color: var(--bs-secondary, #6c757d);
+    border: none;
+    border-radius: 34px;
+    position: relative;
+    cursor: pointer;
+    appearance: none;
+    transition: background-color .4s, box-shadow .4s;
+}
+
+.form-switch .form-check-input::before {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 26px;
+    height: 26px;
+    background-color: #fff;
+    border-radius: 50%;
+    transition: transform .4s;
+}
+
+.form-switch .form-check-input:checked {
+    background-color: var(--bs-primary, #0d6efd);
+}
+
+.form-switch .form-check-input:checked::before {
+    transform: translateX(26px);
+}
+
+.form-switch .form-check-input:focus {
+    box-shadow: 0 0 1px var(--bs-primary, #0d6efd);
+}
