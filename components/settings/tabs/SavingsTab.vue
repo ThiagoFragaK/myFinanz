@@ -1,5 +1,6 @@
 <template>
-    <button 
+    <button
+        v-tooltip="'Return'"
         type="button"
         title="Return"
         class="btn btn-primary mb-4"
@@ -8,7 +9,17 @@
     >
         <IconsLucide icon="ChevronLeft" />
     </button>
-    <button 
+    <button
+        v-tooltip="'Filters'"
+        type="button"
+        title="Open filters"
+        class="btn btn-primary ms-2 mb-4"
+        @click="toggleFilters"
+    >
+        <IconsLucide icon="Funnel" />
+    </button>
+    <button
+        v-tooltip="'New saving'" 
         type="button"
         title="New Saving"
         class="btn btn-primary ms-2 mb-4"
@@ -17,7 +28,8 @@
     >
         <IconsLucide icon="Plus" />
     </button>
-    <button 
+    <button
+        v-tooltip="'Edit saving'" 
         type="button"
         title="Edit Saving"
         class="btn btn-primary ms-2 mb-4"
@@ -26,6 +38,12 @@
     >
         <IconsLucide icon="Pencil" />
     </button>
+    <SavingsFilters
+        id="filters"
+        class="mb-4"
+        @filterData="filterTableData"
+        ref="SavingsFilters"
+    />
     <SavingsTable 
         v-if="showTable"
         @allowActions="updateSelection"
@@ -43,8 +61,10 @@
 <script>
     import SavingsForm from "@/components/savings/SavingsForm.vue";
     import SavingsTable from "@/components/savings/SavingsTable.vue";
+    import SavingsFilters from "@/components/savings/SavingsFilters.vue";
     export default {
         components: {
+            SavingsFilters,
             SavingsForm,
             SavingsTable,
         },
@@ -52,6 +72,7 @@
             selectedRows: [],
             showTable: true,
             isEdit: false,
+            filters: {},
         }),
         methods: {
             returnToTable() {
@@ -70,6 +91,13 @@
             },
             save() {
                 this.returnToTable();
+                this.$refs.SavingsTable.getSavings();
+            },
+            toggleFilters() {
+                this.$refs.SavingsFilters.toggle();
+            },
+            filterTableData(filters) {
+                this.$refs.SavingsTable.filters = filters;
                 this.$refs.SavingsTable.getSavings();
             },
         },
