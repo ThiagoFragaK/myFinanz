@@ -51,7 +51,7 @@
                             aria-label="Large select example"
                             v-model="filters.payment_methods_id"
                         >
-                            <option disabled selected value="">Methods</option>
+                            <option disabled selected :value="null">Methods</option>
                             <option 
                                 v-for="option in paymentMethodsList"
                                 :key="option.id" 
@@ -67,7 +67,7 @@
                             aria-label="Large select example"
                             v-model="filters.category_id"
                         >
-                            <option disabled selected value="">Categories</option>
+                            <option disabled selected :value="null">Categories</option>
                             <option 
                                 v-for="option in categoriesList"
                                 :key="option.id"
@@ -78,30 +78,12 @@
                         </select>
                     </div>
                     <div class="col-2">
-                        <div class="input-group">
-                            <span class="input-group-text">
-                                <IconsLucide icon="ArrowDownToDot" />
-                            </span>
-                            <input 
-                                type="number" 
-                                class="form-control" 
-                                placeholder="Value min"
-                                v-model="filters.values.min"
-                            >
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="input-group">
-                            <span class="input-group-text">
-                                <IconsLucide icon="ArrowUpFromDot" />
-                            </span>
-                            <input 
-                                type="number" 
-                                class="form-control" 
-                                placeholder="Value max"
-                                v-model="filters.values.max"
-                            >
-                        </div>
+                        <input 
+                            type="number" 
+                            class="form-control" 
+                            placeholder="Max value"
+                            v-model="filters.valuesMax"
+                        >
                     </div>
                 </div>
             </div>
@@ -124,13 +106,10 @@
             categoriesList: [],
             filters: {
                 isCurrentMonth: true,
-                name: "",
-                payment_methods_id: "",
-                category_id: "",
-                values: {
-                    min: 0,
-                    max: 0,
-                }
+                name: null,
+                payment_methods_id: null,
+                category_id: null,
+                valuesMax: null,
             }
         }),
         components: { 
@@ -161,13 +140,10 @@
             cleanFilters() {
                 this.filters = {
                     isCurrentMonth: true,
-                    name: "",
-                    payment_methods_id: "",
-                    category_id: "",
-                    values: {
-                        min: 0,
-                        max: 0,
-                    }
+                    name: null,
+                    payment_methods_id: null,
+                    category_id: null,
+                    valuesMax: null,
                 };
                 this.filter();
             },
