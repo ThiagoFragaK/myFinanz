@@ -43,11 +43,14 @@
             data: [],
             selectedRows: [],
             isLoading: true,
+            filters: {
+                isCurrentMonth: true,
+            },
         }),
         methods: {
             getExpenses() {
                 this.isLoading = true;
-                this.$axios.get(`expenses`)
+                this.$axios.get(`expenses`, { params: { filters: this.filters } })
                     .then(({ data }) => {
                         this.data = data.data;
                     })

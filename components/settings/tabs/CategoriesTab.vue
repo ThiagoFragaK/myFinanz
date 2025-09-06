@@ -1,5 +1,6 @@
 <template>
     <button 
+        v-tooltip="'Return'"
         type="button"
         title="Return"
         class="btn btn-primary mb-4"
@@ -8,7 +9,17 @@
     >
         <IconsLucide icon="ChevronLeft" />
     </button>
-    <button 
+    <button
+        v-tooltip="'Filters'"
+        type="button"
+        title="Open filters"
+        class="btn btn-primary ms-2 mb-4"
+        @click="toggleFilters"
+    >
+        <IconsLucide icon="Funnel" />
+    </button>
+    <button
+        v-tooltip="'New category'" 
         type="button"
         title="New Category"
         class="btn btn-primary ms-2 mb-4"
@@ -17,7 +28,8 @@
     >
         <IconsLucide icon="Plus" />
     </button>
-    <button 
+    <button
+        v-tooltip="'Edit Category'" 
         type="button"
         title="Edit Category"
         class="btn btn-primary ms-2 mb-4"
@@ -26,6 +38,12 @@
     >
         <IconsLucide icon="Pencil" />
     </button>
+    <CategoriesFilters
+        id="filters"
+        class="mb-4"
+        @filterData="filterTableData"
+        ref="CategoriesFilters"
+    />
     <CategoriesTable 
         v-if="showTable"
         @allowActions="updateSelection"
@@ -43,9 +61,11 @@
 <script>
 import CategoriesForm from "@/components/categories/CategoriesForm.vue";
 import CategoriesTable from "@/components/categories/CategoriesTable.vue";
+import CategoriesFilters from "@/components/categories/CategoriesFilters.vue";
 
 export default {
     components: {
+        CategoriesFilters,
         CategoriesForm,
         CategoriesTable,
     },
@@ -63,14 +83,23 @@ export default {
             this.selectedRows = selectedRows;
         },
         newCategory() {
+            this.$refs.CategoriesFilters.close();
             this.showTable = this.isEdit = false;
         },
         editCategory() {
+            this.$refs.CategoriesFilters.close();
             this.showTable = false;
             this.isEdit = true;
         },
         save() {
             this.returnToTable();
+            this.$refs.CategoriesTable.getCategories();
+        },
+        toggleFilters() {
+            this.$refs.CategoriesFilters.toggle();
+        },
+        filterTableData(filters) {
+            this.$refs.CategoriesTable.filters = filters;
             this.$refs.CategoriesTable.getCategories();
         },
     },

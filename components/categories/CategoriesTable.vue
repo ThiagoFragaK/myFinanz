@@ -27,11 +27,14 @@ export default {
         data: [],
         selectedRows: [],
         isLoading: true,
+        filters: {
+            name: "",
+        }
     }),
     methods: {
         getCategories() {
             this.isLoading = true;
-            this.$axios.get(`categories`)
+            this.$axios.get(`categories`, { params: { filters: this.filters } })
                 .then(({ data }) => {
                     this.data = data.data;
                 })
