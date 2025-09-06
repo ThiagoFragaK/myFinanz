@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-1">
                 <button
-                    v-tooltip="'Clean filters'"  
+                    v-tooltip="'Clean filters'"
                     type="button" 
                     class="btn btn-secondary btn-sm mt-1 w-100"
                     @click="cleanFilters"
@@ -24,14 +24,40 @@
                     <IconsLucide icon="Forward" />
                 </button>
             </div>
-            <div class="col-4">
+            <div class="col-3">
+                <input
+                    v-tooltip="'Min date'" 
+                    type="date" 
+                    class="form-control" 
+                    placeholder="Min date"
+                    v-model="filters.date.min"
+                >
+            </div>       
+            <div class="col-3">
+                <input
+                    v-tooltip="'Max date'" 
+                    type="date" 
+                    class="form-control" 
+                    placeholder="Max date"
+                    v-model="filters.date.max"
+                >
+            </div>         
+            <div class="col-2">
                 <input 
                     type="text"
                     class="form-control" 
-                    placeholder="Category name"
-                    v-model="filters.name"
+                    placeholder="Min value"
+                    v-model="filters.value.min"
                 >
-            </div>            
+            </div>          
+            <div class="col-2">
+                <input 
+                    type="text"
+                    class="form-control" 
+                    placeholder="Max value"
+                    v-model="filters.value.max"
+                >
+            </div>          
         </div>
     </CollapseComponent>
 </template>
@@ -48,7 +74,14 @@
         },
         data: () => ({
             filters: {
-                name: "",
+                value: {
+                    min: null,
+                    max: null,
+                },
+                date: {
+                    min: "",
+                    max: "",
+                },
             }
         }),
         components: { 
@@ -65,7 +98,16 @@
                 this.$refs.CollapseComponent.toggle();
             },
             cleanFilters() {
-                this.filters.name = "";
+                this.filters = {
+                    value: {
+                        min: null,
+                        max: null,
+                    },
+                    date: {
+                        min: null,
+                        max: null,
+                    },
+                };
                 this.filter();
             },
             filter() {
