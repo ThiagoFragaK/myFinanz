@@ -154,9 +154,9 @@
                             text: 'Income created successfully!',
                             icon: 'success'
                         });
-                        this.$emit("reload");
-                        this.close();
+                        this.$emit("reloadIncomes");
                         this.resetData();
+                        this.close();
                     });
             },
         },

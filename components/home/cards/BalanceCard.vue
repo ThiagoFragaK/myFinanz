@@ -104,10 +104,10 @@
             },
             reloadIncomes() {
                 this.$emit("updateIncome");
-                this.getBalance("updateExpenses");
+                this.getBalance();
             },
             reloadExpenses() {
-                this.$emit();
+                this.$emit("updateExpenses");
                 this.getBalance();
             },
             openExpensesModal() {

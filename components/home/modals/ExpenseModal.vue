@@ -170,7 +170,7 @@
                             text: 'Expense created successfully',
                             icon: 'success'
                         });
-                        this.$emit("reload");
+                        this.$emit("reloadExpenses");
                         this.close();
                     })
                     .finally(() => {
