@@ -161,6 +161,7 @@
             },
         },
         created() {
+            this.resetData();
             this.getIncomeSources();
             this.getIncomeTypes();
         }

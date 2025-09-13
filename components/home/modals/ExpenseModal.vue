@@ -179,6 +179,7 @@
             },
         },
         created() {
+            this.resetData();
             this.getPaymentMethods();
             this.getCategories();
         }

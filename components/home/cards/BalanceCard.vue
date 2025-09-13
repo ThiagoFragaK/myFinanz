@@ -65,8 +65,8 @@
             </div>
         </div>
 
-        <IncomeModal @reload="reloadIncomes()" ref="IncomeModal" />
-        <ExpenseModal @reload="reloadExpenses()" ref="ExpenseModal" />
+        <IncomeModal @reloadIncomes="reloadIncomes()" ref="IncomeModal" />
+        <ExpenseModal @reloadExpenses="reloadExpenses()" ref="ExpenseModal" />
     </div>
 </template>
 
