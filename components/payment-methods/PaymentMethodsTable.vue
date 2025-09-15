@@ -18,13 +18,24 @@
             <StatusBadge :status="data.row.status" />
         </template>
     </TableComponent>
+
+    <PaginationComponent
+        v-if="pagination.totalPages > 1"
+        :current-page="pagination.currentPage"
+        :total-pages="pagination.totalPages"
+        :per-page="pagination.perPage"
+        :total-items="pagination.totalItems"
+        @change-page="getPaymentMethods"
+    />
 </template>
 
 <script>
     import StatusBadge from "@/components/global/StatusBadgeComponent.vue";
     import TableComponent from "@/components/global/TableComponent.vue";
+    import PaginationComponent from "@/components/global/PaginationComponent.vue";
     export default {
         components: {
+            PaginationComponent,
             TableComponent,
             StatusBadge
         },
@@ -36,16 +47,29 @@
                 { key: "limit", label: "Limit" },
                 { key: "status", label: "Status" },
             ],
+            pagination: {
+                currentPage: 1,
+                totalPages: 1,
+                perPage: 10,
+                totalItems: 0,
+            },
             data: [],
             selectedRows: [],
             isLoading: true,
         }),
         methods: {
-            getPaymentMethods() {
+            getPaymentMethods(page = 1) {
                 this.isLoading = true;
-                this.$axios.get(`payment_methods`)
+                this.$axios.get(`payment_methods?page=${page}`)
                     .then(({ data }) => {
-                        this.data = data.data;
+                        this.data = data.data.data;
+                        this.pagination = {
+                            currentPage: data.data.current_page,
+                            totalPages: data.data.last_page,
+                            perPage: data.data.per_page,
+                            totalItems: data.data.total,
+                        };
+                        console.log(this.pagination)
                     })
                     .finally(() => {
                         this.isLoading = false;
