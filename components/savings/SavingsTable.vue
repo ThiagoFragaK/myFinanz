@@ -16,14 +16,25 @@
             {{ "R$ " + data.row.value }}
         </template>
     </TableComponent>
+
+    <PaginationComponent
+        v-if="pagination.totalPages > 1"
+        :current-page="pagination.currentPage"
+        :total-pages="pagination.totalPages"
+        :per-page="pagination.perPage"
+        :total-items="pagination.totalItems"
+        @change-page="getSavings"
+    />
 </template>
 
 <script>
     import Dates from "@/helpers/Dates";
     import NumbersFormatter from "@/helpers/Numbers";
     import TableComponent from "@/components/global/TableComponent.vue";
+    import PaginationComponent from "@/components/global/PaginationComponent.vue";
     export default {
         components: {
+            PaginationComponent,
             TableComponent
         },
         data: () => ({
@@ -32,6 +43,12 @@
                 { key: "is_positive", label: "Transition type" },
                 { key: "value", label: "Value" },
             ],
+            pagination: {
+                currentPage: 1,
+                totalPages: 1,
+                perPage: 10,
+                totalItems: 0,
+            },
             data: [],
             selectedRows: [],
             totalValue: 0,
@@ -39,13 +56,19 @@
             filters: {},
         }),
         methods: {
-            getSavings() {
+            getSavings(page = 1) {
                 this.isLoading = true;
-                this.$axios.get(`savings`, { params: { filters: this.filters }})
+                this.$axios.get(`savings?page=${page}`, { params: { filters: this.filters }})
                     .then(({ data }) => {
-                        this.data = data.data;
+                        this.data = data.data.data;
                         this.totalValue = data.sum;
                         this.totalValue = NumbersFormatter.formatCurrencyBR(data.sum);
+                        this.pagination = {
+                            currentPage: data.data.current_page,
+                            totalPages: data.data.last_page,
+                            perPage: data.data.per_page,
+                            totalItems: data.data.total,
+                        };
                     })
                     .finally(() => {
                         this.isLoading = false;

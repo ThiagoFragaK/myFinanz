@@ -19,14 +19,25 @@
             {{ "R$ " + data.row.value }}
         </template>
     </TableComponent>
+
+    <PaginationComponent
+        v-if="pagination.totalPages > 1"
+        :current-page="pagination.currentPage"
+        :total-pages="pagination.totalPages"
+        :per-page="pagination.perPage"
+        :total-items="pagination.totalItems"
+        @change-page="getExpenses"
+    />
 </template>
 
 <script>
     import DateHelper from "@/helpers/Dates";
     import StatusBadge from "@/components/global/StatusBadgeComponent.vue";
     import TableComponent from "@/components/global/TableComponent.vue";
+    import PaginationComponent from "@/components/global/PaginationComponent.vue";
     export default {
         components: {
+            PaginationComponent,
             TableComponent,
             StatusBadge
         },
@@ -40,6 +51,12 @@
                 { key: "parcel_numbers", label: "Parcels" },
                 { key: "value", label: "Value" },
             ],
+            pagination: {
+                currentPage: 1,
+                totalPages: 1,
+                perPage: 10,
+                totalItems: 0,
+            },
             data: [],
             selectedRows: [],
             isLoading: true,
@@ -48,11 +65,17 @@
             },
         }),
         methods: {
-            getExpenses() {
+            getExpenses(page = 1) {
                 this.isLoading = true;
-                this.$axios.get(`expenses`, { params: { filters: this.filters } })
+                this.$axios.get(`expenses?page=${page}`, { params: { filters: this.filters } })
                     .then(({ data }) => {
-                        this.data = data.data;
+                        this.data = data.data.data;
+                        this.pagination = {
+                            currentPage: data.data.current_page,
+                            totalPages: data.data.last_page,
+                            perPage: data.data.per_page,
+                            totalItems: data.data.total,
+                        };
                     })
                     .finally(() => {
                         this.isLoading = false;
