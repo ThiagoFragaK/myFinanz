@@ -69,7 +69,6 @@
                             perPage: data.data.per_page,
                             totalItems: data.data.total,
                         };
-                        console.log(this.pagination)
                     })
                     .finally(() => {
                         this.isLoading = false;
