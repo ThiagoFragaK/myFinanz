@@ -5,81 +5,87 @@
                 New Income
             </h1>
         </div>
-        <div class="row">
-            <div class="col-6">
-                <label>Income source</label>
-                <select 
-                    class="form-select form-select mb-3" 
-                    aria-label="Large select example"
-                    v-model="income.source_id"
-                >
-                    <option disabled selected value="">Select your income</option>
-                    <option 
-                        v-for="option in incomeSourcesList" 
-                        :key="option.id" 
-                        :value="option.id"
-                    >
-                        {{ option.name }}
-                    </option>
-                </select>
-            </div>
-            <div class="col-6">
-                <label>Income type</label>
-                <select 
-                    class="form-select form-select mb-3" 
-                    aria-label="Large select example"
-                    v-model="income.type_id"
-                >
-                    <option disabled selected value="">Select the type</option>
-                    <option 
-                        v-for="option in incomeTypesList" 
-                        :key="option.id" 
-                        :value="option.id"
-                    >
-                        {{ option.name }}
-                    </option>
-                </select>
-            </div>
+        <div v-if="isLoading" class="row mb-4">
+            <LoadingComponent />
         </div>
-        <div class="row">
-            <div class="col-4">
-                <label>Name</label>
-                <input 
-                    type="text" 
-                    class="form-control" 
-                    placeholder="Income Name"
-                    v-model="income.name"
-                >
-            </div>
-            <div class="col-4">
-                <label>Value</label>
-                <div class="input-group mb-3">
-                    <span class="input-group-text">R$</span>
-                    <input 
-                        type="number" 
-                        class="form-control" 
-                        placeholder="Income Value"
-                        v-model="income.value"
+        <div v-else>
+            <div class="row">
+                <div class="col-6">
+                    <label>Income source</label>
+                    <select 
+                        class="form-select form-select mb-3" 
+                        aria-label="Large select example"
+                        v-model="income.source_id"
                     >
+                        <option disabled selected value="">Select your income</option>
+                        <option 
+                            v-for="option in incomeSourcesList" 
+                            :key="option.id" 
+                            :value="option.id"
+                        >
+                            {{ option.name }}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-6">
+                    <label>Income type</label>
+                    <select 
+                        class="form-select form-select mb-3" 
+                        aria-label="Large select example"
+                        v-model="income.type_id"
+                    >
+                        <option disabled selected value="">Select the type</option>
+                        <option 
+                            v-for="option in incomeTypesList" 
+                            :key="option.id" 
+                            :value="option.id"
+                        >
+                            {{ option.name }}
+                        </option>
+                    </select>
                 </div>
             </div>
-            <div class="col-2">
-                <label>Entry day</label>
-                <div class="input-group mb-3">
+            <div class="row">
+                <div class="col-4">
+                    <label>Name</label>
                     <input 
-                        type="number" 
+                        type="text" 
                         class="form-control" 
-                        min="1"
-                        max="31"
-                        placeholder="Entry day"
-                        v-model="income.entry_day"
+                        placeholder="Income Name"
+                        v-model="income.name"
                     >
+                </div>
+                <div class="col-4">
+                    <label>Value</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">R$</span>
+                        <input 
+                            type="number" 
+                            class="form-control" 
+                            placeholder="Income Value"
+                            v-model="income.value"
+                        >
+                    </div>
+                </div>
+                <div class="col-2">
+                    <label>Entry day</label>
+                    <div class="input-group mb-3">
+                        <input 
+                            type="number" 
+                            class="form-control" 
+                            min="1"
+                            max="31"
+                            placeholder="Entry day"
+                            v-model="income.entry_day"
+                        >
+                    </div>
                 </div>
             </div>
         </div>
         <button 
             type="button" 
             class="btn btn-primary btn-sm"
+            :disabled="isLoading"
             @click="save"
         >
             Save
@@ -88,7 +94,11 @@
 </template>
   
 <script>
+    import LoadingComponent from '@/components/global/LoadingComponent.vue';
     export default {
+        components: {
+            LoadingComponent,
+        },
         props: {
             id: {
                 type: Number,
@@ -101,6 +111,7 @@
         },
         data() {
             return {
+                isLoading: false,
                 income: {
                     name: "",
                     value: "",
@@ -128,6 +139,7 @@
             getIncomeById() {
                 if(!this.isEdit) return;
                 
+                this.isLoading = true;
                 this.$axios.get(`incomes/${this.id}`)
                     .then(({ data }) => {
                         let income = data.data;
@@ -138,6 +150,9 @@
                             source_id: income.source_id,
                             type_id: income.type_id,
                         }
+                    })
+                    .finally(() => {
+                        this.isLoading = false;
                     });
             },
             save() {

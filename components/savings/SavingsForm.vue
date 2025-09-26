@@ -5,7 +5,10 @@
                 {{ title }}
             </h1>
         </div>
-        <div class="row mb-4">
+        <div v-if="isLoading" class="row mb-4">
+            <LoadingComponent />
+        </div>
+        <div v-else class="row mb-4">
             <div class="col-4">
                 <label>Value</label>
                 <input 
@@ -33,6 +36,7 @@
         <button 
             type="button" 
             class="btn btn-primary btn-sm"
+            :disabled="isLoading"
             @click="save"
         >
             Save
@@ -41,7 +45,11 @@
 </template>
   
 <script>
+    import LoadingComponent from '@/components/global/LoadingComponent.vue';
     export default {
+        components: {
+            LoadingComponent,
+        },
         props: {
             id: {
                 type: Number,
@@ -54,6 +62,7 @@
         },
         data() {
             return {
+                isLoading: false,
                 saving: {
                     value: 0,
                     is_positive: 1,
@@ -70,9 +79,13 @@
             getSavingById() {
                 if(!this.isEdit) return;
 
+                this.isLoading = true;
                 this.$axios.get(`savings/${this.id}`)
                     .then(({ data }) => {
                         this.saving = data.data;
+                    })
+                    .finally(() => {
+                        this.isLoading = false;
                     });
             },
             createSaving() {

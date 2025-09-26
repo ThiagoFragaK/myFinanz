@@ -12,10 +12,12 @@ export default {
     props: {
         status: {
             type: Boolean,
-            required: true,
+            required: false,
+            default: true,
         },
         color: {
             type: String,
+            required: false,
             default: "primary",
         },
     },
