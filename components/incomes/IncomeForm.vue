@@ -114,13 +114,13 @@
         },
         methods: {
             getIncomeSources() {
-                this.$axios.get(`income/sources`)
+                this.$axios.get(`income/sources/list`)
                     .then(({ data }) => {
                         this.incomeSourcesList = data.data;
                     });
             },
             getIncomeTypes() {
-                this.$axios.get(`income/types`)
+                this.$axios.get(`income/types/list`)
                     .then(({ data }) => {
                         this.incomeTypesList = data.data;
                     });

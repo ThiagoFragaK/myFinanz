@@ -128,13 +128,13 @@
         },
         methods: {
             getPaymentMethods() {
-                this.$axios.get(`payment_methods`)
+                this.$axios.get(`payment_methods/list`)
                     .then(({ data }) => {
                         this.paymentMethodsList = data.data;
                     });
             },
             getCategories() {
-                this.$axios.get(`categories`)
+                this.$axios.get(`categories/list`)
                     .then(({ data }) => {
                         this.categoriesList = data.data;
                     });

@@ -94,7 +94,7 @@
 
                 this.$axios.get(`payment_methods/${this.id}`)
                     .then(({ data }) => {
-                        this.card = data.data;
+                        this.paymentMethod = data.data;
                     });
             },
             save() {
