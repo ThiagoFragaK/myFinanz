@@ -5,92 +5,98 @@
                 {{ title }}
             </h1>
         </div>
-        <div class="row mb-4">
-            <div class="col-4">
-                <label>Name</label>
-                <input 
-                    type="text" 
-                    class="form-control" 
-                    placeholder="Expense name"
-                    v-model="expense.name"
-                >
-            </div>
-            <div class="col-4">
-                <label>Description</label>
-                <input 
-                    type="text" 
-                    class="form-control" 
-                    placeholder="Description"
-                    v-model="expense.description"
-                >
-            </div>
-            <div class="col-2">
-                <label>Parcel number</label>
-                <input 
-                    type="number" 
-                    class="form-control" 
-                    placeholder="Parcel number"
-                    v-model="expense.parcel_numbers"
-                >
-            </div>
-            <div class="col-2">
-                <label>Value</label>
-                <input 
-                    type="number" 
-                    class="form-control" 
-                    placeholder="Expense value"
-                    v-model="expense.value"
-                >
-            </div>
+        <div v-if="isLoading" class="row mb-4">
+            <LoadingComponent />
         </div>
-        <div class="row mb-4">
-            <div class="col-4">
-                <label>Payment method</label>
-                <select 
-                    class="form-select form-select mb-3" 
-                    aria-label="Large select example"
-                    v-model="expense.payment_methods_id"
-                >
-                    <option disabled selected value="">Select the method</option>
-                    <option 
-                        v-for="option in paymentMethodsList"
-                        :key="option.id" 
-                        :value="option.id"
+        <div v-else>
+            <div class="row mb-4">
+                <div class="col-4">
+                    <label>Name</label>
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        placeholder="Expense name"
+                        v-model="expense.name"
                     >
-                        {{ option.name }}
-                    </option>
-                </select>
-            </div>
-            <div class="col-4">
-                <label>Categories</label>
-                <select 
-                    class="form-select form-select mb-3" 
-                    aria-label="Large select example"
-                    v-model="expense.category_id"
-                >
-                    <option disabled selected value="">Select the category</option>
-                    <option 
-                        v-for="option in categoriesList"
-                        :key="option.id"
-                        :value="option.id"
+                </div>
+                <div class="col-4">
+                    <label>Description</label>
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        placeholder="Description"
+                        v-model="expense.description"
                     >
-                        {{ option.name }}
-                    </option>
-                </select>
+                </div>
+                <div class="col-2">
+                    <label>Parcel number</label>
+                    <input 
+                        type="number" 
+                        class="form-control" 
+                        placeholder="Parcel number"
+                        v-model="expense.parcel_numbers"
+                    >
+                </div>
+                <div class="col-2">
+                    <label>Value</label>
+                    <input 
+                        type="number" 
+                        class="form-control" 
+                        placeholder="Expense value"
+                        v-model="expense.value"
+                    >
+                </div>
             </div>
-            <div class="col-4">
-                <label>Date</label>
-                <input 
-                    type="date" 
-                    class="form-control" 
-                    placeholder="Expense date"
-                    v-model="expense.date"
-                >
+            <div class="row mb-4">
+                <div class="col-4">
+                    <label>Payment method</label>
+                    <select 
+                        class="form-select form-select mb-3" 
+                        aria-label="Large select example"
+                        v-model="expense.payment_methods_id"
+                    >
+                        <option disabled selected value="">Select the method</option>
+                        <option 
+                            v-for="option in paymentMethodsList"
+                            :key="option.id" 
+                            :value="option.id"
+                        >
+                            {{ option.name }}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-4">
+                    <label>Categories</label>
+                    <select 
+                        class="form-select form-select mb-3" 
+                        aria-label="Large select example"
+                        v-model="expense.category_id"
+                    >
+                        <option disabled selected value="">Select the category</option>
+                        <option 
+                            v-for="option in categoriesList"
+                            :key="option.id"
+                            :value="option.id"
+                        >
+                            {{ option.name }}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-4">
+                    <label>Date</label>
+                    <input 
+                        type="date" 
+                        class="form-control" 
+                        placeholder="Expense date"
+                        v-model="expense.date"
+                    >
+                </div>
             </div>
         </div>
         <button 
             type="button" 
             class="btn btn-primary btn-sm"
+            :disabled="isLoading"
             @click="save"
         >
             Save
@@ -100,7 +106,11 @@
   
 <script>
     import Dates from "@/helpers/Dates";
+    import LoadingComponent from '@/components/global/LoadingComponent.vue';
     export default {
+        components: {
+            LoadingComponent,
+        },
         props: {
             id: {
                 type: Number,
@@ -113,6 +123,7 @@
         },
         data() {
             return {
+                isLoading: false,
                 paymentMethodsList: [],
                 categoriesList: [],
                 expense: {
@@ -148,10 +159,14 @@
             getExpenseById() {
                 if(!this.isEdit) return;
 
+                this.isLoading = true;
                 this.$axios.get(`expenses/${this.id}`)
                     .then(({ data }) => {
                         this.expense = data.data;
                         this.expense.date = Dates.getFormatedDate(this.expense.date, "yyyy-MM-dd");
+                    })
+                    .finally(() => {
+                        this.isLoading = false;
                     });
             },
             createExpense() {

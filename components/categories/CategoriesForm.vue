@@ -5,7 +5,10 @@
                 {{ title }}
             </h1>
         </div>
-        <div class="row mb-4">
+        <div v-if="isLoading" class="row mb-4">
+            <LoadingComponent />
+        </div>
+        <div v-else class="row mb-4">
             <div class="col-4">
                 <label>Name</label>
                 <input 
@@ -42,6 +45,7 @@
         <button 
             type="button" 
             class="btn btn-primary btn-sm"
+            :disabled="isLoading"
             @click="save"
         >
             Save
@@ -50,7 +54,11 @@
 </template>
   
 <script>
+import LoadingComponent from '@/components/global/LoadingComponent.vue';
 export default {
+    components: {
+        LoadingComponent,
+    },
     props: {
         id: {
             type: Number,
@@ -63,6 +71,7 @@ export default {
     },
     data() {
         return {
+            isLoading: false,
             category: {
                 name: '',
                 description: '',
@@ -80,9 +89,13 @@ export default {
         getCategoryById() {
             if(!this.isEdit) return;
 
+            this.isLoading = true;
             this.$axios.get(`categories/${this.id}`)
                 .then(({ data }) => {
                     this.category = data.data;
+                })
+                .finally(() => {
+                    this.isLoading = false;
                 });
         },
         createCategory() {
