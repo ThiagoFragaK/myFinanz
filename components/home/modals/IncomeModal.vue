@@ -1,8 +1,9 @@
 <template>
     <ModalComponent
+        id="IncomeModal"
         :isLoading="isLoading"
         @save="save"
-        ref="ExpensesModal"
+        ref="IncomeModal"
     >
         <template #header>
             <div class="modal-header bg-primary text-white">
@@ -132,10 +133,10 @@
             },
             open() {
                 this.resetData();
-                this.$refs.ExpensesModal.open();
+                this.$refs.IncomeModal.open();
             },
             close() {
-                this.$refs.ExpensesModal.close();
+                this.$refs.IncomeModal.close();
             },
             resetData() {
                 this.expense = {

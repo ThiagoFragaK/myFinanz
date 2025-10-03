@@ -24,6 +24,7 @@
 import TableComponent from "@/components/global/TableComponent.vue";
 import PaginationComponent from "@/components/global/PaginationComponent.vue";
 export default {
+    emits: ["allowActions"],
     components: {
         PaginationComponent,
         TableComponent
