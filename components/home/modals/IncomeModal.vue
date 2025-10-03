@@ -94,7 +94,6 @@
                 </div>
             </div>
         </template>
-
     </ModalComponent>
 </template>
 
@@ -111,7 +110,7 @@
             income: {
                 name: "",
                 value: "",
-                entry_day: 5,
+                entry_day: 1,
                 source_id: "",
                 type_id: "",
             },
@@ -132,6 +131,7 @@
                     });
             },
             open() {
+                this.resetData();
                 this.$refs.ExpensesModal.open();
             },
             close() {
@@ -141,7 +141,7 @@
                 this.expense = {
                     name: "",
                     value: "",
-                    entry_day: 5,
+                    entry_day: 1,
                     source_id: "",
                     type_id: "",
                 }
