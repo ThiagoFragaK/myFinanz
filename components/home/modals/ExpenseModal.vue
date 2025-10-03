@@ -146,6 +146,7 @@
                     });
             },
             open() {
+                this.resetData();
                 this.$refs.ExpensesModal.open();
             },
             close() {
@@ -159,6 +160,7 @@
                     parcel_numbers: 1,
                     value: 0,
                     date: "",
+                    category_id: "",
                 }
             },
             save() {
