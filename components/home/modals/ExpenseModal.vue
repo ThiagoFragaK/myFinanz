@@ -1,5 +1,6 @@
 <template>
     <ModalComponent
+        id="ExpensesModal"
         :isLoading="isLoading"
         @save="save"
         ref="ExpensesModal"
