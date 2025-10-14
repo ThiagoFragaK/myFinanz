@@ -10,7 +10,8 @@ export default defineNuxtConfig({
     },
     plugins: [
         '~/plugins/sweetalert.client.js',
-        '~/plugins/apexcharts.client.js'
+        '~/plugins/apexcharts.client.js',
+        '~/plugins/vee-validate.js',
     ], 
     css: [
         '@/assets/scss/styles.scss' 
