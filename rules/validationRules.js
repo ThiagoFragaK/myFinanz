@@ -43,9 +43,18 @@ defineRule('confirmed', (value, [target], ctx) => {
     return "Fields doesn't match."
 })
 
+defineRule('numeric', value => {
+  if (!value || /^[0-9]+$/.test(value)) {
+    return true;
+  }
+  return 'Only numeric values are allowed.';
+});
+
 export const rules = {
     name: 'required|min:3',
+    description: 'required|min:5',
     type: 'required',
     limit: 'required|min:1',
-    turnDay: 'required|min:1|max:31'
+    turnDay: 'required|min:1|max:31',
+    value: 'required|numeric|min:100',
 }
