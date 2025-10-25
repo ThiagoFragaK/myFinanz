@@ -16,7 +16,10 @@
                     class="form-control" 
                     placeholder="Income Source Name"
                     v-model="incomeSource.name"
+                    @blur="validateField('name')"
+                    ref="nameRef"
                 >
+                <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
             </div>
         </div>
         <button 
@@ -31,6 +34,7 @@
 </template>
   
 <script>
+    import { Validation } from '@/helpers/Validation';
     import LoadingComponent from '@/components/global/LoadingComponent.vue';
     export default {
         components: {
@@ -51,7 +55,8 @@
                 isLoading: false,
                 incomeSource: {
                     "name": ""
-                }
+                },
+                errors: {},
             };
         },
         methods: {
@@ -67,7 +72,30 @@
                         this.isLoading = false;
                     });
             },
-            save() {
+            async validateField(field) {
+                const value = this.incomeSource[field];
+                const result = await Validation.validateField(field, value);
+
+                this.errors[field] = result[field].message;
+                return result[field].status;
+            },
+            async validateForm() {
+                const result = await Validation.validateForm(this.incomeSource);
+                this.errors = Object.fromEntries(
+                    Object.entries(result.fields).map(([f, v]) => [f, v.message])
+                );
+                return result.valid;
+            },
+            async save() {
+                const isValid = await this.validateForm();
+                if (!isValid) {
+                    return this.$notify({
+                        title: "Validation error",
+                        text: "One or more fields aren't valid, fix them and try again.",
+                        icon: 'error'
+                    });
+                }
+
                 if(this.isEdit) {
                     return this.editNewIncomeSource();
                 }

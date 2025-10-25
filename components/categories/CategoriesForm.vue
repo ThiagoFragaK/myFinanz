@@ -16,7 +16,10 @@
                     class="form-control" 
                     placeholder="Category name"
                     v-model="category.name"
+                    @blur="validateField('name')"
+                    ref="nameRef"
                 >
+                <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
             </div>
             <div class="col-4">
                 <label>Description</label>
@@ -25,7 +28,10 @@
                     class="form-control" 
                     placeholder="Category description"
                     v-model="category.description"
+                    @blur="validateField('description')"
+                    ref="descriptionRef"
                 >
+                <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
             </div>
             <div class="col-4">
                 <label>Icon</label>
@@ -54,80 +60,105 @@
 </template>
   
 <script>
-import LoadingComponent from '@/components/global/LoadingComponent.vue';
-export default {
-    components: {
-        LoadingComponent,
-    },
-    props: {
-        id: {
-            type: Number,
-            required: false,
+    import { Validation } from '@/helpers/Validation';
+    import LoadingComponent from '@/components/global/LoadingComponent.vue';
+    export default {
+        components: {
+            LoadingComponent,
         },
-        isEdit: {
-            type: Boolean,
-            required: false,
-        }
-    },
-    data() {
-        return {
-            isLoading: false,
-            category: {
-                name: '',
-                description: '',
-                icon: '',
+        props: {
+            id: {
+                type: Number,
+                required: false,
             },
-        };
-    },
-    methods: {
-        save() {
-            if(this.isEdit) {
-                return this.editCategory();
+            isEdit: {
+                type: Boolean,
+                required: false,
             }
-            this.createCategory();
         },
-        getCategoryById() {
-            if(!this.isEdit) return;
+        data() {
+            return {
+                isLoading: false,
+                category: {
+                    name: '',
+                    description: '',
+                    icon: '',
+                },
+                errors: {},
+            };
+        },
+        methods: {
+            getCategoryById() {
+                if(!this.isEdit) return;
 
-            this.isLoading = true;
-            this.$axios.get(`categories/${this.id}`)
-                .then(({ data }) => {
-                    this.category = data.data;
-                })
-                .finally(() => {
-                    this.isLoading = false;
-                });
-        },
-        createCategory() {
-            this.$axios.post(`categories`, this.category)
-                .then(() => {
-                    this.$notify({
-                        title: 'Success',
-                        text: 'Category created successfully',
-                        icon: 'success'
+                this.isLoading = true;
+                this.$axios.get(`categories/${this.id}`)
+                    .then(({ data }) => {
+                        this.category = data.data;
+                    })
+                    .finally(() => {
+                        this.isLoading = false;
                     });
-                    this.$emit("save");
-                });
-        },
-        editCategory() {
-            this.$axios.put(`categories/${this.id}`, this.category)
-                .then(() => {
-                    this.$notify({
-                        title: 'Success',
-                        text: 'Category edited successfully',
-                        icon: 'success'
+            },
+            async validateField(field) {
+                const value = this.category[field];
+                const result = await Validation.validateField(field, value);
+
+                this.errors[field] = result[field].message;
+                return result[field].status;
+            },
+            async validateForm() {
+                const result = await Validation.validateForm(this.category);
+                this.errors = Object.fromEntries(
+                    Object.entries(result.fields).map(([f, v]) => [f, v.message])
+                );
+                return result.valid;
+            },
+            async save() {
+                const isValid = await this.validateForm();
+                if (!isValid) {
+                    return this.$notify({
+                        title: "Validation error",
+                        text: "One or more fields aren't valid, fix them and try again.",
+                        icon: 'error'
                     });
-                    this.$emit("save");
-                });
+                }
+
+                if(this.isEdit) {
+                    return this.editCategory();
+                }
+                this.createCategory();
+            },        
+            createCategory() {
+                this.$axios.post(`categories`, this.category)
+                    .then(() => {
+                        this.$notify({
+                            title: 'Success',
+                            text: 'Category created successfully',
+                            icon: 'success'
+                        });
+                        this.$emit("save");
+                    });
+            },
+            editCategory() {
+                this.$axios.put(`categories/${this.id}`, this.category)
+                    .then(() => {
+                        this.$notify({
+                            title: 'Success',
+                            text: 'Category edited successfully',
+                            icon: 'success'
+                        });
+                        this.$emit("save");
+                    });
+            },
         },
-    },
-    computed: {
-        title() {
-            return this.isEdit ? "Edit Category" : "New Category";
+        computed: {
+            title() {
+                return this.isEdit ? "Edit Category" : "New Category";
+            }
+        },
+        created() {
+            this.getCategoryById();
         }
-    },
-    created() {
-        this.getCategoryById();
-    }
-};
+    };
 </script>

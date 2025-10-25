@@ -16,7 +16,10 @@
                     class="form-control" 
                     placeholder="Saving value"
                     v-model="saving.value"
+                    @blur="validateField('value')"
+                    ref="valueRef"
                 >
+                <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
             </div>
             <div class="col-4">
                 <label>Value status</label>
@@ -45,6 +48,7 @@
 </template>
   
 <script>
+    import { Validation } from '@/helpers/Validation';
     import LoadingComponent from '@/components/global/LoadingComponent.vue';
     export default {
         components: {
@@ -66,16 +70,11 @@
                 saving: {
                     value: 0,
                     is_positive: 1,
-                }
+                },
+                errors: {},
             };
         },
         methods: {
-            save() {
-                if(this.isEdit) {
-                    return this.editSaving();
-                }
-                this.createSaving();
-            },
             getSavingById() {
                 if(!this.isEdit) return;
 
@@ -87,6 +86,35 @@
                     .finally(() => {
                         this.isLoading = false;
                     });
+            },
+            async validateField(field) {
+                const value = this.saving[field];
+                const result = await Validation.validateField(field, value);
+
+                this.errors[field] = result[field].message;
+                return result[field].status;
+            },
+            async validateForm() {
+                const result = await Validation.validateForm(this.saving);
+                this.errors = Object.fromEntries(
+                    Object.entries(result.fields).map(([f, v]) => [f, v.message])
+                );
+                return result.valid;
+            },
+            async save() {
+                const isValid = await this.validateForm();
+                if (!isValid) {
+                    return this.$notify({
+                        title: "Validation error",
+                        text: "One or more fields aren't valid, fix them and try again.",
+                        icon: 'error'
+                    });
+                }
+
+                if(this.isEdit) {
+                    return this.editSaving();
+                }
+                this.createSaving();
             },
             createSaving() {
                 this.$axios.post(`savings`, this.saving)
