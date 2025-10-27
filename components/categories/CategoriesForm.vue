@@ -110,7 +110,7 @@
             async validateForm() {
                 const result = await Validation.validateForm(this.category);
                 this.errors = Object.fromEntries(
-                    Object.entries(result.fields).map(([f, v]) => [f, v.message])
+                    Object.entries(result.fields).map(([key, value]) => [key, value.message])
                 );
                 return result.valid;
             },
