@@ -17,7 +17,10 @@
                         class="form-control" 
                         placeholder="Expense name"
                         v-model="expense.name"
+                        @blur="validateField('name')"
+                        ref="nameRef"
                     >
+                    <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
                 </div>
                 <div class="col-4">
                     <label>Description</label>
@@ -26,7 +29,10 @@
                         class="form-control" 
                         placeholder="Description"
                         v-model="expense.description"
+                        @blur="validateField('description')"
+                        ref="descriptionRef"
                     >
+                    <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
                 </div>
                 <div class="col-2">
                     <label>Parcel number</label>
@@ -35,7 +41,10 @@
                         class="form-control" 
                         placeholder="Parcel number"
                         v-model="expense.parcel_numbers"
+                        @blur="validateField('parcel')"
+                        ref="valueRef"
                     >
+                    <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
                 </div>
                 <div class="col-2">
                     <label>Value</label>
@@ -44,16 +53,21 @@
                         class="form-control" 
                         placeholder="Expense value"
                         v-model="expense.value"
+                        @blur="validateField('value')"
+                        ref="valueRef"
                     >
+                    <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
                 </div>
             </div>
             <div class="row mb-4">
                 <div class="col-4">
                     <label>Payment method</label>
                     <select 
-                        class="form-select form-select mb-3" 
+                        class="form-select form-select" 
                         aria-label="Large select example"
                         v-model="expense.payment_methods_id"
+                        @blur="validateField('paymentMethod')"
+                        ref="valueRef"
                     >
                         <option disabled selected value="">Select the method</option>
                         <option 
@@ -64,13 +78,16 @@
                             {{ option.name }}
                         </option>
                     </select>
+                    <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
                 </div>
                 <div class="col-4">
                     <label>Categories</label>
                     <select 
-                        class="form-select form-select mb-3" 
+                        class="form-select form-select" 
                         aria-label="Large select example"
                         v-model="expense.category_id"
+                        @blur="validateField('category')"
+                        ref="valueRef"
                     >
                         <option disabled selected value="">Select the category</option>
                         <option 
@@ -81,6 +98,7 @@
                             {{ option.name }}
                         </option>
                     </select>
+                    <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
                 </div>
                 <div class="col-4">
                     <label>Date</label>
@@ -105,8 +123,10 @@
 </template>
   
 <script>
+    import { Validation } from '@/helpers/Validation';
     import Dates from "@/helpers/Dates";
     import LoadingComponent from '@/components/global/LoadingComponent.vue';
+
     export default {
         components: {
             LoadingComponent,
@@ -134,7 +154,8 @@
                     value: 0,
                     date: "",
                     category_id: "",
-                }
+                },
+                errors: {},
             };
         },
         methods: {
@@ -150,12 +171,6 @@
                         this.categoriesList = data.data;
                     });
             },
-            save() {
-                if(this.isEdit) {
-                    return this.editExpense();
-                }
-                this.createExpense();
-            },
             getExpenseById() {
                 if(!this.isEdit) return;
 
@@ -168,6 +183,35 @@
                     .finally(() => {
                         this.isLoading = false;
                     });
+            },
+            async validateField(field) {
+                const value = this.expense[field];
+                const result = await Validation.validateField(field, value);
+
+                this.errors[field] = result[field].message;
+                return result[field].status;
+            },
+            async validateForm() {
+                const result = await Validation.validateForm(this.expense);
+                this.errors = Object.fromEntries(
+                    Object.entries(result.fields).map(([key, value]) => [key, value.message])
+                );
+                return result.valid;
+            },
+            async save() {
+                const isValid = await this.validateForm();
+                if (!isValid) {
+                    return this.$notify({
+                        title: "Validation error",
+                        text: "One or more fields aren't valid, fix them and try again.",
+                        icon: 'error'
+                    });
+                }
+
+                if(this.isEdit) {
+                    return this.editExpense();
+                }
+                this.createExpense();
             },
             createExpense() {
                 this.$axios.post(`expenses`, this.expense)

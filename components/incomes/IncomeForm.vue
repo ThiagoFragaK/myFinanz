@@ -13,9 +13,11 @@
                 <div class="col-6">
                     <label>Income source</label>
                     <select 
-                        class="form-select form-select mb-3" 
+                        class="form-select form-select" 
                         aria-label="Large select example"
                         v-model="income.source_id"
+                        @blur="validateField('source')"
+                        ref="sourceRef"
                     >
                         <option disabled selected value="">Select your income</option>
                         <option 
@@ -26,13 +28,16 @@
                             {{ option.name }}
                         </option>
                     </select>
+                    <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
                 </div>
                 <div class="col-6">
                     <label>Income type</label>
                     <select 
-                        class="form-select form-select mb-3" 
+                        class="form-select form-select" 
                         aria-label="Large select example"
                         v-model="income.type_id"
+                        @blur="validateField('type')"
+                        ref="typeRef"
                     >
                         <option disabled selected value="">Select the type</option>
                         <option 
@@ -43,6 +48,7 @@
                             {{ option.name }}
                         </option>
                     </select>
+                    <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
                 </div>
             </div>
             <div class="row">
@@ -53,23 +59,29 @@
                         class="form-control" 
                         placeholder="Income Name"
                         v-model="income.name"
+                        @blur="validateField('name')"
+                        ref="nameRef"
                     >
+                    <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
                 </div>
                 <div class="col-4">
                     <label>Value</label>
-                    <div class="input-group mb-3">
+                    <div class="input-group">
                         <span class="input-group-text">R$</span>
                         <input 
                             type="number" 
                             class="form-control" 
                             placeholder="Income Value"
                             v-model="income.value"
+                            @blur="validateField('value')"
+                            ref="valueRef"
                         >
                     </div>
+                    <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
                 </div>
                 <div class="col-2">
                     <label>Entry day</label>
-                    <div class="input-group mb-3">
+                    <div class="input-group">
                         <input 
                             type="number" 
                             class="form-control" 
@@ -77,8 +89,11 @@
                             max="31"
                             placeholder="Entry day"
                             v-model="income.entry_day"
+                            @blur="validateField('entryDay')"
+                            ref="entryDayRef"
                         >
                     </div>
+                    <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
                 </div>
             </div>
         </div>
@@ -94,6 +109,7 @@
 </template>
   
 <script>
+    import { Validation } from '@/helpers/Validation';
     import LoadingComponent from '@/components/global/LoadingComponent.vue';
     export default {
         components: {
@@ -121,6 +137,7 @@
                 },
                 incomeSourcesList: [],
                 incomeTypesList: [],
+                errors: {},
             };
         },
         methods: {
@@ -155,7 +172,30 @@
                         this.isLoading = false;
                     });
             },
-            save() {
+            async validateField(field) {
+                const value = this.income[field];
+                const result = await Validation.validateField(field, value);
+
+                this.errors[field] = result[field].message;
+                return result[field].status;
+            },
+            async validateForm() {
+                const result = await Validation.validateForm(this.income);
+                this.errors = Object.fromEntries(
+                    Object.entries(result.fields).map(([key, value]) => [key, value.message])
+                );
+                return result.valid;
+            },
+            async save() {
+                const isValid = await this.validateForm();
+                if (!isValid) {
+                    return this.$notify({
+                        title: "Validation error",
+                        text: "One or more fields aren't valid, fix them and try again.",
+                        icon: 'error'
+                    });
+                }
+
                 if(this.isEdit) {
                     return this.editIncome();
                 }
