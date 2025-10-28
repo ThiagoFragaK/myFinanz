@@ -61,5 +61,6 @@ export const rules = {
     parcel: 'required|numeric|min:1|max:24',
     paymentMethod: 'required',
     category: 'required',
+    source: 'required',
     entryDay: 'required|numeric|min:1|max:31',
 }
