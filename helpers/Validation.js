@@ -19,7 +19,7 @@ export const Validation = {
 
         if (result.valid) {
             fieldValidation[fieldName].status = true;
-            fieldValidation[fieldName].message = '';
+            fieldValidation[fieldName].message = "";
         } else {
             fieldValidation[fieldName].status = false;
             fieldValidation[fieldName].message = result.errors[0];
@@ -33,6 +33,8 @@ export const Validation = {
         let isValid = true;
 
         for (const field in formData) {
+            if (!rules[field]) continue;
+            
             const validation = await this.validateField(field, formData[field]);
             results[field] = validation[field];
             if (!validation[field].status) isValid = false;

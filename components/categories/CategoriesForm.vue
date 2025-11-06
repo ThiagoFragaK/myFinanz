@@ -17,6 +17,7 @@
                     placeholder="Category name"
                     v-model="category.name"
                     @blur="validateField('name')"
+                    @input="validateField('name')"
                     ref="nameRef"
                 >
                 <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
@@ -29,9 +30,10 @@
                     placeholder="Category description"
                     v-model="category.description"
                     @blur="validateField('description')"
+                    @input="validateField('description')"
                     ref="descriptionRef"
                 >
-                <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
+                <small v-if="errors.description" class="text-danger">{{ errors.description }}</small>
             </div>
             <div class="col-4">
                 <label>Icon</label>

@@ -44,23 +44,23 @@ defineRule('confirmed', (value, [target], ctx) => {
 })
 
 defineRule('numeric', value => {
-  if (!value || /^[0-9]+$/.test(value)) {
-    return true;
-  }
-  return 'Only numeric values are allowed.';
+    if (!value || /^[0-9]+$/.test(value)) {
+        return true;
+    }
+    return 'Only numeric values are allowed.';
 });
 
 export const rules = {
-    name: 'required|min:3',
-    description: 'required|min:5',
-    type: 'required',
-    limit: 'required|min:1',
-    turnDay: 'required|min:1|max:31',
-    value: 'required|numeric|min:100',
-    number: 'required|numeric|min:1',
-    parcel: 'required|numeric|min:1|max:24',
-    paymentMethod: 'required',
-    category: 'required',
-    source: 'required',
-    entryDay: 'required|numeric|min:1|max:31',
-}
+    name: { required: true, min: 3 },
+    description: { required: true, min: 5 },
+    type: { required: true },
+    limit: { required: true, min: 1 },
+    turnDay: { required: true, min: 1, max: 31 },
+    value: { required: true, numeric: true, min: 100 },
+    number: { required: true, numeric: true, min: 1 },
+    parcel: { required: true, numeric: true, min: 1, max: 24 },
+    paymentMethod: { required: true },
+    category: { required: true },
+    source: { required: true },
+    entryDay: { required: true, numeric: true, min: 1, max: 31 },
+};
