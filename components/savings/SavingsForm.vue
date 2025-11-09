@@ -17,9 +17,10 @@
                     placeholder="Saving value"
                     v-model="saving.value"
                     @blur="validateField('value')"
+                    @input="validateField('value')"
                     ref="valueRef"
                 >
-                <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
+                <small v-if="errors.value" class="text-danger">{{ errors.value }}</small>
             </div>
             <div class="col-4">
                 <label>Value status</label>

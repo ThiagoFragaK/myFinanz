@@ -17,6 +17,7 @@
                     placeholder="Income Source Name"
                     v-model="incomeSource.name"
                     @blur="validateField('name')"
+                    @input="validateField('name')"
                     ref="nameRef"
                 >
                 <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>

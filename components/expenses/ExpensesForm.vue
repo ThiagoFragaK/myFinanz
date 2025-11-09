@@ -18,6 +18,7 @@
                         placeholder="Expense name"
                         v-model="expense.name"
                         @blur="validateField('name')"
+                        @input="validateField('name')"
                         ref="nameRef"
                     >
                     <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
@@ -30,9 +31,10 @@
                         placeholder="Description"
                         v-model="expense.description"
                         @blur="validateField('description')"
+                        @input="validateField('description')"
                         ref="descriptionRef"
                     >
-                    <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
+                    <small v-if="errors.description" class="text-danger">{{ errors.description }}</small>
                 </div>
                 <div class="col-2">
                     <label>Parcel number</label>
@@ -44,7 +46,7 @@
                         @blur="validateField('parcel')"
                         ref="valueRef"
                     >
-                    <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
+                    <small v-if="errors.parcel_numbers" class="text-danger">{{ errors.parcel_numbers }}</small>
                 </div>
                 <div class="col-2">
                     <label>Value</label>
@@ -54,9 +56,10 @@
                         placeholder="Expense value"
                         v-model="expense.value"
                         @blur="validateField('value')"
+                        @input="validateField('value')"
                         ref="valueRef"
                     >
-                    <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
+                    <small v-if="errors.value" class="text-danger">{{ errors.value }}</small>
                 </div>
             </div>
             <div class="row mb-4">
@@ -66,7 +69,7 @@
                         class="form-select form-select" 
                         aria-label="Large select example"
                         v-model="expense.payment_methods_id"
-                        @blur="validateField('paymentMethod')"
+                        @blur="validateField('payment_methods_id')"
                         ref="valueRef"
                     >
                         <option disabled selected value="">Select the method</option>
@@ -78,7 +81,7 @@
                             {{ option.name }}
                         </option>
                     </select>
-                    <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
+                    <small v-if="errors.payment_methods_id" class="text-danger">{{ errors.payment_methods_id }}</small>
                 </div>
                 <div class="col-4">
                     <label>Categories</label>
@@ -86,7 +89,7 @@
                         class="form-select form-select" 
                         aria-label="Large select example"
                         v-model="expense.category_id"
-                        @blur="validateField('category')"
+                        @blur="validateField('category_id')"
                         ref="valueRef"
                     >
                         <option disabled selected value="">Select the category</option>
@@ -98,7 +101,7 @@
                             {{ option.name }}
                         </option>
                     </select>
-                    <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
+                    <small v-if="errors.category_id" class="text-danger">{{ errors.category_id }}</small>
                 </div>
                 <div class="col-4">
                     <label>Date</label>

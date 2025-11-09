@@ -1,9 +1,18 @@
 import { defineRule } from 'vee-validate'
 
 defineRule('required', value => {
-    if (!value || String(value).trim() === '') {
-        return "Field is required."
+    if (value === null || value === undefined) {
+        return 'Field is required.'
     }
+
+    if (typeof value === 'string' && value.trim() === '') {
+        return 'Field is required.'
+    }
+
+    if (Array.isArray(value) && value.length === 0) {
+        return 'Field is required.'
+    }
+
     return true
 })
 
@@ -53,14 +62,15 @@ defineRule('numeric', value => {
 export const rules = {
     name: { required: true, min: 3 },
     description: { required: true, min: 5 },
+    type_id: { required: true },
     type: { required: true },
     limit: { required: true, min: 1 },
     turnDay: { required: true, min: 1, max: 31 },
     value: { required: true, numeric: true, min: 100 },
     number: { required: true, numeric: true, min: 1 },
     parcel: { required: true, numeric: true, min: 1, max: 24 },
-    paymentMethod: { required: true },
-    category: { required: true },
-    source: { required: true },
-    entryDay: { required: true, numeric: true, min: 1, max: 31 },
+    payment_methods_id: { required: true },
+    category_id: { required: true },
+    source_id: { required: true },
+    entry_day: { required: true, numeric: true, min: 1, max: 31 },
 };

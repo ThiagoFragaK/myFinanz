@@ -17,6 +17,7 @@
                     placeholder="Name"
                     v-model="paymentMethod.name"
                     @blur="validateField('name')"
+                    @input="validateField('name')"
                     ref="nameRef"
                 >
                 <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
@@ -39,19 +40,20 @@
                         {{ option.name }}
                     </option>
                 </select>
-                <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
+                <small v-if="errors.type" class="text-danger">{{ errors.type }}</small>
             </div>
             <div class="col-2">
                 <label>Limit</label>
                 <input 
                     type="number" 
-                    class="form-control" 
+                    class="form-control"
                     placeholder="Card limit"
                     v-model="paymentMethod.limit"
                     @blur="validateField('limit')"
+                    @input="validateField('limit')"
                     ref="limitRef"
                 >
-                <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
+                <small v-if="errors.limit" class="text-danger">{{ errors.limit }}</small>
             </div>
             <div class="col-2">
                 <label>Turn day</label>
@@ -60,10 +62,11 @@
                     class="form-control" 
                     placeholder="Card turn day"
                     v-model="paymentMethod.turn_day"
-                    @blur="validateField('turnDay')"
+                    @blur="validateField('turn_day')"
+                    @input="validateField('turn_day')"
                     ref="turnDayRef"
                 >
-                <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
+                <small v-if="errors.turn_day" class="text-danger">{{ errors.turn_day }}</small>
             </div>
         </div>
         <button 

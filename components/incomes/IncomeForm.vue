@@ -16,7 +16,7 @@
                         class="form-select form-select" 
                         aria-label="Large select example"
                         v-model="income.source_id"
-                        @blur="validateField('source')"
+                        @blur="validateField('source_id')"
                         ref="sourceRef"
                     >
                         <option disabled selected value="">Select your income</option>
@@ -28,7 +28,7 @@
                             {{ option.name }}
                         </option>
                     </select>
-                    <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
+                    <small v-if="errors.source_id" class="text-danger">{{ errors.source_id }}</small>
                 </div>
                 <div class="col-6">
                     <label>Income type</label>
@@ -36,7 +36,7 @@
                         class="form-select form-select" 
                         aria-label="Large select example"
                         v-model="income.type_id"
-                        @blur="validateField('type')"
+                        @blur="validateField('type_id')"
                         ref="typeRef"
                     >
                         <option disabled selected value="">Select the type</option>
@@ -48,7 +48,7 @@
                             {{ option.name }}
                         </option>
                     </select>
-                    <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
+                    <small v-if="errors.type_id" class="text-danger">{{ errors.type_id }}</small>
                 </div>
             </div>
             <div class="row">
@@ -60,6 +60,7 @@
                         placeholder="Income Name"
                         v-model="income.name"
                         @blur="validateField('name')"
+                        @input="validateField('name')"
                         ref="nameRef"
                     >
                     <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
@@ -74,10 +75,11 @@
                             placeholder="Income Value"
                             v-model="income.value"
                             @blur="validateField('value')"
+                            @input="validateField('value')"
                             ref="valueRef"
                         >
                     </div>
-                    <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
+                    <small v-if="errors.value" class="text-danger">{{ errors.value }}</small>
                 </div>
                 <div class="col-2">
                     <label>Entry day</label>
@@ -89,11 +91,12 @@
                             max="31"
                             placeholder="Entry day"
                             v-model="income.entry_day"
-                            @blur="validateField('entryDay')"
+                            @blur="validateField('entry_day')"
+                            @input="validateField('entry_day')"
                             ref="entryDayRef"
                         >
                     </div>
-                    <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
+                    <small v-if="errors.entry_day" class="text-danger">{{ errors.entry_day }}</small>
                 </div>
             </div>
         </div>

@@ -25,9 +25,12 @@
                     <div class="col-6">
                         <label>Income source</label>
                         <select 
-                            class="form-select form-select mb-3" 
+                            class="form-select form-select" 
                             aria-label="Large select example"
                             v-model="income.source_id"
+                            @blur="validateField('source_id')"
+                            @input="validateField('source_id')"
+                            ref="sourceRef"
                         >
                             <option disabled selected value="">Select your income</option>
                             <option 
@@ -38,6 +41,7 @@
                                 {{ option.name }}
                             </option>
                         </select>
+                        <small v-if="errors.source_id" class="text-danger">{{ errors.source_id }}</small>
                     </div>
                     <div class="col-6">
                         <label>Income type</label>
@@ -99,6 +103,7 @@
 </template>
 
 <script>
+    import { Validation } from '@/helpers/Validation';
     import ModalComponent from '@/components/global/ModalComponent.vue';    
     export default {
         components: {
@@ -115,6 +120,7 @@
                 source_id: "",
                 type_id: "",
             },
+            errors: {},
         }),
         computed: {
         },
@@ -147,7 +153,30 @@
                     type_id: "",
                 }
             },
-            save() {
+            async validateField(field) {
+                const value = this.income[field];
+                const result = await Validation.validateField(field, value);
+
+                this.errors[field] = result[field].message;
+                return result[field].status;
+            },
+            async validateForm() {
+                const result = await Validation.validateForm(this.income);
+                this.errors = Object.fromEntries(
+                    Object.entries(result.fields).map(([key, value]) => [key, value.message])
+                );
+                return result.valid;
+            },
+            async save() {
+                const isValid = await this.validateForm();
+                if (!isValid) {
+                    return this.$notify({
+                        title: "Validation error",
+                        text: "One or more fields aren't valid, fix them and try again.",
+                        icon: 'error'
+                    });
+                }
+
                 this.$axios.post(`incomes`, this.income)
                     .then(() => {
                         this.$notify({
