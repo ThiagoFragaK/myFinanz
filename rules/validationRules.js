@@ -24,16 +24,32 @@ defineRule('email', value => {
 })
 
 defineRule('min', (value, [min]) => {
-    if (value && value.length < min) {
+    if (!isNaN(value)) {
+        if (Number(value) < Number(min)) {
+            return `Minimum value is ${min}.`
+        }
+        return true
+    }
+
+    if (typeof value === 'string' && value.length < min) {
         return `Minimum of ${min} characters.`
     }
+
     return true
 })
 
 defineRule('max', (value, [max]) => {
-    if (value && value.length > max) {
+    if (!isNaN(value)) {
+        if (Number(value) > Number(max)) {
+            return `Maximum value is ${max}.`
+        }
+        return true
+    }
+
+    if (typeof value === 'string' && value.length > max) {
         return `Maximum of ${max} characters.`
     }
+
     return true
 })
 
@@ -53,9 +69,12 @@ defineRule('confirmed', (value, [target], ctx) => {
 })
 
 defineRule('numeric', value => {
-    if (!value || /^[0-9]+$/.test(value)) {
+    const normalized = String(value).trim().replace(',', '.');
+    const number = Number(normalized);
+    if (!isNaN(number) && isFinite(number)) {
         return true;
     }
+
     return 'Only numeric values are allowed.';
 });
 
@@ -66,7 +85,7 @@ export const rules = {
     type: { required: true },
     limit: { required: true, min: 1 },
     turnDay: { required: true, min: 1, max: 31 },
-    value: { required: true, numeric: true, min: 100 },
+    value: { required: true, numeric: true, min: 1 },
     number: { required: true, numeric: true, min: 1 },
     parcel: { required: true, numeric: true, min: 1, max: 24 },
     payment_methods_id: { required: true },
