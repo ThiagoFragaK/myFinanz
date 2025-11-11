@@ -29,7 +29,10 @@
                             class="form-control" 
                             placeholder="Expense name"
                             v-model="expense.name"
+                            @blur="validateField('name')"
+                            @input="validateField('name')"
                         >
+                        <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
                     </div>
                     <div class="col-6">
                         <label>Description</label>
@@ -38,18 +41,27 @@
                             class="form-control" 
                             placeholder="Description"
                             v-model="expense.description"
+                            @blur="validateField('description')"
+                            @input="validateField('description')"
                         >
+                        <small v-if="errors.description" class="text-danger">{{ errors.description }}</small>
                     </div>
                 </div>
                 <div class="row mt-4">
                     <div class="col-4">
                         <label>Value</label>
-                        <input 
-                            type="number" 
-                            class="form-control" 
-                            placeholder="Expense value"
-                            v-model="expense.value"
-                        >
+                        <div class="input-group">
+                            <span class="input-group-text">R$</span>
+                            <input 
+                                type="number" 
+                                class="form-control" 
+                                placeholder="Expense value"
+                                v-model="expense.value"
+                                @blur="validateField('value')"
+                                @input="validateField('value')"
+                            >
+                        </div>
+                        <small v-if="errors.value" class="text-danger">{{ errors.value }}</small>
                     </div>
                     <div class="col-3">
                         <label>Parcel number</label>
@@ -58,7 +70,10 @@
                             class="form-control" 
                             placeholder="Parcel number"
                             v-model="expense.parcel_numbers"
+                            @blur="validateField('parcel_numbers')"
+                            @input="validateField('parcel_numbers')"
                         >
+                        <small v-if="errors.parcel_numbers" class="text-danger">{{ errors.parcel_numbers }}</small>
                     </div>
                     <div class="col-5">
                         <label>Date</label>
@@ -74,9 +89,11 @@
                     <div class="col-6">
                         <label>Payment method</label>
                         <select 
-                            class="form-select form-select mb-3" 
+                            class="form-select form-select"
                             aria-label="Large select example"
                             v-model="expense.payment_methods_id"
+                            @blur="validateField('payment_methods_id')"
+                            @input="validateField('payment_methods_id')"
                         >
                             <option disabled selected value="">Select the method</option>
                             <option 
@@ -87,13 +104,16 @@
                                 {{ option.name }}
                             </option>
                         </select>
+                        <small v-if="errors.payment_methods_id" class="text-danger">{{ errors.payment_methods_id }}</small>
                     </div>
                     <div class="col-6">
                         <label>Categories</label>
                         <select 
-                            class="form-select form-select mb-3" 
+                            class="form-select form-select"
                             aria-label="Large select example"
                             v-model="expense.category_id"
+                            @blur="validateField('category_id')"
+                            @input="validateField('category_id')"
                         >
                             <option disabled selected value="">Select the category</option>
                             <option 
@@ -104,6 +124,7 @@
                                 {{ option.name }}
                             </option>
                         </select>
+                        <small v-if="errors.category_id" class="text-danger">{{ errors.category_id }}</small>
                     </div>
                 </div>
             </div>
@@ -112,6 +133,7 @@
 </template>
 
 <script>
+    import { Validation } from '@/helpers/Validation';
     import ModalComponent from '@/components/global/ModalComponent.vue';    
     export default {
         components: {
@@ -130,6 +152,7 @@
                 date: "",
                 category_id: "",
             },
+            errors: {},
         }),
         computed: {
         },
@@ -164,7 +187,32 @@
                     category_id: "",
                 }
             },
-            save() {
+            async validateField(field) {
+                console.log()
+                const value = this.expense[field];
+                const result = await Validation.validateField(field, value);
+
+                this.errors[field] = result[field].message;
+                return result[field].status;
+            },
+            async validateForm() {
+                const result = await Validation.validateForm(this.expense);
+                this.errors = Object.fromEntries(
+                    Object.entries(result.fields).map(([key, value]) => [key, value.message])
+                );
+                return result.valid;
+            },
+            async save() {
+                console.log("Attempt to save")
+                const isValid = await this.validateForm();
+                if (!isValid) {
+                    return this.$notify({
+                        title: "Validation error",
+                        text: "One or more fields aren't valid, fix them and try again.",
+                        icon: 'error'
+                    });
+                }
+
                 this.isLoading = true;
                 this.$axios.post(`expenses`, this.expense)
                     .then(() => {
