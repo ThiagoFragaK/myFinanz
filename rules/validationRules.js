@@ -87,7 +87,7 @@ export const rules = {
     turnDay: { required: true, min: 1, max: 31 },
     value: { required: true, numeric: true, min: 1 },
     number: { required: true, numeric: true, min: 1 },
-    parcel: { required: true, numeric: true, min: 1, max: 24 },
+    parcel_numbers: { required: true, numeric: true, min: 1, max: 24 },
     payment_methods_id: { required: true },
     category_id: { required: true },
     source_id: { required: true },

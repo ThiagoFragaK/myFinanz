@@ -102,7 +102,7 @@
         </div>
         <button 
             type="button" 
-            class="btn btn-primary btn-sm"
+            class="btn btn-primary btn-sm mt-4"
             :disabled="isLoading"
             @click="save"
         >

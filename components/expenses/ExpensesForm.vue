@@ -43,7 +43,8 @@
                         class="form-control" 
                         placeholder="Parcel number"
                         v-model="expense.parcel_numbers"
-                        @blur="validateField('parcel')"
+                        @blur="validateField('parcel_numbers')"
+                        @input="validateField('parcel_numbers')"
                         ref="valueRef"
                     >
                     <small v-if="errors.parcel_numbers" class="text-danger">{{ errors.parcel_numbers }}</small>
