@@ -46,9 +46,11 @@
                     <div class="col-6">
                         <label>Income type</label>
                         <select 
-                            class="form-select form-select mb-3" 
+                            class="form-select form-select" 
                             aria-label="Large select example"
                             v-model="income.type_id"
+                            @blur="validateField('type_id')"
+                            @input="validateField('type_id')"
                         >
                             <option disabled selected value="">Select the type</option>
                             <option 
@@ -59,6 +61,7 @@
                                 {{ option.name }}
                             </option>
                         </select>
+                        <small v-if="errors.type_id" class="text-danger">{{ errors.type_id }}</small>
                     </div>
                 </div>
                 <div class="row">
@@ -69,23 +72,29 @@
                             class="form-control" 
                             placeholder="Income Name"
                             v-model="income.name"
+                            @blur="validateField('name')"
+                            @input="validateField('name')"
                         >
+                        <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
                     </div>
                     <div class="col-5">
                         <label>Value</label>
-                        <div class="input-group mb-3">
+                        <div class="input-group">
                             <span class="input-group-text">R$</span>
                             <input 
                                 type="number" 
                                 class="form-control" 
                                 placeholder="Income Value"
                                 v-model="income.value"
+                                @blur="validateField('value')"
+                                @input="validateField('value')"
                             >
                         </div>
+                        <small v-if="errors.value" class="text-danger">{{ errors.value }}</small>
                     </div>
                     <div class="col-3">
                         <label>Entry day</label>
-                        <div class="input-group mb-3">
+                        <div class="input-group">
                             <input 
                                 type="number" 
                                 class="form-control" 
@@ -93,8 +102,11 @@
                                 max="31"
                                 placeholder="Entry day"
                                 v-model="income.entry_day"
+                                @blur="validateField('entry_day')"
+                                @input="validateField('entry_day')"
                             >
                         </div>
+                        <small v-if="errors.entry_day" class="text-danger">{{ errors.entry_day }}</small>
                     </div>
                 </div>
             </div>
