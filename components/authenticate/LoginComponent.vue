@@ -11,7 +11,7 @@
                         type="email"
                         class="form-control bg-light border-start-0 ps-0"
                         :class="{ 'is-invalid': errors.email }"
-                        placeholder="seu@email.com"
+                        placeholder="your@email.com"
                         v-model="form.email"
                         @blur="validateField('email')"
                         @input="validateField('email')"
