@@ -37,11 +37,20 @@ export const useAuthStore = defineStore('auth', {
             }
         },
 
-        logout() {
-            this.token = null;
-            this.user = null;
-            if (process.client) {
-                localStorage.removeItem('token');
+        async logout() {
+            const { $axios } = useNuxtApp();
+            try {
+                if (this.token) {
+                    await $axios.post('/logout');
+                }
+            } catch (error) {
+                console.error('Logout error:', error);
+            } finally {
+                this.token = null;
+                this.user = null;
+                if (process.client) {
+                    localStorage.removeItem('token');
+                }
             }
         }
     }

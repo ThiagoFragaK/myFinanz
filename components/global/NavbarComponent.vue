@@ -42,6 +42,8 @@
 
 <script>
     import TabsComponent from '@/components/global/TabsComponent.vue';
+    import { useAuthStore } from '@/stores/auth';
+    
     export default {
         props: {
             isAuth: {
@@ -68,6 +70,15 @@
             };
         },
         methods: {
+            async redirectToPage(page) {
+                if (page === 'logout') {
+                    const authStore = useAuthStore();
+                    await authStore.logout();
+                    this.$router.push('/login');
+                } else {
+                    this.$router.push(page);
+                }
+            },
             redirectToPage(page) {
                 this.$router.push(page);
             },
