@@ -5,6 +5,9 @@ export const useAuthStore = defineStore('auth', {
         user: null,
         token: null,
     }),
+    getters: {
+        isAuthenticated: (state) => !!state.token,
+    },
     actions: {
         async login(email, password) {
             const { $axios } = useNuxtApp();
@@ -50,6 +53,15 @@ export const useAuthStore = defineStore('auth', {
                 this.user = null;
                 if (process.client) {
                     localStorage.removeItem('token');
+                }
+            }
+        },
+
+        initializeAuth() {
+            if (process.client) {
+                const token = localStorage.getItem('token');
+                if (token) {
+                    this.token = token;
                 }
             }
         }
