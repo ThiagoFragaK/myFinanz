@@ -60,6 +60,7 @@
 <script>
     import Lucide from '@/components/icons/Lucide.vue';
     import { Validation } from '@/helpers/Validation';
+    import { useAuthStore } from '@/stores/auth';
 
     export default {
         name: "LoginComponent",
@@ -106,11 +107,27 @@
                 }
 
                 this.isLoading = true;
-                // Simulate API call
-                console.log('Login submitted:', this.form);
-                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                const authStore = useAuthStore();
+                const result = await authStore.login(this.form.email, this.form.password);
+
                 this.isLoading = false;
-                // Handle login logic here
+
+                if (result.success) {
+                    this.$notify({
+                        title: "Success",
+                        text: "Login successful!",
+                        icon: 'success'
+                    });
+                    // Redirect to dashboard or home
+                    // navigateTo('/dashboard'); 
+                } else {
+                    this.$notify({
+                        title: "Login failed",
+                        text: result.message || "Invalid credentials",
+                        icon: 'error'
+                    });
+                }
             }
         }
     }
