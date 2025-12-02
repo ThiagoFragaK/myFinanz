@@ -79,9 +79,6 @@
                     this.$router.push(page);
                 }
             },
-            redirectToPage(page) {
-                this.$router.push(page);
-            },
         }
     }
 </script>
