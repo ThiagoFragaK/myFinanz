@@ -57,11 +57,23 @@ export const useAuthStore = defineStore('auth', {
             }
         },
 
-        initializeAuth() {
+        async initializeAuth() {
             if (process.client) {
                 const token = localStorage.getItem('token');
                 if (token) {
                     this.token = token;
+
+                    if (!this.user) {
+                        try {
+                            const { $axios } = useNuxtApp();
+                            const response = await $axios.get('/user');
+                            this.user = response.data;
+                        } catch (error) {
+                            console.error('Failed to fetch user data:', error);
+                            this.token = null;
+                            localStorage.removeItem('token');
+                        }
+                    }
                 }
             }
         }

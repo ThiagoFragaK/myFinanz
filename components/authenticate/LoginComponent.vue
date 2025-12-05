@@ -119,8 +119,7 @@
                         text: "Login successful!",
                         icon: 'success'
                     });
-                    // Redirect to dashboard or home
-                    // navigateTo('/dashboard'); 
+                    this.$router.push("/");
                 } else {
                     this.$notify({
                         title: "Login failed",
