@@ -92,4 +92,6 @@ export const rules = {
     category_id: { required: true },
     source_id: { required: true },
     entry_day: { required: true, numeric: true, min: 1, max: 31 },
+    email: { required: true, email: true },
+    password: { required: true },
 };

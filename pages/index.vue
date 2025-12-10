@@ -2,11 +2,10 @@
     <HomeComponent />
 </template>
 
-<script>
+<script setup>
     import HomeComponent from '@/components/home/HomeComponent.vue';
-    export default {
-        components: {
-            HomeComponent,
-        }
-    }
+    
+    definePageMeta({
+        middleware: ['auth']
+    });
 </script>

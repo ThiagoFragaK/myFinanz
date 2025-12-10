@@ -17,10 +17,20 @@
                 </NuxtLink>
             </div>
         </div>
-        <div class="col-6 mt-4">
+        <div v-if="!isAuth" class="col-6 mt-4">
             <div class="d-flex justify-content-end">
                 <TabsComponent
                     :tabs="tabs"
+                    color="primary"
+                    @selected="redirectToPage"
+                    ref="TabsComponent"
+                />
+            </div>
+        </div>
+        <div v-else class="col-6 mt-4">
+            <div class="d-flex justify-content-end">
+                <TabsComponent
+                    :tabs="loginTabs"
                     color="primary"
                     @selected="redirectToPage"
                     ref="TabsComponent"
@@ -31,8 +41,17 @@
 </template>
 
 <script>
-    import TabsComponent from './TabsComponent.vue';
+    import TabsComponent from '@/components/global/TabsComponent.vue';
+    import { useAuthStore } from '@/stores/auth';
+    
     export default {
+        props: {
+            isAuth: {
+                type: Boolean,
+                required: false,
+                default: false,
+            },
+        },
         components: {
             TabsComponent
         },
@@ -43,12 +62,22 @@
                     // { name: "budget", label: "Budget" },
                     // { name: "reports", label: "Reports" },
                     { name: "settings", label: "Settings" },
+                    { name: "logout", label: "Logout" },
+                ],
+                loginTabs: [
+                    { name: "/login", label: "Login" },
                 ],
             };
         },
         methods: {
-            redirectToPage(page) {
-                this.$router.push(page);
+            async redirectToPage(page) {
+                if (page === 'logout') {
+                    const authStore = useAuthStore();
+                    await authStore.logout();
+                    this.$router.push('/login');
+                } else {
+                    this.$router.push(page);
+                }
             },
         }
     }

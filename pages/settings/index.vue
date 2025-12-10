@@ -2,11 +2,10 @@
     <SettingsComponent />
 </template>
 
-<script>
+<script setup>
     import SettingsComponent from '@/components/settings/SettingsComponent.vue';
-    export default {
-        components: {
-            SettingsComponent,
-        }
-    }
+    
+    definePageMeta({
+        middleware: ['auth']
+    });
 </script>

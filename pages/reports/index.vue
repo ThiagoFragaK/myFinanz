@@ -2,11 +2,10 @@
     <ReportsComponent />
 </template>
 
-<script>
+<script setup>
     import ReportsComponent from '@/components/reports/ReportsComponent.vue';
-    export default {
-        components: {
-            ReportsComponent,
-        }
-    }
+    
+    definePageMeta({
+        middleware: ['auth']
+    });
 </script>
