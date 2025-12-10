@@ -1,48 +1,43 @@
 <template>
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-12">
-                <h2 class="mb-4">User Settings</h2>
-            </div>
-        </div>
-
-        <!-- Update Password Section -->
-        <div class="row mb-5">
-            <div class="col-md-8 col-lg-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="mb-0">Update Password</h5>
-                    </div>
-                    <div class="card-body">
+    <div class="container my-5">
+        <div class="card border-success bg-transparent rounded-3">
+            <div class="card-body">
+                <div class="row">
+                    <!-- Update Password Section -->
+                    <div class="col-md-6 mb-4">
+                        <h5 class="mb-3">Update Password</h5>
                         <form @submit.prevent="updatePassword">
                             <div class="mb-3">
-                                <label for="currentPassword" class="form-label">Current Password</label>
+                                <label for="currentPassword">Current Password</label>
                                 <input
                                     type="password"
                                     class="form-control"
                                     id="currentPassword"
+                                    placeholder="Current password"
                                     v-model="passwordForm.currentPassword"
                                     required
                                 />
                             </div>
                             <div class="mb-3">
-                                <label for="newPassword" class="form-label">New Password</label>
+                                <label for="newPassword">New Password</label>
                                 <input
                                     type="password"
                                     class="form-control"
                                     id="newPassword"
+                                    placeholder="New password"
                                     v-model="passwordForm.newPassword"
                                     required
                                     minlength="8"
                                 />
-                                <div class="form-text">Password must be at least 8 characters long.</div>
+                                <small class="text-muted">Password must be at least 8 characters long.</small>
                             </div>
                             <div class="mb-3">
-                                <label for="confirmPassword" class="form-label">Confirm New Password</label>
+                                <label for="confirmPassword">Confirm New Password</label>
                                 <input
                                     type="password"
                                     class="form-control"
                                     id="confirmPassword"
+                                    placeholder="Confirm new password"
                                     v-model="passwordForm.confirmPassword"
                                     required
                                 />
@@ -53,27 +48,19 @@
                             <div v-if="passwordSuccess" class="alert alert-success" role="alert">
                                 {{ passwordSuccess }}
                             </div>
-                            <button type="submit" class="btn btn-primary" :disabled="isPasswordLoading">
+                            <button type="submit" class="btn btn-primary btn-sm" :disabled="isPasswordLoading">
                                 <span v-if="isPasswordLoading" class="spinner-border spinner-border-sm me-2"></span>
                                 Update Password
                             </button>
                         </form>
                     </div>
-                </div>
-            </div>
-        </div>
 
-        <!-- Language and Currency Settings -->
-        <div class="row">
-            <div class="col-md-8 col-lg-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="mb-0">Preferences</h5>
-                    </div>
-                    <div class="card-body">
+                    <!-- Language and Currency Settings -->
+                    <div class="col-md-6 mb-4">
+                        <h5 class="mb-3">Preferences</h5>
                         <form @submit.prevent="updateSettings">
                             <div class="mb-3">
-                                <label for="language" class="form-label">Language</label>
+                                <label for="language">Language</label>
                                 <select
                                     class="form-select"
                                     id="language"
@@ -87,7 +74,7 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="currency" class="form-label">Currency</label>
+                                <label for="currency">Currency</label>
                                 <select
                                     class="form-select"
                                     id="currency"
@@ -106,7 +93,7 @@
                             <div v-if="settingsSuccess" class="alert alert-success" role="alert">
                                 {{ settingsSuccess }}
                             </div>
-                            <button type="submit" class="btn btn-primary" :disabled="isSettingsLoading">
+                            <button type="submit" class="btn btn-primary btn-sm" :disabled="isSettingsLoading">
                                 <span v-if="isSettingsLoading" class="spinner-border spinner-border-sm me-2"></span>
                                 Save Preferences
                             </button>
