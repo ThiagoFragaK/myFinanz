@@ -39,9 +39,14 @@
     import NumbersFormatter from "@/helpers/Numbers";
     import DatesFormatter from "@/helpers/Dates";
     import LoadingComponent from "@/components/global/LoadingComponent.vue";
+    import { useAuthStore } from '@/stores/auth';
     export default {
         components: {
             LoadingComponent,
+        },
+        setup() {
+            const authStore = useAuthStore();
+            return { authStore };
         },
         data: () => ({
             isLoading: true,
@@ -55,7 +60,7 @@
                         this.expenses = data.data.map(item => {
                             return {
                                 "name": item.name,
-                                "value": NumbersFormatter.formatCurrencyBR(item.value),
+                                "value": NumbersFormatter.formatCurrency(item.value, this.authStore.currency),
                                 "date": DatesFormatter.getFormatedDate(item.date, "dd/MM"),
                             }
                         });

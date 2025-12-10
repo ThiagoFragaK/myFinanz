@@ -59,6 +59,7 @@
             return {
                 tabs: [
                     { name: "/", label: "Home" },
+                    { name: "/user", label: "User" },
                     // { name: "budget", label: "Budget" },
                     // { name: "reports", label: "Reports" },
                     { name: "settings", label: "Settings" },

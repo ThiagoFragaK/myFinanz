@@ -14,10 +14,22 @@
 
 <script>
 import LoadingComponent from '@/components/global/LoadingComponent.vue';
+import { useAuthStore } from '@/stores/auth';
+
+const currencyConfig = {
+    BRL: { locale: 'pt-BR', currency: 'BRL' },
+    EUR: { locale: 'de-DE', currency: 'EUR' },
+    USD: { locale: 'en-US', currency: 'USD' },
+    ARS: { locale: 'es-AR', currency: 'ARS' },
+};
 
 export default {
     name: "CategoriesGraph",
     components: { LoadingComponent },
+    setup() {
+        const authStore = useAuthStore();
+        return { authStore };
+    },
     data: () => ({
         isLoading: true,
         dataList: [],
@@ -36,10 +48,13 @@ export default {
             },
             dataLabels: {
                 enabled: true,
-                formatter: value => new Intl.NumberFormat('pt-BR', {
-                    style: 'currency',
-                    currency: 'BRL'
-                }).format(value),
+                formatter: (value) => {
+                    const config = currencyConfig[this.authStore.currency] || currencyConfig.BRL;
+                    return new Intl.NumberFormat(config.locale, {
+                        style: 'currency',
+                        currency: config.currency
+                    }).format(value);
+                },
                 style: {
                     fontSize: '12px',
                     fontWeight: 'bold',
@@ -61,10 +76,13 @@ export default {
             tooltip: {
                 theme: 'light',
                 y: {
-                    formatter: value => new Intl.NumberFormat('pt-BR', {
-                        style: 'currency',
-                        currency: 'BRL'
-                    }).format(value)
+                    formatter: (value) => {
+                        const config = currencyConfig[this.authStore.currency] || currencyConfig.BRL;
+                        return new Intl.NumberFormat(config.locale, {
+                            style: 'currency',
+                            currency: config.currency
+                        }).format(value);
+                    }
                 }
             }
         },

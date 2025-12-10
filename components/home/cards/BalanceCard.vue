@@ -75,11 +75,16 @@
     import LoadingComponent from "@/components/global/LoadingComponent.vue";
     import ExpenseModal from "@/components/home/modals/ExpenseModal.vue";
     import IncomeModal from "@/components/home/modals/IncomeModal.vue";
+    import { useAuthStore } from '@/stores/auth';
 
     export default {
         components: {
             IncomeModal,
             ExpenseModal,
+        },
+        setup() {
+            const authStore = useAuthStore();
+            return { authStore };
         },
         data: () => ({
             isLoading: true,
@@ -94,9 +99,9 @@
                 this.isLoading = true;
                 this.$axios.get(`dashboard/balance`)
                     .then(({ data }) => {
-                        this.balance.total = NumbersFormatter.formatCurrencyBR(data.data.net_balance) ?? 0;
-                        this.balance.expenses = NumbersFormatter.formatCurrencyBR(data.data.total_expense) ?? 0;
-                        this.balance.income = NumbersFormatter.formatCurrencyBR(data.data.total_income) ?? 0;
+                        this.balance.total = NumbersFormatter.formatCurrency(data.data.net_balance, this.authStore.currency) ?? 0;
+                        this.balance.expenses = NumbersFormatter.formatCurrency(data.data.total_expense, this.authStore.currency) ?? 0;
+                        this.balance.income = NumbersFormatter.formatCurrency(data.data.total_income, this.authStore.currency) ?? 0;
                     })
                     .finally(() => {
                         this.isLoading = false;
