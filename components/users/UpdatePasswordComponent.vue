@@ -10,8 +10,11 @@
                     id="currentPassword"
                     placeholder="Current password"
                     v-model="passwordForm.currentPassword"
+                    @blur="validateField('currentPassword')"
+                    @input="validateField('currentPassword')"
                     required
                 />
+                <small v-if="errors.currentPassword" class="text-danger">{{ errors.currentPassword }}</small>
             </div>
             <div class="mb-3">
                 <label for="newPassword">New Password</label>
@@ -21,10 +24,13 @@
                     id="newPassword"
                     placeholder="New password"
                     v-model="passwordForm.newPassword"
+                    @blur="validateField('newPassword')"
+                    @input="validateField('newPassword')"
                     required
                     minlength="8"
                 />
                 <small class="text-muted">Password must be at least 8 characters long.</small>
+                <small v-if="errors.newPassword" class="text-danger d-block">{{ errors.newPassword }}</small>
             </div>
             <div class="mb-3">
                 <label for="confirmPassword">Confirm New Password</label>
@@ -34,8 +40,11 @@
                     id="confirmPassword"
                     placeholder="Confirm new password"
                     v-model="passwordForm.confirmPassword"
+                    @blur="validateField('confirmPassword')"
+                    @input="validateField('confirmPassword')"
                     required
                 />
+                <small v-if="errors.confirmPassword" class="text-danger">{{ errors.confirmPassword }}</small>
             </div>
             <button type="submit" class="btn btn-primary btn-sm" :disabled="isPasswordLoading">
                 <span v-if="isPasswordLoading" class="spinner-border spinner-border-sm me-2"></span>
@@ -46,6 +55,8 @@
 </template>
 
 <script>
+import { Validation } from '@/helpers/Validation';
+
 export default {
     name: 'UpdatePasswordComponent',
     data() {
@@ -55,11 +66,35 @@ export default {
                 newPassword: '',
                 confirmPassword: ''
             },
-            isPasswordLoading: false
+            isPasswordLoading: false,
+            errors: {}
         };
     },
     methods: {
+        async validateField(field) {
+            const value = this.passwordForm[field];
+            const result = await Validation.validateField(field, value);
+
+            this.errors[field] = result[field].message;
+            return result[field].status;
+        },
+        async validateForm() {
+            const result = await Validation.validateForm(this.passwordForm);
+            this.errors = Object.fromEntries(
+                Object.entries(result.fields).map(([key, value]) => [key, value.message])
+            );
+            return result.valid;
+        },
         async updatePassword() {
+            const isValid = await this.validateForm();
+            if (!isValid) {
+                return this.$notify({
+                    title: "Validation error",
+                    text: "One or more fields aren't valid, fix them and try again.",
+                    icon: 'error'
+                });
+            }
+
             // Validate passwords match
             if (this.passwordForm.newPassword !== this.passwordForm.confirmPassword) {
                 this.$notify({
@@ -92,6 +127,7 @@ export default {
                         newPassword: '',
                         confirmPassword: ''
                     };
+                    this.errors = {};
                 } else {
                     this.$notify({
                         title: 'Error',
