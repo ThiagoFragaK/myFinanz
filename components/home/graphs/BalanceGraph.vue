@@ -14,10 +14,23 @@
 
 <script>
     import LoadingComponent from '@/components/global/LoadingComponent.vue';
+    import { useAuthStore } from '@/stores/auth';
+
+    const currencyConfig = {
+        BRL: { locale: 'pt-BR', currency: 'BRL' },
+        EUR: { locale: 'de-DE', currency: 'EUR' },
+        USD: { locale: 'en-US', currency: 'USD' },
+        ARS: { locale: 'es-AR', currency: 'ARS' },
+    };
+
     export default {
         name: "BalanceGraph",
         components: {
             LoadingComponent,
+        },
+        setup() {
+            const authStore = useAuthStore();
+            return { authStore };
         },
         data: () => ({
             isLoading: true,
@@ -49,9 +62,10 @@
                     theme: 'light',
                     y: {
                         formatter: function (value) {
-                            return new Intl.NumberFormat('pt-BR', {
+                            const config = currencyConfig[this.authStore.currency] || currencyConfig.BRL;
+                            return new Intl.NumberFormat(config.locale, {
                                 style: 'currency',
-                                currency: 'BRL'
+                                currency: config.currency
                             }).format(value);
                         }
                     }

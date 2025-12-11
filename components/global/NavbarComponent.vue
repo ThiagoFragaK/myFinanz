@@ -57,17 +57,25 @@
         },
         data() {
             return {
-                tabs: [
-                    { name: "/", label: "Home" },
-                    // { name: "budget", label: "Budget" },
-                    // { name: "reports", label: "Reports" },
-                    { name: "settings", label: "Settings" },
-                    { name: "logout", label: "Logout" },
-                ],
                 loginTabs: [
                     { name: "/login", label: "Login" },
                 ],
             };
+        },
+        computed: {
+            tabs() {
+                const authStore = useAuthStore();
+                const userName = authStore.user?.name || 'User';
+                
+                return [
+                    { name: "/", label: "Home" },
+                    // { name: "budget", label: "Budget" },
+                    // { name: "reports", label: "Reports" },
+                    { name: "settings", label: "Settings" },
+                    { name: "/user", label: userName },
+                    { name: "logout", label: "Logout" },
+                ];
+            }
         },
         methods: {
             async redirectToPage(page) {

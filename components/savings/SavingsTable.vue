@@ -13,7 +13,7 @@
             {{ formateDate(data.row.created_at) }}
         </template>
         <template #cell-value="{ data }">
-            {{ "R$ " + data.row.value }}
+            {{ formatCurrency(data.row.value) }}
         </template>
     </TableComponent>
 
@@ -32,6 +32,7 @@
     import NumbersFormatter from "@/helpers/Numbers";
     import TableComponent from "@/components/global/TableComponent.vue";
     import PaginationComponent from "@/components/global/PaginationComponent.vue";
+    import { useAuthStore } from '@/stores/auth';
     export default {
         emits: ["allowActions"],
         components: {
@@ -56,14 +57,17 @@
             isLoading: true,
             filters: {},
         }),
+        setup() {
+            const authStore = useAuthStore();
+            return { authStore };
+        },
         methods: {
             getSavings(page = 1) {
                 this.isLoading = true;
                 this.$axios.get(`savings?page=${page}`, { params: { filters: this.filters }})
                     .then(({ data }) => {
                         this.data = data.data.data;
-                        this.totalValue = data.sum;
-                        this.totalValue = NumbersFormatter.formatCurrencyBR(data.sum);
+                        this.totalValue = NumbersFormatter.formatCurrency(data.sum, this.authStore.currency);
                         this.pagination = {
                             currentPage: data.data.current_page,
                             totalPages: data.data.last_page,
@@ -84,6 +88,9 @@
             },
             formateDate(date) {
                 return Dates.getFormatedDate(date);
+            },
+            formatCurrency(value) {
+                return NumbersFormatter.formatCurrency(value, this.authStore.currency);
             }
         },
         created() {

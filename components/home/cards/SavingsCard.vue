@@ -38,9 +38,14 @@
 <script>
     import NumbersFormatter from "@/helpers/Numbers";
     import LoadingComponent from "@/components/global/LoadingComponent.vue";
+    import { useAuthStore } from '@/stores/auth';
     export default {
         components: {
             LoadingComponent,
+        },
+        setup() {
+            const authStore = useAuthStore();
+            return { authStore };
         },
         data: () => ({
             isLoading: true,
@@ -55,8 +60,8 @@
                 this.isLoading = true;
                 this.$axios.get(`dashboard/savings`)
                     .then(({ data }) => {
-                        this.savings.total = NumbersFormatter.formatCurrencyBR(data.data.current);
-                        this.savings.previous = NumbersFormatter.formatCurrencyBR(data.data.previous);
+                        this.savings.total = NumbersFormatter.formatCurrency(data.data.current, this.authStore.currency);
+                        this.savings.previous = NumbersFormatter.formatCurrency(data.data.previous, this.authStore.currency);
                         this.savings.variation = data.data.variation;
                     })
                     .finally(() => {

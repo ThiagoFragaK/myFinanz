@@ -1,9 +1,9 @@
 <template>
-    <HomeComponent />
+    <UsersComponent />
 </template>
 
 <script>
-import HomeComponent from '@/components/home/HomeComponent.vue';
+import UsersComponent from '@/components/users/UsersComponent.vue';
 
 definePageMeta({
     middleware: ['auth']
@@ -11,7 +11,7 @@ definePageMeta({
 
 export default {
     components: {
-        HomeComponent
+        UsersComponent
     }
 };
 </script>
