@@ -36,7 +36,25 @@
             isLoading: true,
             dataList: [],
             datesList: [],
-            graphOptions: {
+            graphOptions: null,
+        }),
+        methods: {
+            getMonthBalance() {
+                this.isLoading = true;
+                this.$axios.get(`dashboard/graph/monthly`)
+                    .then(({ data }) => {
+                        this.dataList = data.data.data;
+                        this.graphOptions.xaxis.categories = data.data.dates;
+                    })
+                    .finally(() => {
+                        this.isLoading = false;
+                    });
+            },
+        },
+        created() {
+            // Initialize graphOptions here to have access to component instance
+            const userCurrency = this.authStore.currency;
+            this.graphOptions = {
                 chart: {
                     id: 'sales-bar',
                     toolbar: { 
@@ -62,7 +80,7 @@
                     theme: 'light',
                     y: {
                         formatter: function (value) {
-                            const config = currencyConfig[this.authStore.currency] || currencyConfig.BRL;
+                            const config = currencyConfig[userCurrency] || currencyConfig.BRL;
                             return new Intl.NumberFormat(config.locale, {
                                 style: 'currency',
                                 currency: config.currency
@@ -70,22 +88,8 @@
                         }
                     }
                 }
-            },
-        }),
-        methods: {
-            getMonthBalance() {
-                this.isLoading = true;
-                this.$axios.get(`dashboard/graph/monthly`)
-                    .then(({ data }) => {
-                        this.dataList = data.data.data;
-                        this.graphOptions.xaxis.categories = data.data.dates;
-                    })
-                    .finally(() => {
-                        this.isLoading = false;
-                    });
-            },
-        },
-        created() {
+            };
+            
             this.getMonthBalance();
         },
         computed: {

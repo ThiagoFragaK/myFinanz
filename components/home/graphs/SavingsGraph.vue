@@ -33,7 +33,27 @@ export default {
     data: () => ({
         isLoading: true,
         dataList: [],
-        graphOptions: {
+        graphOptions: null,
+    }),
+    methods: {
+        getMonthlySavings() {
+            this.isLoading = true;
+            this.$axios.get(`dashboard/graph/savings`)
+                .then(({ data }) => {
+                    this.dataList = [
+                        { name: 'Savings', data: data.data.data }
+                    ];
+                    this.graphOptions.xaxis.categories = data.data.dates;
+                })
+                .finally(() => {
+                    this.isLoading = false;
+                });
+        },
+    },
+    created() {
+        // Initialize graphOptions here to have access to component instance
+        const userCurrency = this.authStore.currency;
+        this.graphOptions = {
             chart: {
                 id: 'savings-bar',
                 toolbar: { 
@@ -59,7 +79,7 @@ export default {
                 theme: 'light',
                 y: {
                     formatter: (value) => {
-                        const config = currencyConfig[this.authStore.currency] || currencyConfig.BRL;
+                        const config = currencyConfig[userCurrency] || currencyConfig.BRL;
                         return new Intl.NumberFormat(config.locale, {
                             style: 'currency',
                             currency: config.currency
@@ -67,24 +87,8 @@ export default {
                     }
                 }
             }
-        },
-    }),
-    methods: {
-        getMonthlySavings() {
-            this.isLoading = true;
-            this.$axios.get(`dashboard/graph/savings`)
-                .then(({ data }) => {
-                    this.dataList = [
-                        { name: 'Savings', data: data.data.data }
-                    ];
-                    this.graphOptions.xaxis.categories = data.data.dates;
-                })
-                .finally(() => {
-                    this.isLoading = false;
-                });
-        },
-    },
-    created() {
+        };
+        
         this.getMonthlySavings();
     }
 }
