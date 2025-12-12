@@ -10,6 +10,7 @@
                     v-model="settingsForm.language"
                     @blur="validateField('language')"
                     @input="validateField('language')"
+                    disabled
                     required
                 >
                     <option v-for="lang in languagesList" :key="lang.value" :value="lang.value">

@@ -1,6 +1,10 @@
 <template>
     <div class="login-component">
-        <form @submit.prevent="onSubmit">
+        <div v-if="isCheckingAuth" class="text-center py-5">
+            <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+            <span class="text-muted">Checking authentication...</span>
+        </div>
+        <form v-else @submit.prevent="onSubmit">
             <div class="mb-3">
                 <label for="email" class="form-label fw-semibold">Email</label>
                 <div class="input-group">
@@ -71,12 +75,38 @@
             return {
                 showPassword: false,
                 isLoading: false,
+                isCheckingAuth: true,
                 form: {
                     email: '',
                     password: '',
                 },
                 errors: {},
             };
+        },
+        async mounted() {
+            // Check if there's a valid token and try to authenticate
+            const authStore = useAuthStore();
+            
+            if (process.client) {
+                const token = localStorage.getItem('token');
+                
+                if (token) {
+                    try {
+                        await authStore.initializeAuth();
+                        
+                        // If authentication was successful, redirect to home
+                        if (authStore.isAuthenticated && authStore.user) {
+                            this.$router.push('/');
+                            return;
+                        }
+                    } catch (error) {
+                        // Token is invalid or expired, will be removed by initializeAuth
+                        console.log('Token validation failed, user needs to login');
+                    }
+                }
+            }
+            
+            this.isCheckingAuth = false;
         },
         methods: {
             togglePassword() {
