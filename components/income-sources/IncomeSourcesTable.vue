@@ -23,6 +23,8 @@
     import StatusBadge from "@/components/global/StatusBadgeComponent.vue";
     import TableComponent from "@/components/global/TableComponent.vue";
     import PaginationComponent from "@/components/global/PaginationComponent.vue";
+    import { useIncomeSourcesService } from '@/services/IncomeSourcesService';
+
     export default {
         emits: ["allowActions"],
         components: {
@@ -43,23 +45,29 @@
             },
             data: [],
             isLoading: true,
+            incomeSourcesService: null
         }),
         methods: {
-            getIncomeSources(page = 1) {
+            async getIncomeSources(page = 1) {
                 this.isLoading = true;
-                this.$axios.get(`income/sources?page=${page}`)
-                    .then(({ data }) => {
-                        this.data = data.data.data;
-                        this.pagination = {
-                            currentPage: data.data.current_page,
-                            totalPages: data.data.last_page,
-                            perPage: data.data.per_page,
-                            totalItems: data.data.total,
-                        };
-                    })
-                    .finally(() => {
-                        this.isLoading = false;
+                try {
+                    const response = await this.incomeSourcesService.getIncomeSources(page);
+                    this.data = response.data.data;
+                    this.pagination = {
+                        currentPage: response.data.current_page,
+                        totalPages: response.data.last_page,
+                        perPage: response.data.per_page,
+                        totalItems: response.data.total,
+                    };
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to load income sources',
+                        icon: 'error'
                     });
+                } finally {
+                    this.isLoading = false;
+                }
             },
             updateSelectedRows(rows) {
                 this.selectedRows = rows;
@@ -67,6 +75,7 @@
             },
         },
         created() {
+            this.incomeSourcesService = useIncomeSourcesService(this.$axios);
             this.getIncomeSources();
         }
     }

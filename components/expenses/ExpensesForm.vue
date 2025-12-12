@@ -130,6 +130,9 @@
     import { Validation } from '@/helpers/Validation';
     import Dates from "@/helpers/Dates";
     import LoadingComponent from '@/components/global/LoadingComponent.vue';
+    import { useExpensesService } from '@/services/ExpensesService';
+    import { usePaymentMethodsService } from '@/services/PaymentMethodsService';
+    import { useCategoriesService } from '@/services/CategoriesService';
 
     export default {
         components: {
@@ -160,33 +163,53 @@
                     category_id: "",
                 },
                 errors: {},
+                expensesService: null,
+                paymentMethodsService: null,
+                categoriesService: null
             };
         },
         methods: {
-            getPaymentMethods() {
-                this.$axios.get(`payment_methods/list`)
-                    .then(({ data }) => {
-                        this.paymentMethodsList = data.data;
+            async getPaymentMethods() {
+                try {
+                    const response = await this.paymentMethodsService.getPaymentMethodsList();
+                    this.paymentMethodsList = response.data;
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to load payment methods',
+                        icon: 'error'
                     });
+                }
             },
-            getCategories() {
-                this.$axios.get(`categories/list`)
-                    .then(({ data }) => {
-                        this.categoriesList = data.data;
+            async getCategories() {
+                try {
+                    const response = await this.categoriesService.getCategoriesList();
+                    this.categoriesList = response.data;
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to load categories',
+                        icon: 'error'
                     });
+                }
             },
-            getExpenseById() {
+            async getExpenseById() {
                 if(!this.isEdit) return;
 
                 this.isLoading = true;
-                this.$axios.get(`expenses/${this.id}`)
-                    .then(({ data }) => {
-                        this.expense = data.data;
-                        this.expense.date = Dates.getFormatedDate(this.expense.date, "yyyy-MM-dd");
-                    })
-                    .finally(() => {
-                        this.isLoading = false;
+                try {
+                    const response = await this.expensesService.getExpenseById(this.id);
+                    this.expense = response.data;
+                    this.expense.date = Dates.getFormatedDate(this.expense.date, "yyyy-MM-dd");
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to load expense',
+                        icon: 'error'
                     });
+                } finally {
+                    this.isLoading = false;
+                }
             },
             async validateField(field) {
                 const value = this.expense[field];
@@ -217,27 +240,39 @@
                 }
                 this.createExpense();
             },
-            createExpense() {
-                this.$axios.post(`expenses`, this.expense)
-                    .then(() => {
-                        this.$notify({
-                            title: 'Success',
-                            text: 'Expense created successfully',
-                            icon: 'success'
-                        });
-                        this.$emit("save");
+            async createExpense() {
+                try {
+                    await this.expensesService.createExpense(this.expense);
+                    this.$notify({
+                        title: 'Success',
+                        text: 'Expense created successfully',
+                        icon: 'success'
                     });
+                    this.$emit("save");
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to create expense',
+                        icon: 'error'
+                    });
+                }
             },
-            editExpense() {
-                this.$axios.put(`expenses/${this.id}`, this.expense)
-                    .then((response) => {
-                        this.$notify({
-                            title: 'Success',
-                            text: 'Expense updated successfully',
-                            icon: 'success'
-                        });
-                        this.$emit("save");
+            async editExpense() {
+                try {
+                    await this.expensesService.updateExpense(this.id, this.expense);
+                    this.$notify({
+                        title: 'Success',
+                        text: 'Expense updated successfully',
+                        icon: 'success'
                     });
+                    this.$emit("save");
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to update expense',
+                        icon: 'error'
+                    });
+                }
             },
         },
         computed: {
@@ -246,6 +281,9 @@
             },
         },
         created() {
+            this.expensesService = useExpensesService(this.$axios);
+            this.paymentMethodsService = usePaymentMethodsService(this.$axios);
+            this.categoriesService = useCategoriesService(this.$axios);
             this.getCategories();
             this.getPaymentMethods();
             this.getExpenseById();

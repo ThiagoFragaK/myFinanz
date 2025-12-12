@@ -117,6 +117,10 @@
 <script>
     import { Validation } from '@/helpers/Validation';
     import ModalComponent from '@/components/global/ModalComponent.vue';    
+    import { useIncomesService } from '@/services/IncomesService';
+    import { useIncomeSourcesService } from '@/services/IncomeSourcesService';
+    import { useIncomeTypesService } from '@/services/IncomeTypesService';
+
     export default {
         components: {
             ModalComponent
@@ -133,21 +137,36 @@
                 type_id: "",
             },
             errors: {},
+            incomesService: null,
+            incomeSourcesService: null,
+            incomeTypesService: null
         }),
         computed: {
         },
         methods: {
-            getIncomeSources() {
-                this.$axios.get(`income/sources/list`)
-                    .then(({ data }) => {
-                        this.incomeSourcesList = data.data;
+            async getIncomeSources() {
+                try {
+                    const response = await this.incomeSourcesService.getIncomeSourcesList();
+                    this.incomeSourcesList = response.data;
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to load income sources',
+                        icon: 'error'
                     });
+                }
             },
-            getIncomeTypes() {
-                this.$axios.get(`income/types/list`)
-                    .then(({ data }) => {
-                        this.incomeTypesList = data.data;
+            async getIncomeTypes() {
+                try {
+                    const response = await this.incomeTypesService.getIncomeTypesList();
+                    this.incomeTypesList = response.data;
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to load income types',
+                        icon: 'error'
                     });
+                }
             },
             open() {
                 this.resetData();
@@ -157,7 +176,7 @@
                 this.$refs.IncomeModal.close();
             },
             resetData() {
-                this.expense = {
+                this.income = {
                     name: "",
                     value: "",
                     entry_day: 1,
@@ -189,20 +208,29 @@
                     });
                 }
 
-                this.$axios.post(`incomes`, this.income)
-                    .then(() => {
-                        this.$notify({
-                            title: 'Income',
-                            text: 'Income created successfully!',
-                            icon: 'success'
-                        });
-                        this.$emit("reloadIncomes");
-                        this.resetData();
-                        this.close();
+                try {
+                    await this.incomesService.createIncome(this.income);
+                    this.$notify({
+                        title: 'Income',
+                        text: 'Income created successfully!',
+                        icon: 'success'
                     });
+                    this.$emit("reloadIncomes");
+                    this.resetData();
+                    this.close();
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to create income',
+                        icon: 'error'
+                    });
+                }
             },
         },
         created() {
+            this.incomesService = useIncomesService(this.$axios);
+            this.incomeSourcesService = useIncomeSourcesService(this.$axios);
+            this.incomeTypesService = useIncomeTypesService(this.$axios);
             this.resetData();
             this.getIncomeSources();
             this.getIncomeTypes();

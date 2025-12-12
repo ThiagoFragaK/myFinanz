@@ -37,6 +37,8 @@
 <script>
     import { Validation } from '@/helpers/Validation';
     import LoadingComponent from '@/components/global/LoadingComponent.vue';
+    import { useIncomeSourcesService } from '@/services/IncomeSourcesService';
+
     export default {
         components: {
             LoadingComponent,
@@ -58,20 +60,26 @@
                     "name": ""
                 },
                 errors: {},
+                incomeSourcesService: null
             };
         },
         methods: {
-            getIncomeSourceById() {
+            async getIncomeSourceById() {
                 if(!this.isEdit) return;
 
                 this.isLoading = true;
-                this.$axios.get(`income/sources/${this.id}`)
-                    .then(({ data }) => {
-                        this.incomeSource = data.data;
-                    })
-                    .finally(() => {
-                        this.isLoading = false;
+                try {
+                    const response = await this.incomeSourcesService.getIncomeSourceById(this.id);
+                    this.incomeSource = response.data;
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to load income source',
+                        icon: 'error'
                     });
+                } finally {
+                    this.isLoading = false;
+                }
             },
             async validateField(field) {
                 const value = this.incomeSource[field];
@@ -102,28 +110,40 @@
                 }
                 this.createNewIncomeSource();
             },
-            createNewIncomeSource() {
-                this.$axios.post(`income/sources`, this.incomeSource)
-                    .then(({ data }) => {
-                        this.incomeSource = data;
-                        this.$notify({
-                            title: 'Success',
-                            text: 'Income source created successfully',
-                            icon: 'success'
-                        });
-                        this.$emit("save");
+            async createNewIncomeSource() {
+                try {
+                    const response = await this.incomeSourcesService.createIncomeSource(this.incomeSource);
+                    this.incomeSource = response.data;
+                    this.$notify({
+                        title: 'Success',
+                        text: 'Income source created successfully',
+                        icon: 'success'
                     });
+                    this.$emit("save");
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to create income source',
+                        icon: 'error'
+                    });
+                }
             },
-            editNewIncomeSource() {
-                this.$axios.put(`income/sources/${this.id}`, this.incomeSource)
-                    .then((response) => {
-                        this.$notify({
-                            title: 'Success',
-                            text: 'Income source updated successfully',
-                            icon: 'success'
-                        });
-                        this.$emit("save");
+            async editNewIncomeSource() {
+                try {
+                    await this.incomeSourcesService.updateIncomeSource(this.id, this.incomeSource);
+                    this.$notify({
+                        title: 'Success',
+                        text: 'Income source updated successfully',
+                        icon: 'success'
                     });
+                    this.$emit("save");
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to update income source',
+                        icon: 'error'
+                    });
+                }
             },
             confirmIncome() {
                 const form = {
@@ -134,6 +154,7 @@
             },
         },
         mounted() {
+            this.incomeSourcesService = useIncomeSourcesService(this.$axios);
             this.getIncomeSourceById();
         }
     };
