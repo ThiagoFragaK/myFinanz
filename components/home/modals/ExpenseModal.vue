@@ -134,7 +134,9 @@
 
 <script>
     import { Validation } from '@/helpers/Validation';
-    import ModalComponent from '@/components/global/ModalComponent.vue';    
+    import ModalComponent from '@/components/global/ModalComponent.vue';
+    import { useCategoriesService } from '@/services/CategoriesService';
+    
     export default {
         components: {
             ModalComponent
@@ -153,6 +155,7 @@
                 category_id: "",
             },
             errors: {},
+            categoriesService: null
         }),
         computed: {
         },
@@ -163,11 +166,17 @@
                         this.paymentMethodsList = data.data;
                     });
             },
-            getCategories() {
-                this.$axios.get(`categories/list`)
-                    .then(({ data }) => {
-                        this.categoriesList = data.data;
+            async getCategories() {
+                try {
+                    const response = await this.categoriesService.getCategoriesList();
+                    this.categoriesList = response.data;
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to load categories',
+                        icon: 'error'
                     });
+                }
             },
             open() {
                 this.resetData();
@@ -230,6 +239,7 @@
             },
         },
         created() {
+            this.categoriesService = useCategoriesService(this.$axios);
             this.resetData();
             this.getPaymentMethods();
             this.getCategories();

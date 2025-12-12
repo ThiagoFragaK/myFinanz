@@ -64,6 +64,8 @@
 <script>
     import { Validation } from '@/helpers/Validation';
     import LoadingComponent from '@/components/global/LoadingComponent.vue';
+    import { useCategoriesService } from '@/services/CategoriesService';
+    
     export default {
         components: {
             LoadingComponent,
@@ -87,20 +89,26 @@
                     icon: '',
                 },
                 errors: {},
+                categoriesService: null
             };
         },
         methods: {
-            getCategoryById() {
+            async getCategoryById() {
                 if(!this.isEdit) return;
 
                 this.isLoading = true;
-                this.$axios.get(`categories/${this.id}`)
-                    .then(({ data }) => {
-                        this.category = data.data;
-                    })
-                    .finally(() => {
-                        this.isLoading = false;
+                try {
+                    const response = await this.categoriesService.getCategoryById(this.id);
+                    this.category = response.data;
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to load category',
+                        icon: 'error'
                     });
+                } finally {
+                    this.isLoading = false;
+                }
             },
             async validateField(field) {
                 const value = this.category[field];
@@ -131,27 +139,39 @@
                 }
                 this.createCategory();
             },        
-            createCategory() {
-                this.$axios.post(`categories`, this.category)
-                    .then(() => {
-                        this.$notify({
-                            title: 'Success',
-                            text: 'Category created successfully',
-                            icon: 'success'
-                        });
-                        this.$emit("save");
+            async createCategory() {
+                try {
+                    await this.categoriesService.createCategory(this.category);
+                    this.$notify({
+                        title: 'Success',
+                        text: 'Category created successfully',
+                        icon: 'success'
                     });
+                    this.$emit("save");
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to create category',
+                        icon: 'error'
+                    });
+                }
             },
-            editCategory() {
-                this.$axios.put(`categories/${this.id}`, this.category)
-                    .then(() => {
-                        this.$notify({
-                            title: 'Success',
-                            text: 'Category edited successfully',
-                            icon: 'success'
-                        });
-                        this.$emit("save");
+            async editCategory() {
+                try {
+                    await this.categoriesService.updateCategory(this.id, this.category);
+                    this.$notify({
+                        title: 'Success',
+                        text: 'Category edited successfully',
+                        icon: 'success'
                     });
+                    this.$emit("save");
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to update category',
+                        icon: 'error'
+                    });
+                }
             },
         },
         computed: {
@@ -160,6 +180,7 @@
             }
         },
         created() {
+            this.categoriesService = useCategoriesService(this.$axios);
             this.getCategoryById();
         }
     };
