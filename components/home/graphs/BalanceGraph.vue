@@ -34,10 +34,28 @@
         },
         data() {
             return {
-            isLoading: true,
-            dataList: [],
-            datesList: [],
-            graphOptions: {
+                isLoading: true,
+                dataList: [],
+                datesList: [],
+                graphOptions: null,
+            };
+        },
+        methods: {
+            getMonthBalance() {
+                this.isLoading = true;
+                this.$axios.get(`dashboard/graph/monthly`)
+                    .then(({ data }) => {
+                        this.dataList = data.data.data;
+                        this.graphOptions.xaxis.categories = data.data.dates;
+                    })
+                    .finally(() => {
+                        this.isLoading = false;
+                    });
+            },
+        },
+        created() {
+            const userCurrency = this.authStore.currency;
+            this.graphOptions = {
                 chart: {
                     id: 'sales-bar',
                     toolbar: { 
@@ -71,23 +89,7 @@
                         }
                     }
                 }
-            },
             };
-        },
-        methods: {
-            getMonthBalance() {
-                this.isLoading = true;
-                this.$axios.get(`dashboard/graph/monthly`)
-                    .then(({ data }) => {
-                        this.dataList = data.data.data;
-                        this.graphOptions.xaxis.categories = data.data.dates;
-                    })
-                    .finally(() => {
-                        this.isLoading = false;
-                    });
-            },
-        },
-        created() {
             this.getMonthBalance();
         },
         computed: {
