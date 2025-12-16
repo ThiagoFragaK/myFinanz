@@ -2,15 +2,15 @@
     <ModalComponent
         id="CreateUserModal"
         :isLoading="isLoading"
-        title="Create New User"
-        saveText="Create User"
+        :title="$t('user.create_modal.title')"
+        :saveText="$t('user.create_modal.submit')"
         @save="onSubmit"
         ref="modal"
     >
         <template #header>
             <div class="modal-header bg-primary text-white">
                 <IconsLucide icon="UserPlus" />
-                <h5 class="modal-title ms-2"> New User </h5>
+                <h5 class="modal-title ms-2"> {{ $t('user.create_modal.header') }} </h5>
                 <button 
                     class="btn text-white ms-auto" 
                     data-bs-dismiss="modal" 
@@ -24,11 +24,11 @@
         <template #body>
             <div class="modal-body">
                 <p class="text-muted small mb-4">
-                    Create a new user by entering their email address. A default password will be assigned.
+                    {{ $t('user.create_modal.description') }}
                 </p>
                 <form @submit.prevent="onSubmit">
                     <div class="mb-3">
-                        <label class="form-label small fw-semibold">Email Address</label>
+                        <label class="form-label small fw-semibold">{{ $t('user.create_modal.email') }}</label>
                         <div class="input-group">
                             <span class="input-group-text bg-white border-end-0">
                                 <Lucide icon="Mail" :size="16" />
@@ -40,7 +40,7 @@
                                 v-model="form.email"
                                 @blur="validateField('email')"
                                 @input="validateField('email')"
-                                placeholder="user@example.com"
+                                :placeholder="$t('login.email_placeholder')"
                             >
                             <div class="invalid-feedback">{{ errors.email }}</div>
                         </div>
@@ -107,22 +107,22 @@ export default {
                 const response = await userService.createUser(this.form.email);
                 if (response.data.success) {
                   this.$notify({
-                        title: "Success",
-                        text: "User created successfully!",
+                        title: this.$t('login.notifications.success'),
+                        text: this.$t('user.create_modal.success'),
                         icon: 'success'
                    });
                    this.close();
                 } else {
                     this.$notify({
-                        title: "Error",
-                        text: response.data.message || "Failed to create user",
+                        title: this.$t('login.notifications.failed'),
+                        text: response.data.message || this.$t('user.create_modal.failed'),
                         icon: 'error'
                     });
                 }
             } catch (error) {
                 this.$notify({
-                    title: "Error",
-                    text: error.response?.data?.message || "An error occurred",
+                    title: this.$t('login.notifications.failed'),
+                    text: error.response?.data?.message || this.$t('login.notifications.failed'),
                     icon: 'error'
                 });
             } finally {

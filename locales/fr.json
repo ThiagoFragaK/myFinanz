@@ -1,0 +1,139 @@
+{
+    "common": {
+        "return": "Retour",
+        "filters": "Filtres",
+        "icon": "Icône",
+        "name": "Nom",
+        "description": "Description",
+        "save": "Enregistrer",
+        "cancel": "Annuler"
+    },
+    "categories": {
+        "title": "Catégories",
+        "new_category": "Nouvelle Catégorie",
+        "edit_category": "Modifier la Catégorie",
+        "failed_load": "Échec du chargement des catégories",
+        "form": {
+            "name_placeholder": "Nom de la catégorie",
+            "description_placeholder": "Description de la catégorie",
+            "icon_placeholder": "Icône de la catégorie (Lucide)"
+        },
+        "notifications": {
+            "created": "Catégorie créée avec succès",
+            "create_error": "Échec de la création de la catégorie",
+            "updated": "Catégorie modifiée avec succès",
+            "update_error": "Échec de la mise à jour de la catégorie",
+            "load_error": "Échec du chargement de la catégorie"
+        }
+    },
+    "navbar": {
+        "home": "Accueil",
+        "settings": "Paramètres",
+        "login": "Connexion",
+        "logout": "Déconnexion"
+    },
+    "settings": {
+        "payment_methods": "Méthodes de paiement",
+        "categories": "Catégories",
+        "expenses": "Dépenses",
+        "income": "Revenus",
+        "income_type": "Types de revenus",
+        "income_sources": "Sources de revenus",
+        "savings": "Épargne"
+    },
+    "home": {
+        "cards": {
+            "balance": "Solde",
+            "income": "Revenus",
+            "expenses": "Dépenses",
+            "savings": "Épargne",
+            "new_income": "Nouveau revenu",
+            "new_expense": "Nouvelle dépense",
+            "last_expenses": "Dernières dépenses",
+            "no_expenses": "Il n'y a pas encore de dépenses",
+            "previously": "Précédemment",
+            "variation": "Variation"
+        },
+        "modals": {
+            "new_expense": "Nouvelle dépense",
+            "new_income": "Nouveau revenu",
+            "name": "Nom",
+            "description": "Description",
+            "value": "Valeur",
+            "date": "Date",
+            "parcel_number": "Nombre de versements",
+            "payment_method": "Méthode de paiement",
+            "categories": "Catégories",
+            "income_source": "Source de revenu",
+            "income_type": "Type de revenu",
+            "entry_day": "Jour d'entrée",
+            "placeholders": {
+                "expense_name": "Nom de la dépense",
+                "description": "Description",
+                "expense_value": "Valeur de la dépense",
+                "parcel_number": "Nombre de versements",
+                "expense_date": "Date de la dépense",
+                "select_method": "Sélectionner la méthode",
+                "select_category": "Sélectionner la catégorie",
+                "select_source": "Sélectionner la source",
+                "select_type": "Sélectionner le type",
+                "income_name": "Nom du revenu",
+                "income_value": "Valeur du revenu",
+                "entry_day": "Jour d'entrée"
+            }
+        },
+        "graphs": {
+            "income": "Revenus",
+            "expense": "Dépenses",
+            "balance": "Solde"
+        }
+    },
+    "login": {
+        "checking_auth": "Vérification de l'authentification...",
+        "email": "Email",
+        "email_placeholder": "votre{'@'}email.com",
+        "password": "Mot de passe",
+        "forgot_password": "Mot de passe oublié ?",
+        "submit": "Connexion",
+        "notifications": {
+            "validation_error": "Erreur de validation",
+            "validation_text": "Un ou plusieurs champs ne sont pas valides, corrigez-les et réessayez.",
+            "success": "Succès",
+            "success_text": "Connexion réussie !",
+            "failed": "Échec de la connexion",
+            "invalid_credentials": "Identifiants invalides"
+        }
+    },
+    "user": {
+        "title": "Utilisateur",
+        "create": "Créer un utilisateur",
+        "preferences": {
+            "title": "Préférences",
+            "language": "Langue",
+            "currency": "Devise",
+            "save": "Enregistrer les préférences",
+            "success": "Préférences mises à jour avec succès",
+            "failed": "Échec de la mise à jour des préférences"
+        },
+        "password": {
+            "title": "Mettre à jour le mot de passe",
+            "current": "Mot de passe actuel",
+            "new": "Nouveau mot de passe",
+            "confirm": "Confirmer le nouveau mot de passe",
+            "help": "Le mot de passe doit contenir au moins 8 caractères.",
+            "update": "Mettre à jour",
+            "match_error": "Les nouveaux mots de passe ne correspondent pas",
+            "success": "Mot de passe mis à jour avec succès",
+            "failed": "Échec de la mise à jour du mot de passe"
+        },
+        "create_modal": {
+            "title": "Créer un nouvel utilisateur",
+            "header": "Nouvel utilisateur",
+            "description": "Créez un nouvel utilisateur en saisissant son adresse email. Un mot de passe par défaut sera attribué.",
+            "email": "Adresse Email",
+            "submit": "Créer l'utilisateur",
+            "success": "Utilisateur créé avec succès !",
+            "failed": "Échec de la création de l'utilisateur"
+        }
+    }
+}

@@ -1,14 +1,14 @@
 <template>
     <div>
-        <h5 class="mb-3">Update Password</h5>
+        <h5 class="mb-3">{{ $t('user.password.title') }}</h5>
         <form @submit.prevent="updatePassword">
             <div class="mb-3">
-                <label for="currentPassword">Current Password</label>
+                <label for="currentPassword">{{ $t('user.password.current') }}</label>
                 <input
                     type="password"
                     class="form-control"
                     id="currentPassword"
-                    placeholder="Current password"
+                    :placeholder="$t('user.password.current')"
                     v-model="passwordForm.currentPassword"
                     @blur="validateField('currentPassword')"
                     @input="validateField('currentPassword')"
@@ -17,28 +17,28 @@
                 <small v-if="errors.currentPassword" class="text-danger">{{ errors.currentPassword }}</small>
             </div>
             <div class="mb-3">
-                <label for="newPassword">New Password</label>
+                <label for="newPassword">{{ $t('user.password.new') }}</label>
                 <input
                     type="password"
                     class="form-control"
                     id="newPassword"
-                    placeholder="New password"
+                    :placeholder="$t('user.password.new')"
                     v-model="passwordForm.newPassword"
                     @blur="validateField('newPassword')"
                     @input="validateField('newPassword')"
                     required
                     minlength="8"
                 />
-                <small class="text-muted">Password must be at least 8 characters long.</small>
+                <small class="text-muted">{{ $t('user.password.help') }}</small>
                 <small v-if="errors.newPassword" class="text-danger d-block">{{ errors.newPassword }}</small>
             </div>
             <div class="mb-3">
-                <label for="confirmPassword">Confirm New Password</label>
+                <label for="confirmPassword">{{ $t('user.password.confirm') }}</label>
                 <input
                     type="password"
                     class="form-control"
                     id="confirmPassword"
-                    placeholder="Confirm new password"
+                    :placeholder="$t('user.password.confirm')"
                     v-model="passwordForm.confirmPassword"
                     @blur="validateField('confirmPassword')"
                     @input="validateField('confirmPassword')"
@@ -48,7 +48,7 @@
             </div>
             <button type="submit" class="btn btn-primary btn-sm" :disabled="isPasswordLoading">
                 <span v-if="isPasswordLoading" class="spinner-border spinner-border-sm me-2"></span>
-                Update Password
+                {{ $t('user.password.update') }}
             </button>
         </form>
     </div>
@@ -90,8 +90,8 @@ export default {
             const isValid = await this.validateForm();
             if (!isValid) {
                 return this.$notify({
-                    title: "Validation error",
-                    text: "One or more fields aren't valid, fix them and try again.",
+                    title: this.$t('login.notifications.validation_error'),
+                    text: this.$t('login.notifications.validation_text'),
                     icon: 'error'
                 });
             }
@@ -99,8 +99,8 @@ export default {
             // Validate passwords match
             if (this.passwordForm.newPassword !== this.passwordForm.confirmPassword) {
                 this.$notify({
-                    title: 'Validation Error',
-                    text: 'New passwords do not match',
+                    title: this.$t('login.notifications.validation_error'),
+                    text: this.$t('user.password.match_error'),
                     icon: 'error'
                 });
                 return;
@@ -119,8 +119,8 @@ export default {
 
                 if (response.data.success) {
                     this.$notify({
-                        title: 'Success',
-                        text: 'Password updated successfully',
+                        title: this.$t('login.notifications.success'),
+                        text: this.$t('user.password.success'),
                         icon: 'success'
                     });
                     // Clear form
@@ -132,15 +132,15 @@ export default {
                     this.errors = {};
                 } else {
                     this.$notify({
-                        title: 'Error',
-                        text: response.data.message || 'Failed to update password',
+                        title: this.$t('login.notifications.failed'),
+                        text: response.data.message || this.$t('user.password.failed'),
                         icon: 'error'
                     });
                 }
             } catch (error) {
                 this.$notify({
-                    title: 'Error',
-                    text: error.response?.data?.message || 'Failed to update password',
+                    title: this.$t('login.notifications.failed'),
+                    text: error.response?.data?.message || this.$t('user.password.failed'),
                     icon: 'error'
                 });
             } finally {

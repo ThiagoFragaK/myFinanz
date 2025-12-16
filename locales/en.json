@@ -1,0 +1,139 @@
+{
+    "common": {
+        "return": "Return",
+        "filters": "Filters",
+        "icon": "Icon",
+        "name": "Name",
+        "description": "Description",
+        "save": "Save",
+        "cancel": "Cancel"
+    },
+    "categories": {
+        "title": "Categories",
+        "new_category": "New Category",
+        "edit_category": "Edit Category",
+        "failed_load": "Failed to load categories",
+        "form": {
+            "name_placeholder": "Category name",
+            "description_placeholder": "Category description",
+            "icon_placeholder": "Category icon (Lucide)"
+        },
+        "notifications": {
+            "created": "Category created successfully",
+            "create_error": "Failed to create category",
+            "updated": "Category edited successfully",
+            "update_error": "Failed to update category",
+            "load_error": "Failed to load category"
+        }
+    },
+    "navbar": {
+        "home": "Home",
+        "settings": "Settings",
+        "login": "Login",
+        "logout": "Logout"
+    },
+    "settings": {
+        "payment_methods": "Payment methods",
+        "categories": "Categories",
+        "expenses": "Expenses",
+        "income": "Incomes",
+        "income_type": "Income Types",
+        "income_sources": "Income Sources",
+        "savings": "Savings"
+    },
+    "home": {
+        "cards": {
+            "balance": "Balance",
+            "income": "Income",
+            "expenses": "Expenses",
+            "savings": "Savings",
+            "new_income": "New income",
+            "new_expense": "New expense",
+            "last_expenses": "Last expenses",
+            "no_expenses": "There has been no expenses yet",
+            "previously": "Previously",
+            "variation": "Variation"
+        },
+        "modals": {
+            "new_expense": "New expense",
+            "new_income": "New income",
+            "name": "Name",
+            "description": "Description",
+            "value": "Value",
+            "date": "Date",
+            "parcel_number": "Parcel number",
+            "payment_method": "Payment method",
+            "categories": "Categories",
+            "income_source": "Income source",
+            "income_type": "Income type",
+            "entry_day": "Entry day",
+            "placeholders": {
+                "expense_name": "Expense name",
+                "description": "Description",
+                "expense_value": "Expense value",
+                "parcel_number": "Parcel number",
+                "expense_date": "Expense date",
+                "select_method": "Select the method",
+                "select_category": "Select the category",
+                "select_source": "Select your income",
+                "select_type": "Select the type",
+                "income_name": "Income Name",
+                "income_value": "Income Value",
+                "entry_day": "Entry day"
+            }
+        },
+        "graphs": {
+            "income": "Income",
+            "expense": "Expense",
+            "balance": "Balance"
+        }
+    },
+    "login": {
+        "checking_auth": "Checking authentication...",
+        "email": "Email",
+        "email_placeholder": "your{'@'}email.com",
+        "password": "Password",
+        "forgot_password": "Forgot password?",
+        "submit": "Login",
+        "notifications": {
+            "validation_error": "Validation error",
+            "validation_text": "One or more fields aren't valid, fix them and try again.",
+            "success": "Success",
+            "success_text": "Login successful!",
+            "failed": "Login failed",
+            "invalid_credentials": "Invalid credentials"
+        }
+    },
+    "user": {
+        "title": "User",
+        "create": "Create User",
+        "preferences": {
+            "title": "Preferences",
+            "language": "Language",
+            "currency": "Currency",
+            "save": "Save Preferences",
+            "success": "Preferences updated successfully",
+            "failed": "Failed to update preferences"
+        },
+        "password": {
+            "title": "Update Password",
+            "current": "Current Password",
+            "new": "New Password",
+            "confirm": "Confirm New Password",
+            "help": "Password must be at least 8 characters long.",
+            "update": "Update Password",
+            "match_error": "New passwords do not match",
+            "success": "Password updated successfully",
+            "failed": "Failed to update password"
+        },
+        "create_modal": {
+            "title": "Create New User",
+            "header": "New User",
+            "description": "Create a new user by entering their email address. A default password will be assigned.",
+            "email": "Email Address",
+            "submit": "Create User",
+            "success": "User created successfully!",
+            "failed": "Failed to create user"
+        }
+    }
+}

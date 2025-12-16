@@ -7,7 +7,7 @@
             />
         </div>
         <div v-else class="card-body scrollable-card-body">
-            <h5>Last expenses</h5>
+            <h5>{{ t('home.cards.last_expenses') }}</h5>
             <div
                 v-if="expenses.length > 0"
                 v-for="(expense, index) in expenses" 
@@ -29,7 +29,7 @@
                 </div>
             </div>
             <div v-else class="d-flex justify-content-center align-items-center">
-                <span class="mt-3">There has been no expenses yet.</span>
+                <span class="mt-3">{{ t('home.cards.no_expenses') }}.</span>
             </div>
         </div>
     </div>
@@ -40,13 +40,15 @@
     import DatesFormatter from "@/helpers/Dates";
     import LoadingComponent from "@/components/global/LoadingComponent.vue";
     import { useAuthStore } from '@/stores/auth';
+    import { useI18n } from 'vue-i18n';
     export default {
         components: {
             LoadingComponent,
         },
         setup() {
             const authStore = useAuthStore();
-            return { authStore };
+            const { t } = useI18n();
+            return { authStore, t };
         },
         data: () => ({
             isLoading: true,

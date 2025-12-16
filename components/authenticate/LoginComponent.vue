@@ -2,11 +2,11 @@
     <div class="login-component">
         <div v-if="isCheckingAuth" class="text-center py-5">
             <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-            <span class="text-muted">Checking authentication...</span>
+            <span class="text-muted">{{ $t('login.checking_auth') }}</span>
         </div>
         <form v-else @submit.prevent="onSubmit">
             <div class="mb-3">
-                <label for="email" class="form-label fw-semibold">Email</label>
+                <label for="email" class="form-label fw-semibold">{{ $t('login.email') }}</label>
                 <div class="input-group">
                     <span class="input-group-text bg-light border-end-0 text-secondary">
                         <Lucide icon="Mail" :size="18" />
@@ -15,7 +15,7 @@
                         type="email"
                         class="form-control bg-light border-start-0 ps-0"
                         :class="{ 'is-invalid': errors.email }"
-                        placeholder="your@email.com"
+                        :placeholder="$t('login.email_placeholder')"
                         v-model="form.email"
                         @blur="validateField('email')"
                         @input="validateField('email')"
@@ -25,7 +25,7 @@
             </div>
 
             <div class="mb-4">
-                <label for="password" class="form-label fw-semibold">Password</label>
+                <label for="password" class="form-label fw-semibold">{{ $t('login.password') }}</label>
                 <div class="input-group">
                     <span class="input-group-text bg-light border-end-0 text-secondary">
                         <Lucide icon="Lock" :size="18" />
@@ -49,13 +49,13 @@
                     <div class="invalid-feedback">{{ errors.password }}</div>
                 </div>
                 <div class="d-flex justify-content-end mt-1">
-                    <a href="#" class="text-decoration-none small text-primary fw-semibold">Forgot password?</a>
+                    <a href="#" class="text-decoration-none small text-primary fw-semibold">{{ $t('login.forgot_password') }}</a>
                 </div>
             </div>
 
             <button type="submit" class="btn btn-primary w-100 py-2 fw-bold shadow-sm" :disabled="isLoading">
                 <span v-if="isLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                Login
+                {{ $t('login.submit') }}
             </button>
         </form>
     </div>
@@ -130,8 +130,8 @@
                 const isValid = await this.validateForm();
                 if (!isValid) {
                     return this.$notify({
-                        title: "Validation error",
-                        text: "One or more fields aren't valid, fix them and try again.",
+                        title: this.$t('login.notifications.validation_error'),
+                        text: this.$t('login.notifications.validation_text'),
                         icon: 'error'
                     });
                 }
@@ -145,15 +145,15 @@
 
                 if (result.success) {
                     this.$notify({
-                        title: "Success",
-                        text: "Login successful!",
+                        title: this.$t('login.notifications.success'),
+                        text: this.$t('login.notifications.success_text'),
                         icon: 'success'
                     });
                     this.$router.push("/");
                 } else {
                     this.$notify({
-                        title: "Login failed",
-                        text: result.message || "Invalid credentials",
+                        title: this.$t('login.notifications.failed'),
+                        text: result.message || this.$t('login.notifications.invalid_credentials'),
                         icon: 'error'
                     });
                 }

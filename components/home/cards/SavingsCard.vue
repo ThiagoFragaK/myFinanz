@@ -9,20 +9,20 @@
                 <div v-else>
                     <div class="col-auto">
                         <h2>
-                            <strong>Savings: </strong>
+                            <strong>{{ t('home.cards.savings') }}: </strong>
                             <span> {{ savings.total }}</span>
                         </h2>
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-7">
                             <h6>
-                                <strong>Previously: </strong>
+                                <strong>{{ t('home.cards.previously') }}: </strong>
                                 <span> {{ savings.previous }}</span>
                             </h6>
                         </div>
                         <div class="col-5">
                             <h6>
-                                <strong>Variação: </strong>
+                                <strong>{{ t('home.cards.variation') }}: </strong>
                                 <span
                                     :class="{ 'text-danger': savings.variation < 0, 'text-success': savings.variation >= 0 }"
                                 >{{ variationNumber }}</span>
@@ -39,13 +39,15 @@
     import NumbersFormatter from "@/helpers/Numbers";
     import LoadingComponent from "@/components/global/LoadingComponent.vue";
     import { useAuthStore } from '@/stores/auth';
+    import { useI18n } from 'vue-i18n';
     export default {
         components: {
             LoadingComponent,
         },
         setup() {
             const authStore = useAuthStore();
-            return { authStore };
+            const { t } = useI18n();
+            return { authStore, t };
         },
         data: () => ({
             isLoading: true,

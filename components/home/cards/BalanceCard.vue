@@ -9,7 +9,7 @@
             <div class="row justify-content-center">
                 <div class="col-auto">
                     <h2>
-                        <strong>Balance: </strong>
+                        <strong>{{ t('home.cards.balance') }}: </strong>
                         <span> {{ balance.total }}</span>
                     </h2>
                 </div>
@@ -20,7 +20,7 @@
                     <div class="row align-items-center">
                         <div class="col-2">
                             <button
-                                v-tooltip="'New income'"
+                                v-tooltip="t('home.cards.new_income')"
                                 class="btn btn-outline-primary btn-sm border-0"
                                 @click="openIncomesModal"
                             >
@@ -30,7 +30,7 @@
                         <div class="col-10">
                             <h6 class="mb-0">
                                 <div class="row">
-                                    <strong>Income: </strong>
+                                    <strong>{{ t('home.cards.income') }}: </strong>
                                 </div>
                                 <div class="row">
                                     <span>{{ balance.income }}</span>
@@ -43,7 +43,7 @@
                     <div class="row align-items-center">
                         <div class="col-2">
                             <button
-                                v-tooltip="'New expense'"
+                                v-tooltip="t('home.cards.new_expense')"
                                 class="btn btn-outline-primary btn-sm border-0"
                                 @click="openExpensesModal"
                             >
@@ -53,7 +53,7 @@
                         <div class="col-10">
                             <h6 class="mb-0">
                                 <div class="row">
-                                    <strong>Expenses: </strong>
+                                    <strong>{{ t('home.cards.expenses') }}: </strong>
                                 </div>
                                 <div class="row">
                                     <span>{{ balance.expenses }}</span>
@@ -76,6 +76,7 @@
     import ExpenseModal from "@/components/home/modals/ExpenseModal.vue";
     import IncomeModal from "@/components/home/modals/IncomeModal.vue";
     import { useAuthStore } from '@/stores/auth';
+    import { useI18n } from 'vue-i18n';
 
     export default {
         components: {
@@ -84,7 +85,8 @@
         },
         setup() {
             const authStore = useAuthStore();
-            return { authStore };
+            const { t } = useI18n();
+            return { authStore, t };
         },
         data: () => ({
             isLoading: true,

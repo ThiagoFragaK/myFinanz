@@ -8,7 +8,7 @@
         <template #header>
             <div class="modal-header bg-primary text-white">
                 <IconsLucide icon="BanknoteArrowDown" />
-                <h5 class="modal-title ms-2"> New expense </h5>
+                <h5 class="modal-title ms-2"> {{ $t('home.modals.new_expense') }} </h5>
                 <button 
                     class="btn text-white ms-auto" 
                     data-bs-dismiss="modal" 
@@ -23,11 +23,11 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-6">
-                        <label>Name</label>
+                        <label>{{ $t('home.modals.name') }}</label>
                         <input 
                             type="text" 
                             class="form-control" 
-                            placeholder="Expense name"
+                            :placeholder="$t('home.modals.placeholders.expense_name')"
                             v-model="expense.name"
                             @blur="validateField('name')"
                             @input="validateField('name')"
@@ -35,11 +35,11 @@
                         <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
                     </div>
                     <div class="col-6">
-                        <label>Description</label>
+                        <label>{{ $t('home.modals.description') }}</label>
                         <input 
                             type="text" 
                             class="form-control" 
-                            placeholder="Description"
+                            :placeholder="$t('home.modals.placeholders.description')"
                             v-model="expense.description"
                             @blur="validateField('description')"
                             @input="validateField('description')"
@@ -49,13 +49,13 @@
                 </div>
                 <div class="row mt-4">
                     <div class="col-4">
-                        <label>Value</label>
+                        <label>{{ $t('home.modals.value') }}</label>
                         <div class="input-group">
                             <span class="input-group-text">R$</span>
                             <input 
                                 type="number" 
                                 class="form-control" 
-                                placeholder="Expense value"
+                                :placeholder="$t('home.modals.placeholders.expense_value')"
                                 v-model="expense.value"
                                 @blur="validateField('value')"
                                 @input="validateField('value')"
@@ -64,11 +64,11 @@
                         <small v-if="errors.value" class="text-danger">{{ errors.value }}</small>
                     </div>
                     <div class="col-3">
-                        <label>Parcel number</label>
+                        <label>{{ $t('home.modals.parcel_number') }}</label>
                         <input 
                             type="number" 
                             class="form-control" 
-                            placeholder="Parcel number"
+                            :placeholder="$t('home.modals.placeholders.parcel_number')"
                             v-model="expense.parcel_numbers"
                             @blur="validateField('parcel_numbers')"
                             @input="validateField('parcel_numbers')"
@@ -76,18 +76,18 @@
                         <small v-if="errors.parcel_numbers" class="text-danger">{{ errors.parcel_numbers }}</small>
                     </div>
                     <div class="col-5">
-                        <label>Date</label>
+                        <label>{{ $t('home.modals.date') }}</label>
                         <input 
                             type="date" 
                             class="form-control" 
-                            placeholder="Expense date"
+                            :placeholder="$t('home.modals.placeholders.expense_date')"
                             v-model="expense.date"
                         >
                     </div>                
                 </div>
                 <div class="row mt-4">
                     <div class="col-6">
-                        <label>Payment method</label>
+                        <label>{{ $t('home.modals.payment_method') }}</label>
                         <select 
                             class="form-select form-select"
                             aria-label="Large select example"
@@ -95,7 +95,7 @@
                             @blur="validateField('payment_methods_id')"
                             @input="validateField('payment_methods_id')"
                         >
-                            <option disabled selected value="">Select the method</option>
+                            <option disabled selected value="">{{ $t('home.modals.placeholders.select_method') }}</option>
                             <option 
                                 v-for="option in paymentMethodsList"
                                 :key="option.id" 
@@ -107,7 +107,7 @@
                         <small v-if="errors.payment_methods_id" class="text-danger">{{ errors.payment_methods_id }}</small>
                     </div>
                     <div class="col-6">
-                        <label>Categories</label>
+                        <label>{{ $t('home.modals.categories') }}</label>
                         <select 
                             class="form-select form-select"
                             aria-label="Large select example"
@@ -115,7 +115,7 @@
                             @blur="validateField('category_id')"
                             @input="validateField('category_id')"
                         >
-                            <option disabled selected value="">Select the category</option>
+                            <option disabled selected value="">{{ $t('home.modals.placeholders.select_category') }}</option>
                             <option 
                                 v-for="option in categoriesList"
                                 :key="option.id"

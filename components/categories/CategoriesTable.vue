@@ -32,11 +32,6 @@ export default {
         TableComponent
     },
     data: () => ({
-        columns: [
-            { key: "icon", label: "Icon" },
-            { key: "name", label: "Name" },
-            { key: "description", label: "Description" },
-        ],
         pagination: {
             currentPage: 1,
             totalPages: 1,
@@ -51,6 +46,15 @@ export default {
         },
         categoriesService: null
     }),
+    computed: {
+        columns() {
+            return [
+                { key: "icon", label: this.$t('common.icon') },
+                { key: "name", label: this.$t('common.name') },
+                { key: "description", label: this.$t('common.description') },
+            ];
+        }
+    },
     methods: {
         async getCategories(page = 1) {
             this.isLoading = true;
@@ -66,7 +70,7 @@ export default {
             } catch (error) {
                 this.$notify({
                     title: 'Error',
-                    text: 'Failed to load categories',
+                    text: this.$t('categories.failed_load'),
                     icon: 'error'
                 });
             } finally {

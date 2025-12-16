@@ -1,16 +1,15 @@
 <template>
     <div>
-        <h5 class="mb-3">Preferences</h5>
+        <h5 class="mb-3">{{ $t('user.preferences.title') }}</h5>
         <form @submit.prevent="updateSettings">
             <div class="mb-3">
-                <label for="language">Language</label>
+                <label for="language">{{ $t('user.preferences.language') }}</label>
                 <select
                     class="form-select"
                     id="language"
                     v-model="settingsForm.language"
                     @blur="validateField('language')"
                     @input="validateField('language')"
-                    disabled
                     required
                 >
                     <option v-for="lang in languagesList" :key="lang.value" :value="lang.value">
@@ -20,7 +19,7 @@
                 <small v-if="errors.language" class="text-danger">{{ errors.language }}</small>
             </div>
             <div class="mb-3">
-                <label for="currency">Currency</label>
+                <label for="currency">{{ $t('user.preferences.currency') }}</label>
                 <select
                     class="form-select"
                     id="currency"
@@ -37,7 +36,7 @@
             </div>
             <button type="submit" class="btn btn-primary btn-sm" :disabled="isSettingsLoading">
                 <span v-if="isSettingsLoading" class="spinner-border spinner-border-sm me-2"></span>
-                Save Preferences
+                {{ $t('user.preferences.save') }}
             </button>
         </form>
     </div>
@@ -57,9 +56,11 @@ export default {
             },
             languagesList: [
                 { value: 'en', label: 'English' },
-                { value: 'deu', label: 'Deutsch' },
+                { value: 'en', label: 'English' },
+                { value: 'de', label: 'Deutsch' },
                 { value: 'es', label: 'Español' },
-                { value: 'pt', label: 'Português' }
+                { value: 'pt', label: 'Português' },
+                { value: 'fr', label: 'Français' }
             ],
             currenciesList: [
                 { value: 'BRL', label: 'Real (BRL)' },
@@ -96,8 +97,8 @@ export default {
             const isValid = await this.validateForm();
             if (!isValid) {
                 return this.$notify({
-                    title: "Validation error",
-                    text: "One or more fields aren't valid, fix them and try again.",
+                    title: this.$t('login.notifications.validation_error'),
+                    text: this.$t('login.notifications.validation_text'),
                     icon: 'error'
                 });
             }
@@ -113,21 +114,22 @@ export default {
 
                 if (result.success) {
                     this.$notify({
-                        title: 'Success',
-                        text: 'Preferences updated successfully',
+                        title: this.$t('login.notifications.success'),
+                        text: this.$t('user.preferences.success'),
                         icon: 'success'
                     });
+                    this.$i18n.locale = this.settingsForm.language;
                 } else {
                     this.$notify({
-                        title: 'Error',
-                        text: result.message || 'Failed to update preferences',
+                        title: this.$t('login.notifications.failed'),
+                        text: result.message || this.$t('user.preferences.failed'),
                         icon: 'error'
                     });
                 }
             } catch (error) {
                 this.$notify({
-                    title: 'Error',
-                    text: 'Failed to update preferences',
+                    title: this.$t('login.notifications.failed'),
+                    text: this.$t('user.preferences.failed'),
                     icon: 'error'
                 });
             } finally {

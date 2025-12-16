@@ -8,7 +8,7 @@
         <template #header>
             <div class="modal-header bg-primary text-white">
                 <IconsLucide icon="BanknoteArrowDown" />
-                <h5 class="modal-title ms-2"> New Income </h5>
+                <h5 class="modal-title ms-2"> {{ $t('home.modals.new_income') }} </h5>
                 <button 
                     class="btn text-white ms-auto" 
                     data-bs-dismiss="modal" 
@@ -23,7 +23,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-6">
-                        <label>Income source</label>
+                        <label>{{ $t('home.modals.income_source') }}</label>
                         <select 
                             class="form-select form-select" 
                             aria-label="Large select example"
@@ -32,7 +32,7 @@
                             @input="validateField('source_id')"
                             ref="sourceRef"
                         >
-                            <option disabled selected value="">Select your income</option>
+                            <option disabled selected value="">{{ $t('home.modals.placeholders.select_source') }}</option>
                             <option 
                                 v-for="option in incomeSourcesList" 
                                 :key="option.id" 
@@ -44,7 +44,7 @@
                         <small v-if="errors.source_id" class="text-danger">{{ errors.source_id }}</small>
                     </div>
                     <div class="col-6">
-                        <label>Income type</label>
+                        <label>{{ $t('home.modals.income_type') }}</label>
                         <select 
                             class="form-select form-select" 
                             aria-label="Large select example"
@@ -52,7 +52,7 @@
                             @blur="validateField('type_id')"
                             @input="validateField('type_id')"
                         >
-                            <option disabled selected value="">Select the type</option>
+                            <option disabled selected value="">{{ $t('home.modals.placeholders.select_type') }}</option>
                             <option 
                                 v-for="option in incomeTypesList" 
                                 :key="option.id" 
@@ -66,11 +66,11 @@
                 </div>
                 <div class="row">
                     <div class="col-4">
-                        <label>Name</label>
+                        <label>{{ $t('home.modals.name') }}</label>
                         <input 
                             type="text" 
                             class="form-control" 
-                            placeholder="Income Name"
+                            :placeholder="$t('home.modals.placeholders.income_name')"
                             v-model="income.name"
                             @blur="validateField('name')"
                             @input="validateField('name')"
@@ -78,13 +78,13 @@
                         <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
                     </div>
                     <div class="col-5">
-                        <label>Value</label>
+                        <label>{{ $t('home.modals.value') }}</label>
                         <div class="input-group">
                             <span class="input-group-text">R$</span>
                             <input 
                                 type="number" 
                                 class="form-control" 
-                                placeholder="Income Value"
+                                :placeholder="$t('home.modals.placeholders.income_value')"
                                 v-model="income.value"
                                 @blur="validateField('value')"
                                 @input="validateField('value')"
@@ -93,14 +93,14 @@
                         <small v-if="errors.value" class="text-danger">{{ errors.value }}</small>
                     </div>
                     <div class="col-3">
-                        <label>Entry day</label>
+                        <label>{{ $t('home.modals.entry_day') }}</label>
                         <div class="input-group">
                             <input 
                                 type="number" 
                                 class="form-control" 
                                 min="1"
                                 max="31"
-                                placeholder="Entry day"
+                                :placeholder="$t('home.modals.placeholders.entry_day')"
                                 v-model="income.entry_day"
                                 @blur="validateField('entry_day')"
                                 @input="validateField('entry_day')"
