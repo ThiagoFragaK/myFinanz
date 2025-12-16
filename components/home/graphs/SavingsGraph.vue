@@ -30,7 +30,8 @@ export default {
         const authStore = useAuthStore();
         return { authStore };
     },
-    data: () => ({
+    data() {
+        return {
         isLoading: true,
         dataList: [],
         graphOptions: {
@@ -68,7 +69,8 @@ export default {
                 }
             }
         },
-    }),
+    };
+    },
     methods: {
         getMonthlySavings() {
             this.isLoading = true;

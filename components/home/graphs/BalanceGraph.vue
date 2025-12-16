@@ -32,7 +32,8 @@
             const authStore = useAuthStore();
             return { authStore };
         },
-        data: () => ({
+        data() {
+            return {
             isLoading: true,
             dataList: [],
             datesList: [],
@@ -61,7 +62,7 @@
                 tooltip: {
                     theme: 'light',
                     y: {
-                        formatter: function (value) {
+                        formatter: (value) => {
                             const config = currencyConfig[this.authStore.currency] || currencyConfig.BRL;
                             return new Intl.NumberFormat(config.locale, {
                                 style: 'currency',
@@ -71,7 +72,8 @@
                     }
                 }
             },
-        }),
+            };
+        },
         methods: {
             getMonthBalance() {
                 this.isLoading = true;
