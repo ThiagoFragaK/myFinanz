@@ -18,6 +18,11 @@
             "description_placeholder": "Kategoriebeschreibung",
             "icon_placeholder": "Kategorie-Symbol (Lucide)"
         },
+        "filters": {
+            "clean": "Filter löschen",
+            "filter": "Filtern",
+            "placeholder": "Kategoriename"
+        },
         "notifications": {
             "created": "Kategorie erfolgreich erstellt",
             "create_error": "Fehler beim Erstellen der Kategorie",

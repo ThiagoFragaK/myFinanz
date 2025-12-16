@@ -18,6 +18,11 @@
             "description_placeholder": "Category description",
             "icon_placeholder": "Category icon (Lucide)"
         },
+        "filters": {
+            "clean": "Clean filters",
+            "filter": "Filter",
+            "placeholder": "Category name"
+        },
         "notifications": {
             "created": "Category created successfully",
             "create_error": "Failed to create category",

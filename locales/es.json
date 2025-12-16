@@ -18,6 +18,11 @@
             "description_placeholder": "Descripción de la categoría",
             "icon_placeholder": "Icono de la categoría (Lucide)"
         },
+        "filters": {
+            "clean": "Limpiar filtros",
+            "filter": "Filtrar",
+            "placeholder": "Nombre de la categoría"
+        },
         "notifications": {
             "created": "Categoría creada con éxito",
             "create_error": "Error al crear categoría",
