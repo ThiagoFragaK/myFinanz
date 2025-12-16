@@ -73,8 +73,8 @@
                     this.incomeSource = response.data;
                 } catch (error) {
                     this.$notify({
-                        title: 'Error',
-                        text: 'Failed to load income source',
+                        title: this.$t('common.error'),
+                        text: this.$t('income_sources.notifications.load_error'),
                         icon: 'error'
                     });
                 } finally {
@@ -99,8 +99,8 @@
                 const isValid = await this.validateForm();
                 if (!isValid) {
                     return this.$notify({
-                        title: "Validation error",
-                        text: "One or more fields aren't valid, fix them and try again.",
+                        title: this.$t('common.validation_error'),
+                        text: this.$t('common.validation_text'),
                         icon: 'error'
                     });
                 }
@@ -115,15 +115,15 @@
                     const response = await this.incomeSourcesService.createIncomeSource(this.incomeSource);
                     this.incomeSource = response.data;
                     this.$notify({
-                        title: 'Success',
-                        text: 'Income source created successfully',
+                        title: this.$t('common.success'),
+                        text: this.$t('income_sources.notifications.created'),
                         icon: 'success'
                     });
                     this.$emit("save");
                 } catch (error) {
                     this.$notify({
-                        title: 'Error',
-                        text: 'Failed to create income source',
+                        title: this.$t('common.error'),
+                        text: this.$t('income_sources.notifications.create_error'),
                         icon: 'error'
                     });
                 }
@@ -132,15 +132,15 @@
                 try {
                     await this.incomeSourcesService.updateIncomeSource(this.id, this.incomeSource);
                     this.$notify({
-                        title: 'Success',
-                        text: 'Income source updated successfully',
+                        title: this.$t('common.success'),
+                        text: this.$t('income_sources.notifications.updated'),
                         icon: 'success'
                     });
                     this.$emit("save");
                 } catch (error) {
                     this.$notify({
-                        title: 'Error',
-                        text: 'Failed to update income source',
+                        title: this.$t('common.error'),
+                        text: this.$t('income_sources.notifications.update_error'),
                         icon: 'error'
                     });
                 }
@@ -158,4 +158,4 @@
             this.getIncomeSourceById();
         }
     };
-</script>  
+</script>

@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-1">
                 <button
-                    v-tooltip="'Clean filters'"
+                    v-tooltip="$t('savings.filters.clean')"
                     type="button" 
                     class="btn btn-secondary btn-sm mt-1 w-100"
                     @click="cleanFilters"
@@ -16,7 +16,7 @@
             </div>
             <div class="col-1">
                 <button
-                    v-tooltip="'Filter'" 
+                    v-tooltip="$t('savings.filters.filter')" 
                     type="button" 
                     class="btn btn-primary btn-sm mt-1 w-100"
                     @click="filter"
@@ -26,19 +26,19 @@
             </div>
             <div class="col-3">
                 <input
-                    v-tooltip="'Min date'" 
+                    v-tooltip="$t('savings.filters.min_date')" 
                     type="date" 
                     class="form-control" 
-                    placeholder="Min date"
+                    :placeholder="$t('savings.filters.min_date')"
                     v-model="filters.date.min"
                 >
             </div>       
             <div class="col-3">
                 <input
-                    v-tooltip="'Max date'" 
+                    v-tooltip="$t('savings.filters.max_date')" 
                     type="date" 
                     class="form-control" 
-                    placeholder="Max date"
+                    :placeholder="$t('savings.filters.max_date')"
                     v-model="filters.date.max"
                 >
             </div>         
@@ -46,7 +46,7 @@
                 <input 
                     type="text"
                     class="form-control" 
-                    placeholder="Min value"
+                    :placeholder="$t('savings.filters.min_value')"
                     v-model="filters.value.min"
                 >
             </div>          
@@ -54,7 +54,7 @@
                 <input 
                     type="text"
                     class="form-control" 
-                    placeholder="Max value"
+                    :placeholder="$t('savings.filters.max_value')"
                     v-model="filters.value.max"
                 >
             </div>          

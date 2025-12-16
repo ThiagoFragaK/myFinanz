@@ -10,11 +10,11 @@
         </div>
         <div v-else class="row mb-4">
             <div class="col-4">
-                <label>Value</label>
+                <label>{{ $t('savings.form.value') }}</label>
                 <input 
                     type="number"
                     class="form-control" 
-                    placeholder="Saving value"
+                    :placeholder="$t('savings.form.value_placeholder')"
                     v-model="saving.value"
                     @blur="validateField('value')"
                     @input="validateField('value')"
@@ -23,7 +23,7 @@
                 <small v-if="errors.value" class="text-danger">{{ errors.value }}</small>
             </div>
             <div class="col-4">
-                <label>Value status</label>
+                <label>{{ $t('savings.form.type') }}</label>
                 <div class="form-check form-switch">
                     <input
                         class="form-check-input"
@@ -43,11 +43,11 @@
             :disabled="isLoading"
             @click="save"
         >
-            Save
+            {{ $t('common.save') }}
         </button>
     </div>
 </template>
-  
+
 <script>
     import { Validation } from '@/helpers/Validation';
     import LoadingComponent from '@/components/global/LoadingComponent.vue';
@@ -88,8 +88,8 @@
                     this.saving = response.data;
                 } catch (error) {
                     this.$notify({
-                        title: 'Error',
-                        text: 'Failed to load saving',
+                        title: this.$t('common.error'),
+                        text: this.$t('savings.notifications.load_error'),
                         icon: 'error'
                     });
                 } finally {
@@ -114,8 +114,8 @@
                 const isValid = await this.validateForm();
                 if (!isValid) {
                     return this.$notify({
-                        title: "Validation error",
-                        text: "One or more fields aren't valid, fix them and try again.",
+                        title: this.$t('common.validation_error'),
+                        text: this.$t('common.validation_text'),
                         icon: 'error'
                     });
                 }
@@ -129,15 +129,15 @@
                 try {
                     await this.savingsService.createSaving(this.saving);
                     this.$notify({
-                        title: 'Success',
-                        text: 'Saving created successfully',
+                        title: this.$t('common.success'),
+                        text: this.$t('savings.notifications.created'),
                         icon: 'success'
                     });
                     this.$emit("save");
                 } catch (error) {
                     this.$notify({
-                        title: 'Error',
-                        text: 'Failed to create saving',
+                        title: this.$t('common.error'),
+                        text: this.$t('savings.notifications.create_error'),
                         icon: 'error'
                     });
                 }
@@ -146,15 +146,15 @@
                 try {
                     await this.savingsService.updateSaving(this.id, this.saving);
                     this.$notify({
-                        title: 'Success',
-                        text: 'Saving edited successfully',
+                        title: this.$t('common.success'),
+                        text: this.$t('savings.notifications.updated'),
                         icon: 'success'
                     });
                     this.$emit("save");
                 } catch (error) {
                     this.$notify({
-                        title: 'Error',
-                        text: 'Failed to update saving',
+                        title: this.$t('common.error'),
+                        text: this.$t('savings.notifications.update_error'),
                         icon: 'error'
                     });
                 }
@@ -162,10 +162,10 @@
         },
         computed: {
             title() {
-                return this.isEdit ? "Edit Saving" : "New Saving";
+                return this.isEdit ? this.$t('savings.edit') : this.$t('savings.new');
             },
             checkTitle() {
-                return this.saving.is_positive === 1 ? "Positive" : "Negative";
+                return this.saving.is_positive === 1 ? this.$t('savings.form.positive') : this.$t('savings.form.negative');
             },
         },
         created() {

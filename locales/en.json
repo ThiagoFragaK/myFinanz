@@ -6,7 +6,13 @@
         "name": "Name",
         "description": "Description",
         "save": "Save",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "status_active": "Active",
+        "status_inactive": "Inactive",
+        "error": "Error",
+        "success": "Success",
+        "validation_error": "Validation Error",
+        "validation_text": "One or more fields are invalid."
     },
     "categories": {
         "title": "Categories",
@@ -139,6 +145,201 @@
             "submit": "Create User",
             "success": "User created successfully!",
             "failed": "Failed to create user"
+        }
+    },
+    "pagination": {
+        "previous": "Previous",
+        "next": "Next"
+    },
+    "payment_methods": {
+        "title": "Payment Methods",
+        "new": "New Method",
+        "edit": "Edit Method",
+        "filters": {
+            "clean": "Clean filters",
+            "filter": "Filter",
+            "placeholder": "Method name"
+        },
+        "form": {
+            "name_placeholder": "Method name",
+            "limit_placeholder": "Card limit",
+            "turn_day_placeholder": "Card turn day",
+            "select_type": "Select the type",
+            "debt": "Debt",
+            "credit": "Credit"
+        },
+        "table": {
+            "name": "Name",
+            "type": "Type",
+            "limit": "Limit",
+            "turn_day": "Turn Day",
+            "status": "Status"
+        },
+        "notifications": {
+            "created": "Payment method created successfully",
+            "create_error": "Failed to create payment method",
+            "updated": "Payment method edited successfully",
+            "update_error": "Failed to update payment method",
+            "load_error": "Failed to load payment method"
+        }
+    },
+    "expenses": {
+        "title": "Expenses",
+        "new": "New Expense",
+        "edit": "Edit Expense",
+        "filters": {
+            "clean": "Clean filters",
+            "filter": "Filter",
+            "description_placeholder": "Name, description",
+            "max_value": "Max value",
+            "methods": "Methods",
+            "categories": "Categories",
+            "current_month": "Current month",
+            "all_months": "All months"
+        },
+        "table": {
+            "name": "Name",
+            "description": "Description",
+            "value": "Value",
+            "date": "Date",
+            "category": "Category",
+            "method": "Payment Method",
+            "parcels": "Parcels"
+        },
+        "form": {
+            "name_placeholder": "Expense name",
+            "description_placeholder": "Expense description",
+            "parcel_number_placeholder": "Parcel number",
+            "value_placeholder": "Expense value",
+            "date_placeholder": "Expense date",
+            "select_method": "Select the method",
+            "select_category": "Select the category",
+            "parcel_number": "Parcel number"
+        },
+        "notifications": {
+            "created": "Expense created successfully",
+            "create_error": "Failed to create expense",
+            "updated": "Expense edited successfully",
+            "update_error": "Failed to update expense",
+            "load_error": "Failed to load expense"
+        }
+    },
+    "incomes": {
+        "title": "Incomes",
+        "new": "New Income",
+        "edit": "Edit Income",
+        "filters": {
+            "clean": "Clean filters",
+            "filter": "Filter",
+            "placeholder": "Name"
+        },
+        "table": {
+            "name": "Name",
+            "value": "Value",
+            "entry_day": "Entry Day",
+            "source": "Income Source",
+            "type": "Type",
+            "status": "Status"
+        },
+        "form": {
+            "name": "Name",
+            "value": "Value",
+            "entry_day": "Entry Day",
+            "source": "Income Source",
+            "type": "Income Type",
+            "name_placeholder": "Income Name",
+            "value_placeholder": "Income Value",
+            "entry_day_placeholder": "Entry Day",
+            "select_source": "Select your income",
+            "select_type": "Select the type"
+        },
+        "notifications": {
+            "created": "Income created successfully",
+            "create_error": "Failed to create income",
+            "updated": "Income edited successfully",
+            "update_error": "Failed to update income",
+            "load_error": "Failed to load income"
+        }
+    },
+    "income_types": {
+        "title": "Income Types",
+        "new": "New Income Type",
+        "edit": "Edit Income Type",
+        "form": {
+            "name": "Name",
+            "name_placeholder": "Income Type Name"
+        },
+        "table": {
+            "code": "Code",
+            "name": "Name"
+        },
+        "notifications": {
+            "created": "Income type created successfully",
+            "updated": "Income type updated successfully",
+            "load_error": "Failed to load income types",
+            "create_error": "Failed to create income type",
+            "update_error": "Failed to update income type"
+        }
+    },
+    "income_sources": {
+        "title": "Income Sources",
+        "new": "New Income Source",
+        "edit": "Edit Income Source",
+        "disable": "Disable Income Source",
+        "enable": "Enable Income Source",
+        "form": {
+            "name": "Name",
+            "name_placeholder": "Income Source Name"
+        },
+        "table": {
+            "name": "Name",
+            "status": "Status"
+        },
+        "notifications": {
+            "created": "Income source created successfully",
+            "updated": "Income source updated successfully",
+            "load_error": "Failed to load income sources",
+            "create_error": "Failed to create income source",
+            "update_error": "Failed to update income source"
+        }
+    },
+    "savings": {
+        "title": "Savings",
+        "new": "New Saving",
+        "edit": "Edit Saving",
+        "filters": {
+            "clean": "Clean filters",
+            "filter": "Filter",
+            "description_placeholder": "Description",
+            "min_date": "Min Date",
+            "max_date": "Max Date",
+            "min_value": "Min Value",
+            "max_value": "Max Value"
+        },
+        "table": {
+            "date": "Date",
+            "value": "Value",
+            "type": "Type",
+            "description": "Description"
+        },
+        "form": {
+            "value": "Value",
+            "type": "Type",
+            "positive": "Positive",
+            "negative": "Negative",
+            "description_placeholder": "Saving description",
+            "value_placeholder": "0.00"
+        },
+        "types": {
+            "increase": "Increase",
+            "decrease": "Decrease"
+        },
+        "notifications": {
+            "created": "Saving created successfully",
+            "create_error": "Failed to create saving",
+            "updated": "Saving edited successfully",
+            "update_error": "Failed to update saving",
+            "load_error": "Failed to load saving"
         }
     }
 }

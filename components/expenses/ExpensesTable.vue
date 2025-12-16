@@ -45,15 +45,6 @@
             StatusBadge
         },
         data: () => ({
-            columns: [
-                { key: "name", label: "Name" },
-                { key: "description", label: "Description" },
-                { key: "payment_methods", label: "Payment methods" },
-                { key: "categories", label: "Category" },
-                { key: "created_at", label: "Date" },
-                { key: "parcel_numbers", label: "Parcels" },
-                { key: "value", label: "Value" },
-            ],
             pagination: {
                 currentPage: 1,
                 totalPages: 1,
@@ -68,6 +59,19 @@
             },
             expensesService: null
         }),
+        computed: {
+            columns() {
+                return [
+                    { key: "name", label: this.$t("expenses.table.name") },
+                    { key: "description", label: this.$t("expenses.table.description") },
+                    { key: "payment_methods", label: this.$t("expenses.table.method") },
+                    { key: "categories", label: this.$t("expenses.table.category") },
+                    { key: "created_at", label: this.$t("expenses.table.date") },
+                    { key: "parcel_numbers", label: this.$t("expenses.table.parcels") },
+                    { key: "value", label: this.$t("expenses.table.value") },
+                ];
+            }
+        },
         methods: {
             async getExpenses(page = 1) {
                 this.isLoading = true;
@@ -83,7 +87,7 @@
                 } catch (error) {
                     this.$notify({
                         title: 'Error',
-                        text: 'Failed to load expenses',
+                        text: this.$t('expenses.notifications.load_error'),
                         icon: 'error'
                     });
                 } finally {

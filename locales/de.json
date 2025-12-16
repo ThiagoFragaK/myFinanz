@@ -6,7 +6,13 @@
         "name": "Name",
         "description": "Beschreibung",
         "save": "Speichern",
-        "cancel": "Abbrechen"
+        "cancel": "Abbrechen",
+        "status_active": "Aktiv",
+        "status_inactive": "Inaktiv",
+        "error": "Fehler",
+        "success": "Erfolg",
+        "validation_error": "Validierungsfehler",
+        "validation_text": "Ein oder mehrere Felder sind ungültig."
     },
     "categories": {
         "title": "Kategorien",
@@ -139,6 +145,201 @@
             "submit": "Benutzer erstellen",
             "success": "Benutzer erfolgreich erstellt!",
             "failed": "Fehler beim Erstellen des Benutzers"
+        }
+    },
+    "pagination": {
+        "previous": "Zurück",
+        "next": "Weiter"
+    },
+    "payment_methods": {
+        "title": "Zahlungsmethoden",
+        "new": "Neue Methode",
+        "edit": "Methode bearbeiten",
+        "filters": {
+            "clean": "Filter löschen",
+            "filter": "Filtern",
+            "placeholder": "Methodenname"
+        },
+        "form": {
+            "name_placeholder": "Methodenname",
+            "limit_placeholder": "Kartenlimit",
+            "turn_day_placeholder": "Abrechnungstag",
+            "select_type": "Typ auswählen",
+            "debt": "Lastschrift",
+            "credit": "Kredit"
+        },
+        "table": {
+            "name": "Name",
+            "type": "Typ",
+            "limit": "Limit",
+            "turn_day": "Abrechnungstag",
+            "status": "Status"
+        },
+        "notifications": {
+            "created": "Zahlungsmethode erfolgreich erstellt",
+            "create_error": "Fehler beim Erstellen der Zahlungsmethode",
+            "updated": "Zahlungsmethode erfolgreich bearbeitet",
+            "update_error": "Fehler beim Aktualisieren der Zahlungsmethode",
+            "load_error": "Fehler beim Laden der Zahlungsmethode"
+        }
+    },
+    "expenses": {
+        "title": "Ausgaben",
+        "new": "Neue Ausgabe",
+        "edit": "Ausgabe bearbeiten",
+        "filters": {
+            "clean": "Filter löschen",
+            "filter": "Filtern",
+            "description_placeholder": "Name, Beschreibung",
+            "max_value": "Maximalwert",
+            "methods": "Methoden",
+            "categories": "Kategorien",
+            "current_month": "Aktueller Monat",
+            "all_months": "Alle Monate"
+        },
+        "table": {
+            "name": "Name",
+            "description": "Beschreibung",
+            "value": "Wert",
+            "date": "Datum",
+            "category": "Kategorie",
+            "method": "Zahlungsmethode",
+            "parcels": "Raten"
+        },
+        "form": {
+            "name_placeholder": "Ausgabenname",
+            "description_placeholder": "Ausgabenbeschreibung",
+            "parcel_number_placeholder": "Ratenanzahl",
+            "value_placeholder": "Ausgabenwert",
+            "date_placeholder": "Ausgabendatum",
+            "select_method": "Methode auswählen",
+            "select_category": "Kategorie auswählen",
+            "parcel_number": "Ratenanzahl"
+        },
+        "notifications": {
+            "created": "Ausgabe erfolgreich erstellt",
+            "create_error": "Fehler beim Erstellen der Ausgabe",
+            "updated": "Ausgabe erfolgreich bearbeitet",
+            "update_error": "Fehler beim Aktualisieren der Ausgabe",
+            "load_error": "Fehler beim Laden der Ausgabe"
+        }
+    },
+    "incomes": {
+        "title": "Einnahmen",
+        "new": "Neue Einnahme",
+        "edit": "Einnahme bearbeiten",
+        "filters": {
+            "clean": "Filter löschen",
+            "filter": "Filtern",
+            "placeholder": "Name"
+        },
+        "table": {
+            "name": "Name",
+            "value": "Wert",
+            "entry_day": "Eingangstag",
+            "source": "Einkommensquelle",
+            "type": "Typ",
+            "status": "Status"
+        },
+        "form": {
+            "name": "Name",
+            "value": "Wert",
+            "entry_day": "Eingangstag",
+            "source": "Einkommensquelle",
+            "type": "Einkommensart",
+            "name_placeholder": "Einkommensname",
+            "value_placeholder": "Einkommenswert",
+            "entry_day_placeholder": "Eingangstag",
+            "select_source": "Wählen Sie Ihr Einkommen",
+            "select_type": "Wählen Sie den Typ"
+        },
+        "notifications": {
+            "created": "Einnahme erfolgreich erstellt",
+            "create_error": "Fehler beim Erstellen der Einnahme",
+            "updated": "Einnahme erfolgreich bearbeitet",
+            "update_error": "Fehler beim Aktualisieren der Einnahme",
+            "load_error": "Fehler beim Laden der Einnahme"
+        }
+    },
+    "income_types": {
+        "title": "Einkommensarten",
+        "new": "Neue Einkommensart",
+        "edit": "Einkommensart bearbeiten",
+        "form": {
+            "name": "Name",
+            "name_placeholder": "Name der Einkommensart"
+        },
+        "table": {
+            "code": "Code",
+            "name": "Name"
+        },
+        "notifications": {
+            "created": "Einkommensart erfolgreich erstellt",
+            "updated": "Einkommensart erfolgreich aktualisiert",
+            "load_error": "Fehler beim Laden der Einkommensarten",
+            "create_error": "Fehler beim Erstellen der Einkommensart",
+            "update_error": "Fehler beim Aktualisieren der Einkommensart"
+        }
+    },
+    "income_sources": {
+        "title": "Einkommensquellen",
+        "new": "Neue Einkommensquelle",
+        "edit": "Einkommensquelle bearbeiten",
+        "disable": "Einkommensquelle deaktivieren",
+        "enable": "Einkommensquelle aktivieren",
+        "form": {
+            "name": "Name",
+            "name_placeholder": "Name der Einkommensquelle"
+        },
+        "table": {
+            "name": "Name",
+            "status": "Status"
+        },
+        "notifications": {
+            "created": "Einkommensquelle erfolgreich erstellt",
+            "updated": "Einkommensquelle erfolgreich aktualisiert",
+            "load_error": "Fehler beim Laden der Einkommensquellen",
+            "create_error": "Fehler beim Erstellen der Einkommensquelle",
+            "update_error": "Fehler beim Aktualisieren der Einkommensquelle"
+        }
+    },
+    "savings": {
+        "title": "Ersparnisse",
+        "new": "Neue Ersparnis",
+        "edit": "Ersparnis bearbeiten",
+        "filters": {
+            "clean": "Filter löschen",
+            "filter": "Filtern",
+            "description_placeholder": "Beschreibung",
+            "min_date": "Min Datum",
+            "max_date": "Max Datum",
+            "min_value": "Min Wert",
+            "max_value": "Max Wert"
+        },
+        "table": {
+            "date": "Datum",
+            "value": "Wert",
+            "type": "Typ",
+            "description": "Beschreibung"
+        },
+        "form": {
+            "value": "Wert",
+            "type": "Typ",
+            "positive": "Positiv",
+            "negative": "Negativ",
+            "description_placeholder": "Ersparnisbeschreibung",
+            "value_placeholder": "0,00"
+        },
+        "types": {
+            "increase": "Erhöhung",
+            "decrease": "Verringerung"
+        },
+        "notifications": {
+            "created": "Ersparnis erfolgreich erstellt",
+            "create_error": "Fehler beim Erstellen der Ersparnis",
+            "updated": "Ersparnis erfolgreich bearbeitet",
+            "update_error": "Fehler beim Aktualisieren der Ersparnis",
+            "load_error": "Fehler beim Laden der Ersparnis"
         }
     }
 }

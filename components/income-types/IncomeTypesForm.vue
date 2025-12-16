@@ -74,7 +74,7 @@
                 } catch (error) {
                     this.$notify({
                         title: 'Error',
-                        text: 'Failed to load income type',
+                        text: this.$t('income_types.notifications.load_error'),
                         icon: 'error'
                     });
                 } finally {
@@ -99,8 +99,8 @@
                 const isValid = await this.validateForm();
                 if (!isValid) {
                     return this.$notify({
-                        title: "Validation error",
-                        text: "One or more fields aren't valid, fix them and try again.",
+                        title: this.$t('common.validation_error'),
+                        text: this.$t('common.validation_text'),
                         icon: 'error'
                     });
                 }
@@ -113,15 +113,15 @@
                 try {
                     await this.incomeTypesService.createIncomeType(this.incomeType);
                     this.$notify({
-                        title: 'Success',
-                        text: 'Income type created successfully',
+                        title: this.$t('common.success'),
+                        text: this.$t('income_types.notifications.created'),
                         icon: 'success'
                     });
                     this.$emit("save");
                 } catch (error) {
                     this.$notify({
-                        title: 'Error',
-                        text: 'Failed to create income type',
+                        title: this.$t('common.error'),
+                        text: this.$t('income_types.notifications.create_error'),
                         icon: 'error'
                     });
                 }
@@ -130,15 +130,15 @@
                 try {
                     await this.incomeTypesService.updateIncomeType(this.id, this.incomeType);
                     this.$notify({
-                        title: 'Success',
-                        text: 'Income type updated successfully',
+                        title: this.$t('common.success'),
+                        text: this.$t('income_types.notifications.updated'),
                         icon: 'success'
                     });
                     this.$emit("save");
                 } catch (error) {
                     this.$notify({
-                        title: 'Error',
-                        text: 'Failed to update income type',
+                        title: this.$t('common.error'),
+                        text: this.$t('income_types.notifications.update_error'),
                         icon: 'error'
                     });
                 }
@@ -149,4 +149,4 @@
             this.getIncomeTypeById();
         }
     };
-</script>  
+</script>

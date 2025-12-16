@@ -42,11 +42,6 @@
             TableComponent
         },
         data: () => ({
-            columns: [
-                { key: "created_at", label: "Data" },
-                { key: "is_positive", label: "Transition type" },
-                { key: "value", label: "Value" },
-            ],
             pagination: {
                 currentPage: 1,
                 totalPages: 1,
@@ -60,6 +55,15 @@
             filters: {},
             savingsService: null
         }),
+        computed: {
+            columns() {
+                return [
+                     { key: "created_at", label: this.$t('savings.table.date') },
+                     { key: "is_positive", label: this.$t('savings.table.type') },
+                     { key: "value", label: this.$t('savings.table.value') },
+                ]
+            }
+        },
         setup() {
             const authStore = useAuthStore();
             return { authStore };
@@ -80,8 +84,8 @@
                     };
                 } catch (error) {
                     this.$notify({
-                        title: 'Error',
-                        text: 'Failed to load savings',
+                        title: this.$t('common.error'),
+                        text: this.$t('savings.notifications.load_error'),
                         icon: 'error'
                     });
                 } finally {
@@ -93,7 +97,7 @@
                 this.$emit("allowActions", rows);
             },
             translateTransitionType(type) {
-                return type === 1 ? "Increase" : "Decrease";
+                return type === 1 ? this.$t('savings.types.increase') : this.$t('savings.types.decrease');
             },
             formateDate(date) {
                 return Dates.getFormatedDate(date);

@@ -45,7 +45,6 @@
                 this.isLoading = true;
                 this.$axios.get(`dashboard/graph/monthly`)
                     .then(({ data }) => {
-                        console.log(data);
                         this.dataList = data.data.data.map(item => ({
                             ...item,
                             name: this.$t(item.name)

@@ -33,10 +33,6 @@
             TableComponent
         },
         data: () => ({
-            columns: [
-                { key: "name", label: "Name" },
-                { key: "status", label: "Status" },
-            ],
             pagination: {
                 currentPage: 1,
                 totalPages: 1,
@@ -47,6 +43,18 @@
             isLoading: true,
             incomeSourcesService: null
         }),
+        computed: {
+            columns() {
+                return [
+                     { key: "name", label: this.$t('income_sources.table.name') },
+                     { key: "status", label: this.$t('income_sources.table.status') },
+                ]
+            }
+        },
+        mounted() {
+            this.incomeSourcesService = useIncomeSourcesService(this.$axios);
+            this.getIncomeSources();
+        },
         methods: {
             async getIncomeSources(page = 1) {
                 this.isLoading = true;
@@ -61,8 +69,8 @@
                     };
                 } catch (error) {
                     this.$notify({
-                        title: 'Error',
-                        text: 'Failed to load income sources',
+                        title: this.$t('common.error'),
+                        text: this.$t('income_sources.notifications.load_error'),
                         icon: 'error'
                     });
                 } finally {

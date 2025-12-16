@@ -1,6 +1,6 @@
 <template>
     <button 
-        v-tooltip="'Return'"
+        v-tooltip="$t('common.return')"
         type="button"
         class="btn btn-primary mb-4"
         @click="returnToTable"
@@ -9,7 +9,7 @@
         <IconsLucide icon="ChevronLeft" />
     </button>
     <button 
-        v-tooltip="'New income'"
+        v-tooltip="$t('incomes.new')"
         type="button"
         class="btn btn-primary ms-2 mb-4"
         @click="newIncome"
@@ -18,7 +18,7 @@
         <IconsLucide icon="Plus" />
     </button>
     <button
-        v-tooltip="'Edit income'"
+        v-tooltip="$t('incomes.edit')"
         type="button"
         class="btn btn-primary ms-2 mb-4"
         @click="editIncome"
@@ -27,7 +27,7 @@
         <IconsLucide icon="Pencil" />
     </button>
     <button 
-        v-tooltip="'Disable income'"
+        v-tooltip="$t('incomes.disable')"
         type="button"
         class="btn btn-primary ms-2 mb-4"
         :disabled="hasntOnlyOneSelected"
@@ -36,7 +36,7 @@
         <IconsLucide icon="CircleSlash" />
     </button>
     <button 
-        v-tooltip="'Enable income'"
+        v-tooltip="$t('incomes.enable')"
         type="button"
         class="btn btn-primary ms-2 mb-4"
         :disabled="hasntOnlyOneSelected"
@@ -99,14 +99,14 @@
                     await this.incomesService.disableIncome(this.selectedIncome.id);
                     this.$notify({
                         title: 'Success',
-                        text: 'Income disabled successfully',
+                        text: this.$t('incomes.notifications.updated'),
                         icon: 'success'
                     });
                     this.$refs.IncomeTable.getIncomeSources();
                 } catch (error) {
                     this.$notify({
                         title: 'Error',
-                        text: 'Failed to disable income',
+                        text: this.$t('incomes.notifications.update_error'),
                         icon: 'error'
                     });
                 }
@@ -116,14 +116,14 @@
                     await this.incomesService.enableIncome(this.selectedIncome.id);
                     this.$notify({
                         title: 'Success',
-                        text: 'Income enabled successfully',
+                        text: this.$t('incomes.notifications.updated'),
                         icon: 'success'
                     });
                     this.$refs.IncomeTable.getIncomeSources();
                 } catch (error) {
                     this.$notify({
                         title: 'Error',
-                        text: 'Failed to enable income',
+                        text: this.$t('incomes.notifications.update_error'),
                         icon: 'error'
                     });
                 }

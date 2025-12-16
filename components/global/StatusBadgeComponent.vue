@@ -4,13 +4,13 @@
             v-if="status === 1" 
             class="badge text-bg-success"
         >
-            <div class="text-light">Active</div>
+            <div class="text-light">{{ $t('common.status_active') }}</div>
         </span>
         <span 
             v-else
             class="badge text-bg-danger"
         >
-            <div class="text-light">Inactive</div>
+            <div class="text-light">{{ $t('common.status_inactive') }}</div>
         </span>
     </div>
 </template>

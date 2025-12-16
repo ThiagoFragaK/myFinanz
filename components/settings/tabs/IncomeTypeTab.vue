@@ -1,7 +1,7 @@
 <template>
     <button 
+        v-tooltip="$t('common.return')"
         type="button"
-        title="Return"
         class="btn btn-primary mb-4"
         @click="returnToTable"
         :disabled="showTable"
@@ -9,11 +9,11 @@
         <IconsLucide icon="ChevronLeft" />
     </button>
     <button 
-        type="button"
-        title="New Income Type"
-        class="btn btn-primary ms-2 mb-4"
-        @click="newIncomeType"
-        :disabled="disableBtns"
+        v-if="showTable"
+        v-tooltip="$t('income_types.new')"
+        type="button" 
+        class="btn btn-primary mb-4 ms-2"
+        @click="showTable = false"
     >
         <IconsLucide icon="Plus" />
     </button>

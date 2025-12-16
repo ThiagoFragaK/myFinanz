@@ -6,7 +6,13 @@
         "name": "Nom",
         "description": "Description",
         "save": "Enregistrer",
-        "cancel": "Annuler"
+        "cancel": "Annuler",
+        "status_active": "Actif",
+        "status_inactive": "Inactif",
+        "error": "Erreur",
+        "success": "Succès",
+        "validation_error": "Erreur de validation",
+        "validation_text": "Un ou plusieurs champs sont invalides."
     },
     "categories": {
         "title": "Catégories",
@@ -139,6 +145,201 @@
             "submit": "Créer l'utilisateur",
             "success": "Utilisateur créé avec succès !",
             "failed": "Échec de la création de l'utilisateur"
+        }
+    },
+    "pagination": {
+        "previous": "Précédent",
+        "next": "Suivant"
+    },
+    "payment_methods": {
+        "title": "Méthodes de Paiement",
+        "new": "Nouvelle Méthode",
+        "edit": "Modifier Méthode",
+        "filters": {
+            "clean": "Effacer les filtres",
+            "filter": "Filtrer",
+            "placeholder": "Nom de la méthode"
+        },
+        "form": {
+            "name_placeholder": "Nom de la méthode",
+            "limit_placeholder": "Limite de la carte",
+            "turn_day_placeholder": "Jour de clôture",
+            "select_type": "Sélectionner le type",
+            "debt": "Débit",
+            "credit": "Crédit"
+        },
+        "table": {
+            "name": "Nom",
+            "type": "Type",
+            "limit": "Limite",
+            "turn_day": "Jour de Clôture",
+            "status": "Statut"
+        },
+        "notifications": {
+            "created": "Méthode de paiement créée avec succès",
+            "create_error": "Échec de la création de la méthode de paiement",
+            "updated": "Méthode de paiement modifiée avec succès",
+            "update_error": "Échec de la mise à jour de la méthode de paiement",
+            "load_error": "Échec du chargement de la méthode de paiement"
+        }
+    },
+    "expenses": {
+        "title": "Dépenses",
+        "new": "Nouvelle Dépense",
+        "edit": "Modifier Dépense",
+        "filters": {
+            "clean": "Effacer les filtres",
+            "filter": "Filtrer",
+            "description_placeholder": "Nom, description",
+            "max_value": "Valeur max",
+            "methods": "Méthodes",
+            "categories": "Catégories",
+            "current_month": "Mois en cours",
+            "all_months": "Tous les mois"
+        },
+        "table": {
+            "name": "Nom",
+            "description": "Description",
+            "value": "Valeur",
+            "date": "Date",
+            "category": "Catégorie",
+            "method": "Méthode de Paiement",
+            "parcels": "Versements"
+        },
+        "form": {
+            "name_placeholder": "Nom de la dépense",
+            "description_placeholder": "Description de la dépense",
+            "parcel_number_placeholder": "Nombre de versements",
+            "value_placeholder": "Valeur de la dépense",
+            "date_placeholder": "Date de la dépense",
+            "select_method": "Sélectionner la méthode",
+            "select_category": "Sélectionner la catégorie",
+            "parcel_number": "Nombre de versements"
+        },
+        "notifications": {
+            "created": "Dépense créée avec succès",
+            "create_error": "Échec de la création de la dépense",
+            "updated": "Dépense modifiée avec succès",
+            "update_error": "Échec de la mise à jour de la dépense",
+            "load_error": "Échec du chargement de la dépense"
+        }
+    },
+    "incomes": {
+        "title": "Revenus",
+        "new": "Nouveau Revenu",
+        "edit": "Modifier Revenu",
+        "filters": {
+            "clean": "Effacer les filtres",
+            "filter": "Filtrer",
+            "placeholder": "Nom"
+        },
+        "table": {
+            "name": "Nom",
+            "value": "Valeur",
+            "entry_day": "Jour d'entrée",
+            "source": "Source de Revenu",
+            "type": "Type",
+            "status": "Statut"
+        },
+        "form": {
+            "name": "Nom",
+            "value": "Valeur",
+            "entry_day": "Jour d'entrée",
+            "source": "Source de Revenu",
+            "type": "Type de Revenu",
+            "name_placeholder": "Nom du Revenu",
+            "value_placeholder": "Valeur du Revenu",
+            "entry_day_placeholder": "Jour d'entrée",
+            "select_source": "Sélectionnez votre revenu",
+            "select_type": "Sélectionnez le type"
+        },
+        "notifications": {
+            "created": "Revenu créé avec succès",
+            "create_error": "Échec de la création du revenu",
+            "updated": "Revenu modifié avec succès",
+            "update_error": "Échec de la mise à jour du revenu",
+            "load_error": "Échec du chargement du revenu"
+        }
+    },
+    "income_types": {
+        "title": "Types de Revenu",
+        "new": "Nouveau Type de Revenu",
+        "edit": "Modifier le Type de Revenu",
+        "form": {
+            "name": "Nom",
+            "name_placeholder": "Nom du Type de Revenu"
+        },
+        "table": {
+            "code": "Code",
+            "name": "Nom"
+        },
+        "notifications": {
+            "created": "Type de revenu créé avec succès",
+            "updated": "Type de revenu mis à jour avec succès",
+            "load_error": "Échec du chargement des types de revenu",
+            "create_error": "Échec de la création du type de revenu",
+            "update_error": "Échec de la mise à jour du type de revenu"
+        }
+    },
+    "income_sources": {
+        "title": "Sources de Revenu",
+        "new": "Nouvelle Source de Revenu",
+        "edit": "Modifier la Source de Revenu",
+        "disable": "Désactiver la Source de Revenu",
+        "enable": "Activer la Source de Revenu",
+        "form": {
+            "name": "Nom",
+            "name_placeholder": "Nom de la Source de Revenu"
+        },
+        "table": {
+            "name": "Nom",
+            "status": "Statut"
+        },
+        "notifications": {
+            "created": "Source de revenu créée avec succès",
+            "updated": "Source de revenu mise à jour avec succès",
+            "load_error": "Échec du chargement des sources de revenu",
+            "create_error": "Échec de la création de la source de revenu",
+            "update_error": "Échec de la mise à jour de la source de revenu"
+        }
+    },
+    "savings": {
+        "title": "Épargne",
+        "new": "Nouvelle Épargne",
+        "edit": "Modifier Épargne",
+        "filters": {
+            "clean": "Effacer les filtres",
+            "filter": "Filtrer",
+            "description_placeholder": "Description",
+            "min_date": "Date min",
+            "max_date": "Date max",
+            "min_value": "Valeur min",
+            "max_value": "Valeur max"
+        },
+        "table": {
+            "date": "Date",
+            "value": "Valeur",
+            "type": "Type",
+            "description": "Description"
+        },
+        "form": {
+            "value": "Valeur",
+            "type": "Type",
+            "positive": "Positif",
+            "negative": "Négatif",
+            "description_placeholder": "Description de l'épargne",
+            "value_placeholder": "0,00"
+        },
+        "types": {
+            "increase": "Augmentation",
+            "decrease": "Diminution"
+        },
+        "notifications": {
+            "created": "Épargne créée avec succès",
+            "create_error": "Échec de la création de l'épargne",
+            "updated": "Épargne modifiée avec succès",
+            "update_error": "Échec de la mise à jour de l'épargne",
+            "load_error": "Échec du chargement de l'épargne"
         }
     }
 }

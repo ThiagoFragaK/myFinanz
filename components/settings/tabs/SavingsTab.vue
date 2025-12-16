@@ -1,6 +1,6 @@
 <template>
     <button
-        v-tooltip="'Return'"
+        v-tooltip="$t('common.return')"
         type="button"
         title="Return"
         class="btn btn-primary mb-4"
@@ -10,7 +10,7 @@
         <IconsLucide icon="ChevronLeft" />
     </button>
     <button
-        v-tooltip="'Filters'"
+        v-tooltip="$t('common.filters')"
         type="button"
         title="Open filters"
         class="btn btn-primary ms-2 mb-4"
@@ -19,7 +19,7 @@
         <IconsLucide icon="Funnel" />
     </button>
     <button
-        v-tooltip="'New saving'" 
+        v-tooltip="$t('savings.new')" 
         type="button"
         title="New Saving"
         class="btn btn-primary ms-2 mb-4"
@@ -29,7 +29,7 @@
         <IconsLucide icon="Plus" />
     </button>
     <button
-        v-tooltip="'Edit saving'" 
+        v-tooltip="$t('savings.edit')" 
         type="button"
         title="Edit Saving"
         class="btn btn-primary ms-2 mb-4"

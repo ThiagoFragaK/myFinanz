@@ -8,7 +8,7 @@
                     @click.prevent="changePage(current - 1)"
                 >
                     <IconsLucide icon="ChevronsLeft" color="#347571" />
-                    Previous
+                    {{ $t('pagination.previous') }}
                 </a>
             </li>
 
@@ -24,7 +24,7 @@
                     href="#" 
                     @click.prevent="changePage(current + 1)"
                 >
-                    Next
+                    {{ $t('pagination.next') }}
                     <IconsLucide icon="ChevronsRight" class="ms-1" color="#347571" />
                 </a>
             </li>
