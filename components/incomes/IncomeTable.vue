@@ -75,7 +75,6 @@
                 try {
                     const response = await this.incomesService.getIncomes(page);
                     this.data = response.data.data;
-                    console.log(this.data);
                     this.pagination = {
                         currentPage: response.data.current_page,
                         totalPages: response.data.last_page,
