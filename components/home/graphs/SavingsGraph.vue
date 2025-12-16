@@ -25,16 +25,20 @@ const currencyConfig = {
 
 export default {
     name: "SavingsGraph",
-    components: { LoadingComponent },
+    components: { 
+        LoadingComponent 
+    },
     setup() {
         const authStore = useAuthStore();
         return { authStore };
     },
-    data: () => ({
-        isLoading: true,
-        dataList: [],
-        graphOptions: null,
-    }),
+    data() {
+        return {
+            isLoading: true,
+            dataList: [],
+            graphOptions: null,
+        };
+    },
     methods: {
         getMonthlySavings() {
             this.isLoading = true;
@@ -51,7 +55,6 @@ export default {
         },
     },
     created() {
-        // Initialize graphOptions here to have access to component instance
         const userCurrency = this.authStore.currency;
         this.graphOptions = {
             chart: {
@@ -87,8 +90,7 @@ export default {
                     }
                 }
             }
-        };
-        
+        };        
         this.getMonthlySavings();
     }
 }

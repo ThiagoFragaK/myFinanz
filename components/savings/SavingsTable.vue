@@ -70,13 +70,13 @@
                 try {
                     const response = await this.savingsService.getSavings(page, this.filters);
                     const data = response.data;
-                    this.data = data.data.data;
-                    this.totalValue = NumbersFormatter.formatCurrency(data.sum, this.authStore.currency);
+                    this.data = data.data;
+                    this.totalValue = NumbersFormatter.formatCurrency(response.sum, this.authStore.currency);
                     this.pagination = {
-                        currentPage: data.data.current_page,
-                        totalPages: data.data.last_page,
-                        perPage: data.data.per_page,
-                        totalItems: data.data.total,
+                        currentPage: data.current_page,
+                        totalPages: data.last_page,
+                        perPage: data.per_page,
+                        totalItems: data.total,
                     };
                 } catch (error) {
                     this.$notify({

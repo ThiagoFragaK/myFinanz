@@ -8,9 +8,12 @@ export const useAuthStore = defineStore('auth', {
         token: null,
         language: 'pt',
         currency: 'BRL',
+        role: null,
+        is_first_login: false,
     }),
     getters: {
         isAuthenticated: (state) => !!state.token,
+        isAdmin: (state) => state.role === 'admin',
     },
     actions: {
         async login(email, password) {
@@ -25,6 +28,8 @@ export const useAuthStore = defineStore('auth', {
                     this.user = user;
                     this.language = user.language || 'pt';
                     this.currency = user.currency || 'BRL';
+                    this.role = user.role;
+                    this.is_first_login = user.is_first_login;
 
                     if (process.client) {
                         localStorage.setItem('token', access_token);
@@ -61,6 +66,8 @@ export const useAuthStore = defineStore('auth', {
                 this.user = null;
                 this.language = 'pt';
                 this.currency = 'BRL';
+                this.role = null;
+                this.is_first_login = false;
                 if (process.client) {
                     localStorage.removeItem('token');
                 }
@@ -82,11 +89,15 @@ export const useAuthStore = defineStore('auth', {
                             this.user = response.data;
                             this.language = response.data.language || 'pt';
                             this.currency = response.data.currency || 'BRL';
+                            this.role = response.data.role;
+                            this.is_first_login = response.data.is_first_login;
                         } catch (error) {
                             console.error('Failed to fetch user data:', error);
                             this.token = null;
                             this.language = 'pt';
                             this.currency = 'BRL';
+                            this.role = null;
+                            this.is_first_login = false;
                             localStorage.removeItem('token');
                         }
                     }

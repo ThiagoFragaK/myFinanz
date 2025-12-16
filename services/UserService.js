@@ -11,9 +11,14 @@ export function useUserService(axios) {
         return await axios.post('/users/password', data);
     }
 
+    const createUser = async (email) => {
+        return await axios.post('/users', { email });
+    }
+
     return {
         getUser,
         updateSettings,
-        updatePassword
+        updatePassword,
+        createUser
     }
 }

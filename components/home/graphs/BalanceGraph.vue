@@ -32,12 +32,14 @@
             const authStore = useAuthStore();
             return { authStore };
         },
-        data: () => ({
-            isLoading: true,
-            dataList: [],
-            datesList: [],
-            graphOptions: null,
-        }),
+        data() {
+            return {
+                isLoading: true,
+                dataList: [],
+                datesList: [],
+                graphOptions: null,
+            };
+        },
         methods: {
             getMonthBalance() {
                 this.isLoading = true;
@@ -52,7 +54,6 @@
             },
         },
         created() {
-            // Initialize graphOptions here to have access to component instance
             const userCurrency = this.authStore.currency;
             this.graphOptions = {
                 chart: {
@@ -79,8 +80,8 @@
                 tooltip: {
                     theme: 'light',
                     y: {
-                        formatter: function (value) {
-                            const config = currencyConfig[userCurrency] || currencyConfig.BRL;
+                        formatter: (value) => {
+                            const config = currencyConfig[this.authStore.currency] || currencyConfig.BRL;
                             return new Intl.NumberFormat(config.locale, {
                                 style: 'currency',
                                 currency: config.currency
@@ -89,7 +90,6 @@
                     }
                 }
             };
-            
             this.getMonthBalance();
         },
         computed: {

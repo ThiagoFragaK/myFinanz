@@ -94,4 +94,7 @@ export const rules = {
     entry_day: { required: true, numeric: true, min: 1, max: 31 },
     email: { required: true, email: true },
     password: { required: true },
+    current_password: { required: true },
+    new_password: { required: true, password: true },
+    new_password_confirmation: { required: true },
 };
