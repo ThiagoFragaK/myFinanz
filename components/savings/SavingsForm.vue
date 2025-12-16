@@ -51,6 +51,8 @@
 <script>
     import { Validation } from '@/helpers/Validation';
     import LoadingComponent from '@/components/global/LoadingComponent.vue';
+    import { useSavingsService } from '@/services/SavingsService';
+
     export default {
         components: {
             LoadingComponent,
@@ -73,20 +75,26 @@
                     is_positive: 1,
                 },
                 errors: {},
+                savingsService: null
             };
         },
         methods: {
-            getSavingById() {
+            async getSavingById() {
                 if(!this.isEdit) return;
 
                 this.isLoading = true;
-                this.$axios.get(`savings/${this.id}`)
-                    .then(({ data }) => {
-                        this.saving = data.data;
-                    })
-                    .finally(() => {
-                        this.isLoading = false;
+                try {
+                    const response = await this.savingsService.getSavingById(this.id);
+                    this.saving = response.data;
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to load saving',
+                        icon: 'error'
                     });
+                } finally {
+                    this.isLoading = false;
+                }
             },
             async validateField(field) {
                 const value = this.saving[field];
@@ -117,27 +125,39 @@
                 }
                 this.createSaving();
             },
-            createSaving() {
-                this.$axios.post(`savings`, this.saving)
-                    .then((response) => {
-                        this.$notify({
-                            title: 'Success',
-                            text: 'Saving created successfully',
-                            icon: 'success'
-                        });
-                        this.$emit("save");
+            async createSaving() {
+                try {
+                    await this.savingsService.createSaving(this.saving);
+                    this.$notify({
+                        title: 'Success',
+                        text: 'Saving created successfully',
+                        icon: 'success'
                     });
+                    this.$emit("save");
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to create saving',
+                        icon: 'error'
+                    });
+                }
             },
-            editSaving() {
-                this.$axios.put(`savings/${this.id}`, this.saving)
-                    .then((response) => {
-                        this.$notify({
-                            title: 'Success',
-                            text: 'Saving edited successfully',
-                            icon: 'success'
-                        });
-                        this.$emit("save");
+            async editSaving() {
+                try {
+                    await this.savingsService.updateSaving(this.id, this.saving);
+                    this.$notify({
+                        title: 'Success',
+                        text: 'Saving edited successfully',
+                        icon: 'success'
                     });
+                    this.$emit("save");
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to update saving',
+                        icon: 'error'
+                    });
+                }
             },
         },
         computed: {
@@ -149,6 +169,7 @@
             },
         },
         created() {
+            this.savingsService = useSavingsService(this.$axios);
             this.getSavingById();
         }
     };

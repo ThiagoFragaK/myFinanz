@@ -61,6 +61,8 @@
 <script>
     import PaymentMethodsForm from "@/components/payment-methods/PaymentMethodsForm.vue";
     import PaymentMethodsTable from "@/components/payment-methods/PaymentMethodsTable.vue";
+    import { usePaymentMethodsService } from '@/services/PaymentMethodsService';
+
     export default {
         components: {
             PaymentMethodsForm,
@@ -70,6 +72,7 @@
             selectedRows: [],
             showTable: true,
             isEdit: false,
+            paymentMethodsService: null
         }),
         methods: {
             returnToTable() {
@@ -90,33 +93,39 @@
                 this.returnToTable();
                 this.$refs.PaymentMethodsTable.getPaymentMethods();
             },
-            disableCard() {
-                this.$axios.patch(`cards/${this.selectedCard.id}`)
-                    .then(({ data }) => {
-                        this.data = data;
-                        this.$notify({
-                            title: 'Success',
-                            text: 'Card disabled successfully',
-                            icon: 'success'
-                        });
-                    })
-                    .finally(() => {
-                        this.$refs.IncomeTable.getIncomeSources();
+            async disableCard() {
+                try {
+                    await this.paymentMethodsService.disablePaymentMethod(this.selectedCard.id);
+                    this.$notify({
+                        title: 'Success',
+                        text: 'Card disabled successfully',
+                        icon: 'success'
                     });
+                    this.$refs.IncomeTable.getIncomeSources();
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to disable card',
+                        icon: 'error'
+                    });
+                }
             },
-            enableCard() {
-                this.$axios.patch(`cards/${this.selectedCard.id}`)
-                    .then(({ data }) => {
-                        this.data = data;
-                        this.$notify({
-                            title: 'Success',
-                            text: 'Card enabled successfully',
-                            icon: 'success'
-                        });
-                    })
-                    .finally(() => {
-                        this.$refs.IncomeTable.getIncomeSources();
+            async enableCard() {
+                try {
+                    await this.paymentMethodsService.enablePaymentMethod(this.selectedCard.id);
+                    this.$notify({
+                        title: 'Success',
+                        text: 'Card enabled successfully',
+                        icon: 'success'
                     });
+                    this.$refs.IncomeTable.getIncomeSources();
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to enable card',
+                        icon: 'error'
+                    });
+                }
             },
         },
         computed: {
@@ -138,5 +147,8 @@
                 return this.selectedRows[0];
             }
         },
+        created() {
+            this.paymentMethodsService = usePaymentMethodsService(this.$axios);
+        }
     }
 </script>

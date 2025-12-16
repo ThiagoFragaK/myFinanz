@@ -1,4 +1,6 @@
 import { defineStore } from 'pinia';
+import { useAuthService } from '@/services/AuthService';
+import { useUserService } from '@/services/UserService';
 
 export const useAuthStore = defineStore('auth', {
     state: () => ({
@@ -13,8 +15,9 @@ export const useAuthStore = defineStore('auth', {
     actions: {
         async login(email, password) {
             const { $axios } = useNuxtApp();
+            const authService = useAuthService($axios);
             try {
-                const response = await $axios.post('/login', { email, password });
+                const response = await authService.login({ email, password });
 
                 if (response.data.success) {
                     const { access_token, user } = response.data.data;
@@ -46,9 +49,10 @@ export const useAuthStore = defineStore('auth', {
 
         async logout() {
             const { $axios } = useNuxtApp();
+            const authService = useAuthService($axios);
             try {
                 if (this.token) {
-                    await $axios.post('/logout');
+                    await authService.logout();
                 }
             } catch (error) {
                 console.error('Logout error:', error);
@@ -73,7 +77,8 @@ export const useAuthStore = defineStore('auth', {
                     if (!this.user) {
                         try {
                             const { $axios } = useNuxtApp();
-                            const response = await $axios.get('/user');
+                            const userService = useUserService($axios);
+                            const response = await userService.getUser();
                             this.user = response.data;
                             this.language = response.data.language || 'pt';
                             this.currency = response.data.currency || 'BRL';
@@ -91,8 +96,9 @@ export const useAuthStore = defineStore('auth', {
 
         async updateSettings(language, currency) {
             const { $axios } = useNuxtApp();
+            const userService = useUserService($axios);
             try {
-                const response = await $axios.put('/users/settings', { language, currency });
+                const response = await userService.updateSettings({ language, currency });
 
                 if (response.data.success) {
                     this.language = language;

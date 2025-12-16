@@ -56,6 +56,7 @@
 
 <script>
 import { Validation } from '@/helpers/Validation';
+import { useUserService } from '@/services/UserService';
 
 export default {
     name: 'UpdatePasswordComponent',
@@ -109,7 +110,8 @@ export default {
 
             try {
                 const { $axios } = useNuxtApp();
-                const response = await $axios.post('/users/password', {
+                const userService = useUserService($axios);
+                const response = await userService.updatePassword({
                     current_password: this.passwordForm.currentPassword,
                     new_password: this.passwordForm.newPassword,
                     new_password_confirmation: this.passwordForm.confirmPassword

@@ -18,6 +18,8 @@
 <script>
     import TableComponent from "@/components/global/TableComponent.vue";
     import PaginationComponent from "@/components/global/PaginationComponent.vue";
+    import { useIncomeTypesService } from '@/services/IncomeTypesService';
+
     export default {
         emits: ["allowActions"],
         components: {
@@ -38,23 +40,29 @@
             data: [],
             selectedRows: [],
             isLoading: true,
+            incomeTypesService: null
         }),
         methods: {
-            getIncomeTypes(page = 1) {
+            async getIncomeTypes(page = 1) {
                 this.isLoading = true;
-                this.$axios.get(`income/types?page=${page}`)
-                    .then(({ data }) => {
-                        this.data = data.data.data;
-                        this.pagination = {
-                            currentPage: data.data.current_page,
-                            totalPages: data.data.last_page,
-                            perPage: data.data.per_page,
-                            totalItems: data.data.total,
-                        };
-                    })
-                    .finally(() => {
-                        this.isLoading = false;
+                try {
+                    const response = await this.incomeTypesService.getIncomeTypes(page);
+                    this.data = response.data.data;
+                    this.pagination = {
+                        currentPage: response.data.current_page,
+                        totalPages: response.data.last_page,
+                        perPage: response.data.per_page,
+                        totalItems: response.data.total,
+                    };
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to load income types',
+                        icon: 'error'
                     });
+                } finally {
+                    this.isLoading = false;
+                }
             },
             updateSelectedRows(rows) {
                 this.selectedRows = rows;
@@ -62,6 +70,7 @@
             },
         },
         created() {
+            this.incomeTypesService = useIncomeTypesService(this.$axios);
             this.getIncomeTypes();
         }
     }

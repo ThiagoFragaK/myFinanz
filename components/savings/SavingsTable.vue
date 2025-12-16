@@ -33,6 +33,8 @@
     import TableComponent from "@/components/global/TableComponent.vue";
     import PaginationComponent from "@/components/global/PaginationComponent.vue";
     import { useAuthStore } from '@/stores/auth';
+    import { useSavingsService } from '@/services/SavingsService';
+
     export default {
         emits: ["allowActions"],
         components: {
@@ -56,28 +58,35 @@
             totalValue: 0,
             isLoading: true,
             filters: {},
+            savingsService: null
         }),
         setup() {
             const authStore = useAuthStore();
             return { authStore };
         },
         methods: {
-            getSavings(page = 1) {
+            async getSavings(page = 1) {
                 this.isLoading = true;
-                this.$axios.get(`savings?page=${page}`, { params: { filters: this.filters }})
-                    .then(({ data }) => {
-                        this.data = data.data.data;
-                        this.totalValue = NumbersFormatter.formatCurrency(data.sum, this.authStore.currency);
-                        this.pagination = {
-                            currentPage: data.data.current_page,
-                            totalPages: data.data.last_page,
-                            perPage: data.data.per_page,
-                            totalItems: data.data.total,
-                        };
-                    })
-                    .finally(() => {
-                        this.isLoading = false;
+                try {
+                    const response = await this.savingsService.getSavings(page, this.filters);
+                    const data = response.data;
+                    this.data = data.data.data;
+                    this.totalValue = NumbersFormatter.formatCurrency(data.sum, this.authStore.currency);
+                    this.pagination = {
+                        currentPage: data.data.current_page,
+                        totalPages: data.data.last_page,
+                        perPage: data.data.per_page,
+                        totalItems: data.data.total,
+                    };
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to load savings',
+                        icon: 'error'
                     });
+                } finally {
+                    this.isLoading = false;
+                }
             },
             updateSelectedRows(rows) {
                 this.selectedRows = rows;
@@ -94,6 +103,7 @@
             }
         },
         created() {
+            this.savingsService = useSavingsService(this.$axios);
             this.getSavings();
         }
     }

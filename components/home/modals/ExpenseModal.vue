@@ -134,7 +134,11 @@
 
 <script>
     import { Validation } from '@/helpers/Validation';
-    import ModalComponent from '@/components/global/ModalComponent.vue';    
+    import ModalComponent from '@/components/global/ModalComponent.vue';
+    import { useCategoriesService } from '@/services/CategoriesService';
+    import { usePaymentMethodsService } from '@/services/PaymentMethodsService';
+    import { useExpensesService } from '@/services/ExpensesService';
+    
     export default {
         components: {
             ModalComponent
@@ -153,21 +157,36 @@
                 category_id: "",
             },
             errors: {},
+            categoriesService: null,
+            paymentMethodsService: null,
+            expensesService: null
         }),
         computed: {
         },
         methods: {
-            getPaymentMethods() {
-                this.$axios.get(`payment_methods/list`)
-                    .then(({ data }) => {
-                        this.paymentMethodsList = data.data;
+            async getPaymentMethods() {
+                try {
+                    const response = await this.paymentMethodsService.getPaymentMethodsList();
+                    this.paymentMethodsList = response.data;
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to load payment methods',
+                        icon: 'error'
                     });
+                }
             },
-            getCategories() {
-                this.$axios.get(`categories/list`)
-                    .then(({ data }) => {
-                        this.categoriesList = data.data;
+            async getCategories() {
+                try {
+                    const response = await this.categoriesService.getCategoriesList();
+                    this.categoriesList = response.data;
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to load categories',
+                        icon: 'error'
                     });
+                }
             },
             open() {
                 this.resetData();
@@ -214,22 +233,30 @@
                 }
 
                 this.isLoading = true;
-                this.$axios.post(`expenses`, this.expense)
-                    .then(() => {
-                        this.$notify({
-                            title: 'Success',
-                            text: 'Expense created successfully',
-                            icon: 'success'
-                        });
-                        this.$emit("reloadExpenses");
-                        this.close();
-                    })
-                    .finally(() => {
-                        this.isLoading = false;
+                try {
+                    await this.expensesService.createExpense(this.expense);
+                    this.$notify({
+                        title: 'Success',
+                        text: 'Expense created successfully',
+                        icon: 'success'
                     });
+                    this.$emit("reloadExpenses");
+                    this.close();
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to create expense',
+                        icon: 'error'
+                    });
+                } finally {
+                    this.isLoading = false;
+                }
             },
         },
         created() {
+            this.categoriesService = useCategoriesService(this.$axios);
+            this.paymentMethodsService = usePaymentMethodsService(this.$axios);
+            this.expensesService = useExpensesService(this.$axios);
             this.resetData();
             this.getPaymentMethods();
             this.getCategories();

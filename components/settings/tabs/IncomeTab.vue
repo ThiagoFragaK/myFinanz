@@ -62,6 +62,8 @@
 <script>
     import IncomeForm from "@/components/incomes/IncomeForm.vue";
     import IncomeTable from "@/components/incomes/IncomeTable.vue";
+    import { useIncomesService } from '@/services/IncomesService';
+
     export default {
         components: {
             IncomeForm,
@@ -71,6 +73,7 @@
             selectedRows: [],
             showTable: true,
             isEdit: false,
+            incomesService: null
         }),
         methods: {
             returnToTable() {
@@ -91,33 +94,39 @@
                 this.returnToTable();
                 this.$refs.IncomeTable.getIncomeSources();
             },
-            disableIncome() {
-                this.$axios.patch(`incomes/disable/${this.selectedIncome.id}`)
-                    .then(({ data }) => {
-                        this.data = data;
-                        this.$notify({
-                            title: 'Success',
-                            text: 'Income disabled successfully',
-                            icon: 'success'
-                        });
-                    })
-                    .finally(() => {
-                        this.$refs.IncomeTable.getIncomeSources();
+            async disableIncome() {
+                try {
+                    await this.incomesService.disableIncome(this.selectedIncome.id);
+                    this.$notify({
+                        title: 'Success',
+                        text: 'Income disabled successfully',
+                        icon: 'success'
                     });
+                    this.$refs.IncomeTable.getIncomeSources();
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to disable income',
+                        icon: 'error'
+                    });
+                }
             },
-            enableIncome() {
-                this.$axios.patch(`incomes/enable/${this.selectedIncome.id}`)
-                    .then(({ data }) => {
-                        this.data = data;
-                        this.$notify({
-                            title: 'Success',
-                            text: 'Income enabled successfully',
-                            icon: 'success'
-                        });
-                    })
-                    .finally(() => {
-                        this.$refs.IncomeTable.getIncomeSources();
+            async enableIncome() {
+                try {
+                    await this.incomesService.enableIncome(this.selectedIncome.id);
+                    this.$notify({
+                        title: 'Success',
+                        text: 'Income enabled successfully',
+                        icon: 'success'
                     });
+                    this.$refs.IncomeTable.getIncomeSources();
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to enable income',
+                        icon: 'error'
+                    });
+                }
             },
         },
         computed: {
@@ -138,6 +147,9 @@
                 }
                 return this.selectedRows[0];
             }
+        },
+        created() {
+            this.incomesService = useIncomesService(this.$axios);
         }
     }
 </script>

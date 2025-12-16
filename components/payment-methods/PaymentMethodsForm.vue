@@ -83,6 +83,7 @@
 <script>
     import { Validation } from '@/helpers/Validation';
     import LoadingComponent from '@/components/global/LoadingComponent.vue';
+    import { usePaymentMethodsService } from '@/services/PaymentMethodsService';
 
     export default {
         components: {
@@ -113,20 +114,26 @@
                     limit: 0,
                 },
                 errors: {},
+                paymentMethodsService: null
             };
         },
         methods: {
-            getPaymentMethodById() {
+            async getPaymentMethodById() {
                 if(!this.isEdit) return;
 
                 this.isLoading = true;
-                this.$axios.get(`payment_methods/${this.id}`)
-                    .then(({ data }) => {
-                        this.paymentMethod = data.data;
-                    })
-                    .finally(() => {
-                        this.isLoading = false;
+                try {
+                    const response = await this.paymentMethodsService.getPaymentMethodById(this.id);
+                    this.paymentMethod = response.data;
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to load payment method',
+                        icon: 'error'
                     });
+                } finally {
+                    this.isLoading = false;
+                }
             },
             async validateField(field) {
                 const value = this.paymentMethod[field];
@@ -157,27 +164,39 @@
                 }
                 this.createPaymentMethod();
             },            
-            createPaymentMethod() {
-                this.$axios.post(`payment_methods`, this.paymentMethod)
-                    .then(() => {
-                        this.$notify({
-                            title: 'Success',
-                            text: 'Payment Method created successfully',
-                            icon: 'success'
-                        });
-                        this.$emit("save");
+            async createPaymentMethod() {
+                try {
+                    await this.paymentMethodsService.createPaymentMethod(this.paymentMethod);
+                    this.$notify({
+                        title: 'Success',
+                        text: 'Payment Method created successfully',
+                        icon: 'success'
                     });
+                    this.$emit("save");
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to create payment method',
+                        icon: 'error'
+                    });
+                }
             },
-            editPaymentMethod() {
-                this.$axios.put(`payment_methods/${this.id}`, this.paymentMethod)
-                    .then(() => {
-                        this.$notify({
-                            title: 'Success',
-                            text: 'Payment Method updated successfully',
-                            icon: 'success'
-                        });
-                        this.$emit("save");
+            async editPaymentMethod() {
+                try {
+                    await this.paymentMethodsService.updatePaymentMethod(this.id, this.paymentMethod);
+                    this.$notify({
+                        title: 'Success',
+                        text: 'Payment Method updated successfully',
+                        icon: 'success'
                     });
+                    this.$emit("save");
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to update payment method',
+                        icon: 'error'
+                    });
+                }
             },
         },
         computed: {
@@ -189,6 +208,7 @@
             },
         },
         created() {
+            this.paymentMethodsService = usePaymentMethodsService(this.$axios);
             this.getPaymentMethodById();
         }
     };

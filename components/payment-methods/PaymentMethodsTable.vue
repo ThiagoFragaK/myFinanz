@@ -33,6 +33,8 @@
     import StatusBadge from "@/components/global/StatusBadgeComponent.vue";
     import TableComponent from "@/components/global/TableComponent.vue";
     import PaginationComponent from "@/components/global/PaginationComponent.vue";
+    import { usePaymentMethodsService } from '@/services/PaymentMethodsService';
+
     export default {
         emits: ["allowActions"],
         components: {
@@ -57,23 +59,29 @@
             data: [],
             selectedRows: [],
             isLoading: true,
+            paymentMethodsService: null
         }),
         methods: {
-            getPaymentMethods(page = 1) {
+            async getPaymentMethods(page = 1) {
                 this.isLoading = true;
-                this.$axios.get(`payment_methods?page=${page}`)
-                    .then(({ data }) => {
-                        this.data = data.data.data;
-                        this.pagination = {
-                            currentPage: data.data.current_page,
-                            totalPages: data.data.last_page,
-                            perPage: data.data.per_page,
-                            totalItems: data.data.total,
-                        };
-                    })
-                    .finally(() => {
-                        this.isLoading = false;
+                try {
+                    const response = await this.paymentMethodsService.getPaymentMethods(page);
+                    this.data = response.data.data;
+                    this.pagination = {
+                        currentPage: response.data.current_page,
+                        totalPages: response.data.last_page,
+                        perPage: response.data.per_page,
+                        totalItems: response.data.total,
+                    };
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to load payment methods',
+                        icon: 'error'
                     });
+                } finally {
+                    this.isLoading = false;
+                }
             },
             updateSelectedRows(rows) {
                 this.selectedRows = rows;
@@ -81,6 +89,7 @@
             },
         },
         created() {
+            this.paymentMethodsService = usePaymentMethodsService(this.$axios);
             this.getPaymentMethods();
         }
     }

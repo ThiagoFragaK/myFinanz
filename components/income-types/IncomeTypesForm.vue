@@ -37,6 +37,8 @@
 <script>
     import { Validation } from '@/helpers/Validation';
     import LoadingComponent from '@/components/global/LoadingComponent.vue';
+    import { useIncomeTypesService } from '@/services/IncomeTypesService';
+
     export default {
         components: {
             LoadingComponent,
@@ -58,20 +60,26 @@
                     "name": ""
                 },
                 errors: {},
+                incomeTypesService: null
             };
         },
         methods: {
-            getIncomeTypeById() {
+            async getIncomeTypeById() {
                 if(!this.isEdit) return;
 
                 this.isLoading = true;
-                this.$axios.get(`income/types/${this.id}`)
-                    .then(({ data }) => {
-                        this.incomeType = data.data;
-                    })
-                    .finally(() => {
-                        this.isLoading = false;
+                try {
+                    const response = await this.incomeTypesService.getIncomeTypeById(this.id);
+                    this.incomeType = response.data;
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to load income type',
+                        icon: 'error'
                     });
+                } finally {
+                    this.isLoading = false;
+                }
             },
             async validateField(field) {
                 const value = this.incomeType[field];
@@ -101,30 +109,43 @@
                 }
                 this.createIncomeType();
             },
-            createIncomeType() {
-                this.$axios.post(`income/types`, this.incomeType)
-                    .then((response) => {
-                        this.$notify({
-                            title: 'Success',
-                            text: 'Income type created successfully',
-                            icon: 'success'
-                        });
-                        this.$emit("save");
+            async createIncomeType() {
+                try {
+                    await this.incomeTypesService.createIncomeType(this.incomeType);
+                    this.$notify({
+                        title: 'Success',
+                        text: 'Income type created successfully',
+                        icon: 'success'
                     });
+                    this.$emit("save");
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to create income type',
+                        icon: 'error'
+                    });
+                }
             },
-            editIncomeTypes() {
-                this.$axios.put(`income/types/${this.id}`, this.incomeType)
-                    .then((response) => {
-                        this.$notify({
-                            title: 'Success',
-                            text: 'Income type updated successfully',
-                            icon: 'success'
-                        });
-                        this.$emit("save");
+            async editIncomeTypes() {
+                try {
+                    await this.incomeTypesService.updateIncomeType(this.id, this.incomeType);
+                    this.$notify({
+                        title: 'Success',
+                        text: 'Income type updated successfully',
+                        icon: 'success'
                     });
+                    this.$emit("save");
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to update income type',
+                        icon: 'error'
+                    });
+                }
             },
         },
         created() {
+            this.incomeTypesService = useIncomeTypesService(this.$axios);
             this.getIncomeTypeById();
         }
     };

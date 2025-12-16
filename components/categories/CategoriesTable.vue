@@ -23,6 +23,8 @@
 <script>
 import TableComponent from "@/components/global/TableComponent.vue";
 import PaginationComponent from "@/components/global/PaginationComponent.vue";
+import { useCategoriesService } from "@/services/CategoriesService";
+
 export default {
     emits: ["allowActions"],
     components: {
@@ -46,24 +48,30 @@ export default {
         isLoading: true,
         filters: {
             name: "",
-        }
+        },
+        categoriesService: null
     }),
     methods: {
-        getCategories(page = 1) {
+        async getCategories(page = 1) {
             this.isLoading = true;
-            this.$axios.get(`categories?page=${page}`, { params: { filters: this.filters } })
-                .then(({ data }) => {
-                    this.data = data.data.data;
-                    this.pagination = {
-                        currentPage: data.data.current_page,
-                        totalPages: data.data.last_page,
-                        perPage: data.data.per_page,
-                        totalItems: data.data.total,
-                    };
-                })
-                .finally(() => {
-                    this.isLoading = false;
+            try {
+                const response = await this.categoriesService.getCategories(page, this.filters);
+                this.data = response.data.data;
+                this.pagination = {
+                    currentPage: response.data.current_page,
+                    totalPages: response.data.last_page,
+                    perPage: response.data.per_page,
+                    totalItems: response.data.total,
+                };
+            } catch (error) {
+                this.$notify({
+                    title: 'Error',
+                    text: 'Failed to load categories',
+                    icon: 'error'
                 });
+            } finally {
+                this.isLoading = false;
+            }
         },
         updateSelectedRows(rows) {
             this.selectedRows = rows;
@@ -71,6 +79,7 @@ export default {
         }
     },
     created() {
+        this.categoriesService = useCategoriesService(this.$axios);
         this.getCategories();
     }
 }

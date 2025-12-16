@@ -93,6 +93,9 @@
 
 <script>
     import CollapseComponent from '@/components/global/CollapseComponent.vue';
+    import { usePaymentMethodsService } from '@/services/PaymentMethodsService';
+    import { useCategoriesService } from '@/services/CategoriesService';
+
     export default {
         name: "ExpensesFilters",
         props: { 
@@ -110,23 +113,37 @@
                 payment_methods_id: null,
                 category_id: null,
                 valuesMax: null,
-            }
+            },
+            paymentMethodsService: null,
+            categoriesService: null
         }),
         components: { 
             CollapseComponent 
         },
         methods: {
-            getCategoriesList() {
-                this.$axios.get(`categories/list`)
-                    .then(({ data }) => {
-                        this.categoriesList = data.data;
+            async getCategoriesList() {
+                try {
+                    const response = await this.categoriesService.getCategoriesList();
+                    this.categoriesList = response.data;
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to load categories',
+                        icon: 'error'
                     });
+                }
             },
-            getPaymentMethodsList() {
-                this.$axios.get(`payment_methods/list`)
-                    .then(({ data }) => {
-                        this.paymentMethodsList = data.data;
+            async getPaymentMethodsList() {
+                try {
+                    const response = await this.paymentMethodsService.getPaymentMethodsList();
+                    this.paymentMethodsList = response.data;
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to load payment methods',
+                        icon: 'error'
                     });
+                }
             },
             open() { 
                 this.$refs.CollapseComponent.open();
@@ -161,6 +178,8 @@
             }
         },
         created() {
+            this.paymentMethodsService = usePaymentMethodsService(this.$axios);
+            this.categoriesService = useCategoriesService(this.$axios);
             this.getCategoriesList();
             this.getPaymentMethodsList();
         },

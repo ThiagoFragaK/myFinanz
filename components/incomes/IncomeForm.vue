@@ -114,6 +114,10 @@
 <script>
     import { Validation } from '@/helpers/Validation';
     import LoadingComponent from '@/components/global/LoadingComponent.vue';
+    import { useIncomesService } from '@/services/IncomesService';
+    import { useIncomeSourcesService } from '@/services/IncomeSourcesService';
+    import { useIncomeTypesService } from '@/services/IncomeTypesService';
+
     export default {
         components: {
             LoadingComponent,
@@ -141,39 +145,59 @@
                 incomeSourcesList: [],
                 incomeTypesList: [],
                 errors: {},
+                incomesService: null,
+                incomeSourcesService: null,
+                incomeTypesService: null
             };
         },
         methods: {
-            getIncomeSources() {
-                this.$axios.get(`income/sources/list`)
-                    .then(({ data }) => {
-                        this.incomeSourcesList = data.data;
+            async getIncomeSources() {
+                try {
+                    const response = await this.incomeSourcesService.getIncomeSourcesList();
+                    this.incomeSourcesList = response.data;
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to load income sources',
+                        icon: 'error'
                     });
+                }
             },
-            getIncomeTypes() {
-                this.$axios.get(`income/types/list`)
-                    .then(({ data }) => {
-                        this.incomeTypesList = data.data;
+            async getIncomeTypes() {
+                try {
+                    const response = await this.incomeTypesService.getIncomeTypesList();
+                    this.incomeTypesList = response.data;
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to load income types',
+                        icon: 'error'
                     });
+                }
             },
-            getIncomeById() {
+            async getIncomeById() {
                 if(!this.isEdit) return;
                 
                 this.isLoading = true;
-                this.$axios.get(`incomes/${this.id}`)
-                    .then(({ data }) => {
-                        let income = data.data;
-                        this.income = {
-                            name: income.name,
-                            value: income.value,
-                            entry_day: income.entry_day,
-                            source_id: income.source_id,
-                            type_id: income.type_id,
-                        }
-                    })
-                    .finally(() => {
-                        this.isLoading = false;
+                try {
+                    const response = await this.incomesService.getIncomeById(this.id);
+                    let income = response.data;
+                    this.income = {
+                        name: income.name,
+                        value: income.value,
+                        entry_day: income.entry_day,
+                        source_id: income.source_id,
+                        type_id: income.type_id,
+                    }
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to load income',
+                        icon: 'error'
                     });
+                } finally {
+                    this.isLoading = false;
+                }
             },
             async validateField(field) {
                 const value = this.income[field];
@@ -204,30 +228,45 @@
                 }
                 this.createIncome();
             },
-            createIncome() {
-                this.$axios.post(`incomes`, this.income)
-                    .then((response) => {
-                        this.$notify({
-                            title: 'Income',
-                            text: 'Income created successfully!',
-                            icon: 'success'
-                        });
-                        this.$emit("save");
+            async createIncome() {
+                try {
+                    await this.incomesService.createIncome(this.income);
+                    this.$notify({
+                        title: 'Income',
+                        text: 'Income created successfully!',
+                        icon: 'success'
                     });
+                    this.$emit("save");
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to create income',
+                        icon: 'error'
+                    });
+                }
             },
-            editIncome() {
-                this.$axios.put(`incomes/${this.id}`, this.income)
-                    .then((response) => {
-                        this.$notify({
-                            title: 'Income',
-                            text: 'Income edited successfully!',
-                            icon: 'success'
-                        });
-                        this.$emit("save");
+            async editIncome() {
+                try {
+                    await this.incomesService.updateIncome(this.id, this.income);
+                    this.$notify({
+                        title: 'Income',
+                        text: 'Income edited successfully!',
+                        icon: 'success'
                     });
+                    this.$emit("save");
+                } catch (error) {
+                    this.$notify({
+                        title: 'Error',
+                        text: 'Failed to update income',
+                        icon: 'error'
+                    });
+                }
             },
         },
         created() {
+            this.incomesService = useIncomesService(this.$axios);
+            this.incomeSourcesService = useIncomeSourcesService(this.$axios);
+            this.incomeTypesService = useIncomeTypesService(this.$axios);
             this.getIncomeSources();
             this.getIncomeTypes();
             this.getIncomeById();
