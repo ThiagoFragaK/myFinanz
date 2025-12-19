@@ -10,11 +10,11 @@
         </div>
         <div v-else class="row mb-4">
             <div class="col-4">
-                <label>Name</label>
+                <label>{{ $t('common.name') }}</label>
                 <input 
                     type="text" 
                     class="form-control" 
-                    placeholder="Name"
+                    :placeholder="$t('payment_methods.form.name_placeholder')"
                     v-model="paymentMethod.name"
                     @blur="validateField('name')"
                     @input="validateField('name')"
@@ -23,7 +23,7 @@
                 <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
             </div>
             <div class="col-3">
-                <label>Type</label>
+                <label>{{ $t('payment_methods.table.type') }}</label>
                 <select 
                     class="form-select form-select" 
                     aria-label="Large select example"
@@ -31,7 +31,7 @@
                     @blur="validateField('type')"
                     ref="typeRef"
                 >
-                    <option disabled selected value="">Select the type</option>
+                    <option disabled selected value="">{{ $t('payment_methods.form.select_type') }}</option>
                     <option 
                         v-for="option in typesList"
                         :key="option.id" 
@@ -43,11 +43,11 @@
                 <small v-if="errors.type" class="text-danger">{{ errors.type }}</small>
             </div>
             <div class="col-2">
-                <label>Limit</label>
+                <label>{{ $t('payment_methods.table.limit') }}</label>
                 <input 
                     type="number" 
                     class="form-control"
-                    placeholder="Card limit"
+                    :placeholder="$t('payment_methods.form.limit_placeholder')"
                     v-model="paymentMethod.limit"
                     @blur="validateField('limit')"
                     @input="validateField('limit')"
@@ -56,11 +56,11 @@
                 <small v-if="errors.limit" class="text-danger">{{ errors.limit }}</small>
             </div>
             <div class="col-2">
-                <label>Turn day</label>
+                <label>{{ $t('payment_methods.table.turn_day') }}</label>
                 <input 
                     type="number" 
                     class="form-control" 
-                    placeholder="Card turn day"
+                    :placeholder="$t('payment_methods.form.turn_day_placeholder')"
                     v-model="paymentMethod.turn_day"
                     @blur="validateField('turn_day')"
                     @input="validateField('turn_day')"
@@ -69,13 +69,13 @@
                 <small v-if="errors.turn_day" class="text-danger">{{ errors.turn_day }}</small>
             </div>
         </div>
-        <button 
+            <button 
             type="button" 
             class="btn btn-primary btn-sm"
             :disabled="isLoading"
             @click="save"
         >
-            Save
+            {{ $t('common.save') }}
         </button>
     </div>
 </template>
@@ -103,8 +103,8 @@
             return {
                 isLoading: false,
                 typesList: [
-                    { id: 0, name: "Debt" },
-                    { id: 1, name: "Credit" },
+                    { id: 0, name: this.$t('payment_methods.form.debt') },
+                    { id: 1, name: this.$t('payment_methods.form.credit') },
                 ],
                 paymentMethod: {
                     name: "",
@@ -127,8 +127,8 @@
                     this.paymentMethod = response.data;
                 } catch (error) {
                     this.$notify({
-                        title: 'Error',
-                        text: 'Failed to load payment method',
+                        title: this.$t('common.error'),
+                        text: this.$t('payment_methods.notifications.load_error'),
                         icon: 'error'
                     });
                 } finally {
@@ -153,8 +153,8 @@
                 const isValid = await this.validateForm();
                 if (!isValid) {
                     return this.$notify({
-                        title: "Validation error",
-                        text: "One or more fields aren't valid, fix them and try again.",
+                        title: this.$t('common.validation_error'),
+                        text: this.$t('common.validation_text'),
                         icon: 'error'
                     });
                 }
@@ -168,15 +168,15 @@
                 try {
                     await this.paymentMethodsService.createPaymentMethod(this.paymentMethod);
                     this.$notify({
-                        title: 'Success',
-                        text: 'Payment Method created successfully',
+                        title: this.$t('common.success'),
+                        text: this.$t('payment_methods.notifications.created'),
                         icon: 'success'
                     });
                     this.$emit("save");
                 } catch (error) {
                     this.$notify({
-                        title: 'Error',
-                        text: 'Failed to create payment method',
+                        title: this.$t('common.error'),
+                        text: this.$t('payment_methods.notifications.create_error'),
                         icon: 'error'
                     });
                 }
@@ -185,23 +185,23 @@
                 try {
                     await this.paymentMethodsService.updatePaymentMethod(this.id, this.paymentMethod);
                     this.$notify({
-                        title: 'Success',
-                        text: 'Payment Method updated successfully',
+                        title: this.$t('common.success'),
+                        text: this.$t('payment_methods.notifications.updated'),
                         icon: 'success'
                     });
                     this.$emit("save");
                 } catch (error) {
                     this.$notify({
-                        title: 'Error',
-                        text: 'Failed to update payment method',
+                        title: this.$t('common.error'),
+                        text: this.$t('payment_methods.notifications.update_error'),
                         icon: 'error'
                     });
                 }
             },
         },
         computed: {
-            title() {
-                return this.isEdit ? "Edit Method" : "New Payment method";
+             title() {
+                return this.isEdit ? this.$t('payment_methods.edit') : this.$t('payment_methods.new');
             },
             isCredictCard() {
                 return this.paymentMethod.type === 1;

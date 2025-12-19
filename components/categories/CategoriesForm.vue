@@ -10,11 +10,11 @@
         </div>
         <div v-else class="row mb-4">
             <div class="col-4">
-                <label>Name</label>
+                <label>{{ $t('common.name') }}</label>
                 <input 
                     type="text"
                     class="form-control" 
-                    placeholder="Category name"
+                    :placeholder="$t('categories.form.name_placeholder')"
                     v-model="category.name"
                     @blur="validateField('name')"
                     @input="validateField('name')"
@@ -23,11 +23,11 @@
                 <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
             </div>
             <div class="col-4">
-                <label>Description</label>
+                <label>{{ $t('common.description') }}</label>
                 <input 
                     type="text"
                     class="form-control" 
-                    placeholder="Category description"
+                    :placeholder="$t('categories.form.description_placeholder')"
                     v-model="category.description"
                     @blur="validateField('description')"
                     @input="validateField('description')"
@@ -36,7 +36,7 @@
                 <small v-if="errors.description" class="text-danger">{{ errors.description }}</small>
             </div>
             <div class="col-4">
-                <label>Icon</label>
+                <label>{{ $t('common.icon') }}</label>
                  <div class="input-group mb-3">
                     <span class="input-group-text">
                         <IconsLucide :icon="category.icon || 'TextCursor'" />
@@ -44,7 +44,7 @@
                     <input 
                         type="text"
                         class="form-control" 
-                        placeholder="Category icon (Lucide)"
+                        :placeholder="$t('categories.form.icon_placeholder')"
                         v-model="category.icon"
                     >
                 </div>
@@ -56,7 +56,7 @@
             :disabled="isLoading"
             @click="save"
         >
-            Save
+            {{ $t('common.save') }}
         </button>
     </div>
 </template>
@@ -103,7 +103,7 @@
                 } catch (error) {
                     this.$notify({
                         title: 'Error',
-                        text: 'Failed to load category',
+                        text: this.$t('categories.notifications.load_error'),
                         icon: 'error'
                     });
                 } finally {
@@ -129,7 +129,7 @@
                 if (!isValid) {
                     return this.$notify({
                         title: "Validation error",
-                        text: "One or more fields aren't valid, fix them and try again.",
+                        text: this.$t('login.notifications.validation_text'),
                         icon: 'error'
                     });
                 }
@@ -144,14 +144,14 @@
                     await this.categoriesService.createCategory(this.category);
                     this.$notify({
                         title: 'Success',
-                        text: 'Category created successfully',
+                        text: this.$t('categories.notifications.created'),
                         icon: 'success'
                     });
                     this.$emit("save");
                 } catch (error) {
                     this.$notify({
                         title: 'Error',
-                        text: 'Failed to create category',
+                        text: this.$t('categories.notifications.create_error'),
                         icon: 'error'
                     });
                 }
@@ -161,14 +161,14 @@
                     await this.categoriesService.updateCategory(this.id, this.category);
                     this.$notify({
                         title: 'Success',
-                        text: 'Category edited successfully',
+                        text: this.$t('categories.notifications.updated'),
                         icon: 'success'
                     });
                     this.$emit("save");
                 } catch (error) {
                     this.$notify({
                         title: 'Error',
-                        text: 'Failed to update category',
+                        text: this.$t('categories.notifications.update_error'),
                         icon: 'error'
                     });
                 }
@@ -176,7 +176,7 @@
         },
         computed: {
             title() {
-                return this.isEdit ? "Edit Category" : "New Category";
+                return this.isEdit ? this.$t('categories.edit_category') : this.$t('categories.new_category');
             }
         },
         created() {

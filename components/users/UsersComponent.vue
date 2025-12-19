@@ -12,7 +12,7 @@
                             @click="openCreateUserModal"
                         >
                             <Lucide icon="UserPlus" class="me-2" :size="18" />
-                            Create User
+                            {{ $t('user.create') }}
                         </button>
                     </div>
                 </div>

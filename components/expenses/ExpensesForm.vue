@@ -11,11 +11,11 @@
         <div v-else>
             <div class="row mb-4">
                 <div class="col-4">
-                    <label>Name</label>
+                    <label>{{ $t('common.name') }}</label>
                     <input 
                         type="text" 
                         class="form-control" 
-                        placeholder="Expense name"
+                        :placeholder="$t('expenses.form.name_placeholder')"
                         v-model="expense.name"
                         @blur="validateField('name')"
                         @input="validateField('name')"
@@ -24,11 +24,11 @@
                     <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
                 </div>
                 <div class="col-4">
-                    <label>Description</label>
+                    <label>{{ $t('expenses.table.description') }}</label>
                     <input 
                         type="text" 
                         class="form-control" 
-                        placeholder="Description"
+                        :placeholder="$t('expenses.form.description_placeholder')"
                         v-model="expense.description"
                         @blur="validateField('description')"
                         @input="validateField('description')"
@@ -37,11 +37,11 @@
                     <small v-if="errors.description" class="text-danger">{{ errors.description }}</small>
                 </div>
                 <div class="col-2">
-                    <label>Parcel number</label>
+                    <label>{{ $t('expenses.form.parcel_number') }}</label>
                     <input 
                         type="number" 
                         class="form-control" 
-                        placeholder="Parcel number"
+                        :placeholder="$t('expenses.form.parcel_number_placeholder')"
                         v-model="expense.parcel_numbers"
                         @blur="validateField('parcel_numbers')"
                         @input="validateField('parcel_numbers')"
@@ -50,11 +50,11 @@
                     <small v-if="errors.parcel_numbers" class="text-danger">{{ errors.parcel_numbers }}</small>
                 </div>
                 <div class="col-2">
-                    <label>Value</label>
+                    <label>{{ $t('expenses.table.value') }}</label>
                     <input 
                         type="number" 
                         class="form-control" 
-                        placeholder="Expense value"
+                        :placeholder="$t('expenses.form.value_placeholder')"
                         v-model="expense.value"
                         @blur="validateField('value')"
                         @input="validateField('value')"
@@ -65,7 +65,7 @@
             </div>
             <div class="row mb-4">
                 <div class="col-4">
-                    <label>Payment method</label>
+                    <label>{{ $t('expenses.table.method') }}</label>
                     <select 
                         class="form-select form-select" 
                         aria-label="Large select example"
@@ -73,7 +73,7 @@
                         @blur="validateField('payment_methods_id')"
                         ref="valueRef"
                     >
-                        <option disabled selected value="">Select the method</option>
+                        <option disabled selected value="">{{ $t('expenses.form.select_method') }}</option>
                         <option 
                             v-for="option in paymentMethodsList"
                             :key="option.id" 
@@ -85,7 +85,7 @@
                     <small v-if="errors.payment_methods_id" class="text-danger">{{ errors.payment_methods_id }}</small>
                 </div>
                 <div class="col-4">
-                    <label>Categories</label>
+                    <label>{{ $t('expenses.table.category') }}</label>
                     <select 
                         class="form-select form-select" 
                         aria-label="Large select example"
@@ -93,7 +93,7 @@
                         @blur="validateField('category_id')"
                         ref="valueRef"
                     >
-                        <option disabled selected value="">Select the category</option>
+                        <option disabled selected value="">{{ $t('expenses.form.select_category') }}</option>
                         <option 
                             v-for="option in categoriesList"
                             :key="option.id"
@@ -105,11 +105,11 @@
                     <small v-if="errors.category_id" class="text-danger">{{ errors.category_id }}</small>
                 </div>
                 <div class="col-4">
-                    <label>Date</label>
+                    <label>{{ $t('expenses.table.date') }}</label>
                     <input 
                         type="date" 
                         class="form-control" 
-                        placeholder="Expense date"
+                        :placeholder="$t('expenses.form.date_placeholder')"
                         v-model="expense.date"
                     >
                 </div>
@@ -121,7 +121,7 @@
             :disabled="isLoading"
             @click="save"
         >
-            Save
+            {{ $t('common.save') }}
         </button>
     </div>
 </template>
@@ -176,7 +176,7 @@
                 } catch (error) {
                     this.$notify({
                         title: 'Error',
-                        text: 'Failed to load payment methods',
+                        text: this.$t('payment_methods.notifications.load_error'),
                         icon: 'error'
                     });
                 }
@@ -188,7 +188,7 @@
                 } catch (error) {
                     this.$notify({
                         title: 'Error',
-                        text: 'Failed to load categories',
+                        text: this.$t('categories.notifications.load_error'),
                         icon: 'error'
                     });
                 }
@@ -204,7 +204,7 @@
                 } catch (error) {
                     this.$notify({
                         title: 'Error',
-                        text: 'Failed to load expense',
+                        text: this.$t('expenses.notifications.load_error'),
                         icon: 'error'
                     });
                 } finally {
@@ -230,7 +230,7 @@
                 if (!isValid) {
                     return this.$notify({
                         title: "Validation error",
-                        text: "One or more fields aren't valid, fix them and try again.",
+                        text: this.$t('login.notifications.validation_text'),
                         icon: 'error'
                     });
                 }
@@ -245,14 +245,14 @@
                     await this.expensesService.createExpense(this.expense);
                     this.$notify({
                         title: 'Success',
-                        text: 'Expense created successfully',
+                        text: this.$t('expenses.notifications.created'),
                         icon: 'success'
                     });
                     this.$emit("save");
                 } catch (error) {
                     this.$notify({
                         title: 'Error',
-                        text: 'Failed to create expense',
+                        text: this.$t('expenses.notifications.create_error'),
                         icon: 'error'
                     });
                 }
@@ -262,14 +262,14 @@
                     await this.expensesService.updateExpense(this.id, this.expense);
                     this.$notify({
                         title: 'Success',
-                        text: 'Expense updated successfully',
+                        text: this.$t('expenses.notifications.updated'),
                         icon: 'success'
                     });
                     this.$emit("save");
                 } catch (error) {
                     this.$notify({
                         title: 'Error',
-                        text: 'Failed to update expense',
+                        text: this.$t('expenses.notifications.update_error'),
                         icon: 'error'
                     });
                 }
@@ -277,7 +277,7 @@
         },
         computed: {
             title() {
-                return this.isEdit ? "Edit Expense" : "New Expense";
+                return this.isEdit ? this.$t('expenses.edit') : this.$t('expenses.new');
             },
         },
         created() {

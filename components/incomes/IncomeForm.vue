@@ -2,7 +2,7 @@
     <div>
         <div>
             <h1 class="ms-1 fs-5">
-                New Income
+                {{ title }}
             </h1>
         </div>
         <div v-if="isLoading" class="row mb-4">
@@ -11,7 +11,7 @@
         <div v-else>
             <div class="row">
                 <div class="col-6">
-                    <label>Income source</label>
+                    <label>{{ $t('incomes.form.source') }}</label>
                     <select 
                         class="form-select form-select" 
                         aria-label="Large select example"
@@ -19,7 +19,7 @@
                         @blur="validateField('source_id')"
                         ref="sourceRef"
                     >
-                        <option disabled selected value="">Select your income</option>
+                        <option disabled selected value="">{{ $t('incomes.form.select_source') }}</option>
                         <option 
                             v-for="option in incomeSourcesList" 
                             :key="option.id" 
@@ -31,7 +31,7 @@
                     <small v-if="errors.source_id" class="text-danger">{{ errors.source_id }}</small>
                 </div>
                 <div class="col-6">
-                    <label>Income type</label>
+                    <label>{{ $t('incomes.form.type') }}</label>
                     <select 
                         class="form-select form-select" 
                         aria-label="Large select example"
@@ -39,7 +39,7 @@
                         @blur="validateField('type_id')"
                         ref="typeRef"
                     >
-                        <option disabled selected value="">Select the type</option>
+                        <option disabled selected value="">{{ $t('incomes.form.select_type') }}</option>
                         <option 
                             v-for="option in incomeTypesList" 
                             :key="option.id" 
@@ -53,11 +53,11 @@
             </div>
             <div class="row">
                 <div class="col-4">
-                    <label>Name</label>
+                    <label>{{ $t('common.name') }}</label>
                     <input 
                         type="text" 
                         class="form-control" 
-                        placeholder="Income Name"
+                        :placeholder="$t('incomes.form.name_placeholder')"
                         v-model="income.name"
                         @blur="validateField('name')"
                         @input="validateField('name')"
@@ -66,13 +66,13 @@
                     <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
                 </div>
                 <div class="col-4">
-                    <label>Value</label>
+                    <label>{{ $t('incomes.table.value') }}</label>
                     <div class="input-group">
                         <span class="input-group-text">R$</span>
                         <input 
                             type="number" 
                             class="form-control" 
-                            placeholder="Income Value"
+                            :placeholder="$t('incomes.form.value_placeholder')"
                             v-model="income.value"
                             @blur="validateField('value')"
                             @input="validateField('value')"
@@ -82,14 +82,14 @@
                     <small v-if="errors.value" class="text-danger">{{ errors.value }}</small>
                 </div>
                 <div class="col-2">
-                    <label>Entry day</label>
+                    <label>{{ $t('incomes.table.entry_day') }}</label>
                     <div class="input-group">
                         <input 
                             type="number" 
                             class="form-control" 
                             min="1"
                             max="31"
-                            placeholder="Entry day"
+                            :placeholder="$t('incomes.form.entry_day_placeholder')"
                             v-model="income.entry_day"
                             @blur="validateField('entry_day')"
                             @input="validateField('entry_day')"
@@ -106,7 +106,9 @@
             :disabled="isLoading"
             @click="save"
         >
-            Save
+            @click="save"
+        >
+            {{ $t('common.save') }}
         </button>
     </div>
 </template>
@@ -158,7 +160,7 @@
                 } catch (error) {
                     this.$notify({
                         title: 'Error',
-                        text: 'Failed to load income sources',
+                        text: this.$t('income_sources.notifications.load_error'),
                         icon: 'error'
                     });
                 }
@@ -170,7 +172,7 @@
                 } catch (error) {
                     this.$notify({
                         title: 'Error',
-                        text: 'Failed to load income types',
+                        text: this.$t('income_types.notifications.load_error'),
                         icon: 'error'
                     });
                 }
@@ -192,7 +194,7 @@
                 } catch (error) {
                     this.$notify({
                         title: 'Error',
-                        text: 'Failed to load income',
+                        text: this.$t('incomes.notifications.load_error'),
                         icon: 'error'
                     });
                 } finally {
@@ -218,7 +220,7 @@
                 if (!isValid) {
                     return this.$notify({
                         title: "Validation error",
-                        text: "One or more fields aren't valid, fix them and try again.",
+                        text: this.$t('login.notifications.validation_text'),
                         icon: 'error'
                     });
                 }
@@ -233,14 +235,14 @@
                     await this.incomesService.createIncome(this.income);
                     this.$notify({
                         title: 'Income',
-                        text: 'Income created successfully!',
+                        text: this.$t('incomes.notifications.created'),
                         icon: 'success'
                     });
                     this.$emit("save");
                 } catch (error) {
                     this.$notify({
                         title: 'Error',
-                        text: 'Failed to create income',
+                        text: this.$t('incomes.notifications.create_error'),
                         icon: 'error'
                     });
                 }
@@ -250,18 +252,23 @@
                     await this.incomesService.updateIncome(this.id, this.income);
                     this.$notify({
                         title: 'Income',
-                        text: 'Income edited successfully!',
+                        text: this.$t('incomes.notifications.updated'),
                         icon: 'success'
                     });
                     this.$emit("save");
                 } catch (error) {
                     this.$notify({
                         title: 'Error',
-                        text: 'Failed to update income',
+                        text: this.$t('incomes.notifications.update_error'),
                         icon: 'error'
                     });
                 }
             },
+        },
+        computed: {
+             title() {
+                 return this.isEdit ? this.$t('incomes.edit') : this.$t('incomes.new');
+             }
         },
         created() {
             this.incomesService = useIncomesService(this.$axios);

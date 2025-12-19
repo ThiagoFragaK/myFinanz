@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-1">
                 <button
-                    v-tooltip="'Clean filters'"  
+                    v-tooltip="$t('expenses.filters.clean')"  
                     type="button" 
                     class="btn btn-secondary btn-sm mt-1 w-100"
                     @click="cleanFilters"
@@ -16,7 +16,7 @@
             </div>
             <div class="col-1">
                 <button
-                    v-tooltip="'Filter'" 
+                    v-tooltip="$t('expenses.filters.filter')" 
                     type="button" 
                     class="btn btn-primary btn-sm mt-1 w-100"
                     @click="filter"
@@ -41,7 +41,7 @@
                         <input 
                             type="text"
                             class="form-control"
-                            placeholder="Name, description"
+                            :placeholder="$t('expenses.filters.description_placeholder')"
                             v-model="filters.name"
                         >
                     </div>
@@ -51,7 +51,7 @@
                             aria-label="Large select example"
                             v-model="filters.payment_methods_id"
                         >
-                            <option disabled selected :value="null">Methods</option>
+                            <option disabled selected :value="null">{{ $t('expenses.filters.methods') }}</option>
                             <option 
                                 v-for="option in paymentMethodsList"
                                 :key="option.id" 
@@ -67,7 +67,7 @@
                             aria-label="Large select example"
                             v-model="filters.category_id"
                         >
-                            <option disabled selected :value="null">Categories</option>
+                            <option disabled selected :value="null">{{ $t('expenses.filters.categories') }}</option>
                             <option 
                                 v-for="option in categoriesList"
                                 :key="option.id"
@@ -81,7 +81,7 @@
                         <input 
                             type="number" 
                             class="form-control" 
-                            placeholder="Max value"
+                            :placeholder="$t('expenses.filters.max_value')"
                             v-model="filters.valuesMax"
                         >
                     </div>
@@ -128,7 +128,8 @@
                 } catch (error) {
                     this.$notify({
                         title: 'Error',
-                        text: 'Failed to load categories',
+                        title: 'Error',
+                        text: this.$t('categories.notifications.load_error'),
                         icon: 'error'
                     });
                 }
@@ -140,7 +141,7 @@
                 } catch (error) {
                     this.$notify({
                         title: 'Error',
-                        text: 'Failed to load payment methods',
+                        text: this.$t('payment_methods.notifications.load_error'),
                         icon: 'error'
                     });
                 }
@@ -174,7 +175,7 @@
         },
         computed: {
             monthFilterTitle() {
-                return this.filters.isCurrentMonth ? "Current month" : "All months";
+                return this.filters.isCurrentMonth ? this.$t('expenses.filters.current_month') : this.$t('expenses.filters.all_months');
             }
         },
         created() {

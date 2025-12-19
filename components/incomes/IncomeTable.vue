@@ -46,14 +46,6 @@
             StatusBadge
         },
         data: () => ({
-            columns: [
-                { key: "name", label: "Name" },
-                { key: "value", label: "Value" },
-                { key: "entry_day", label: "Entry day" },
-                { key: "income_sources", label: "Income Source" },
-                { key: "types", label: "Type" },
-                { key: "status", label: "Status" },
-            ],
             pagination: {
                 currentPage: 1,
                 totalPages: 1,
@@ -65,6 +57,18 @@
             isLoading: true,
             incomesService: null
         }),
+        computed: {
+            columns() {
+                return [
+                    { key: "name", label: this.$t("incomes.table.name") },
+                    { key: "value", label: this.$t("incomes.table.value") },
+                    { key: "entry_day", label: this.$t("incomes.table.entry_day") },
+                    { key: "income_sources", label: this.$t("incomes.table.source") },
+                    { key: "types", label: this.$t("incomes.table.type") },
+                    { key: "status", label: this.$t("incomes.table.status") },
+                ];
+            }
+        },
         methods: {
             async getIncome(page = 1) {
                 this.isLoading = true;
@@ -80,7 +84,7 @@
                 } catch (error) {
                     this.$notify({
                         title: 'Error',
-                        text: 'Failed to load incomes',
+                        text: this.$t('incomes.notifications.load_error'),
                         icon: 'error'
                     });
                 } finally {

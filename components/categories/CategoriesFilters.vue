@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-1">
                 <button
-                    v-tooltip="'Clean filters'"  
+                    v-tooltip="$t('categories.filters.clean')"  
                     type="button" 
                     class="btn btn-secondary btn-sm mt-1 w-100"
                     @click="cleanFilters"
@@ -16,7 +16,7 @@
             </div>
             <div class="col-1">
                 <button
-                    v-tooltip="'Filter'" 
+                    v-tooltip="$t('categories.filters.filter')" 
                     type="button" 
                     class="btn btn-primary btn-sm mt-1 w-100"
                     @click="filter"
@@ -28,7 +28,7 @@
                 <input 
                     type="text"
                     class="form-control" 
-                    placeholder="Category name"
+                    :placeholder="$t('categories.filters.placeholder')"
                     v-model="filters.name"
                 >
             </div>            

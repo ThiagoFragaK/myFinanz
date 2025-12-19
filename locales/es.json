@@ -1,0 +1,346 @@
+{
+    "common": {
+        "return": "Volver",
+        "filters": "Filtros",
+        "icon": "Icono",
+        "name": "Nombre",
+        "description": "Descripción",
+        "save": "Guardar",
+        "cancel": "Cancelar",
+        "status_active": "Activo",
+        "status_inactive": "Inactivo",
+        "error": "Error",
+        "success": "Éxito",
+        "validation_error": "Error de Validación",
+        "validation_text": "Uno o más campos son inválidos."
+    },
+    "categories": {
+        "title": "Categorías",
+        "new_category": "Nueva Categoría",
+        "edit_category": "Editar Categoría",
+        "failed_load": "Error al cargar categorías",
+        "form": {
+            "name_placeholder": "Nombre de la categoría",
+            "description_placeholder": "Descripción de la categoría",
+            "icon_placeholder": "Icono de la categoría (Lucide)"
+        },
+        "filters": {
+            "clean": "Limpiar filtros",
+            "filter": "Filtrar",
+            "placeholder": "Nombre de la categoría"
+        },
+        "notifications": {
+            "created": "Categoría creada con éxito",
+            "create_error": "Error al crear categoría",
+            "updated": "Categoría editada con éxito",
+            "update_error": "Error al actualizar categoría",
+            "load_error": "Error al cargar categoría"
+        }
+    },
+    "navbar": {
+        "home": "Inicio",
+        "settings": "Configuración",
+        "login": "Iniciar sesión",
+        "logout": "Cerrar sesión"
+    },
+    "settings": {
+        "payment_methods": "Métodos de pago",
+        "categories": "Categorías",
+        "expenses": "Gastos",
+        "income": "Ingresos",
+        "income_type": "Tipos de ingreso",
+        "income_sources": "Fuentes de ingreso",
+        "savings": "Ahorros"
+    },
+    "home": {
+        "cards": {
+            "balance": "Balance",
+            "income": "Ingresos",
+            "expenses": "Gastos",
+            "savings": "Ahorros",
+            "new_income": "Nuevo ingreso",
+            "new_expense": "Nuevo gasto",
+            "last_expenses": "Últimos gastos",
+            "no_expenses": "Todavía no hay gastos",
+            "previously": "Anteriormente",
+            "variation": "Variación"
+        },
+        "modals": {
+            "new_expense": "Nuevo gasto",
+            "new_income": "Nuevo ingreso",
+            "name": "Nombre",
+            "description": "Descripción",
+            "value": "Valor",
+            "date": "Fecha",
+            "parcel_number": "Nº Cuotas",
+            "payment_method": "Método de pago",
+            "categories": "Categorías",
+            "income_source": "Fuente de ingresos",
+            "income_type": "Tipo de ingreso",
+            "entry_day": "Día de entrada",
+            "placeholders": {
+                "expense_name": "Nombre del gasto",
+                "description": "Descripción",
+                "expense_value": "Valor del gasto",
+                "parcel_number": "Número de cuotas",
+                "expense_date": "Fecha del gasto",
+                "select_method": "Seleccione el método",
+                "select_category": "Seleccione la categoría",
+                "select_source": "Seleccione la fuente",
+                "select_type": "Seleccione el tipo",
+                "income_name": "Nombre del ingreso",
+                "income_value": "Valor del ingreso",
+                "entry_day": "Día de entrada"
+            }
+        },
+        "graphs": {
+            "income": "Ingresos",
+            "expense": "Gastos",
+            "balance": "Balance"
+        }
+    },
+    "login": {
+        "checking_auth": "Verificando autenticación...",
+        "email": "Correo electrónico",
+        "email_placeholder": "tu{'@'}email.com",
+        "password": "Contraseña",
+        "forgot_password": "¿Olvidaste tu contraseña?",
+        "submit": "Iniciar sesión",
+        "notifications": {
+            "validation_error": "Error de validación",
+            "validation_text": "Uno o más campos no son válidos, corríjalos e intente nuevamente.",
+            "success": "Éxito",
+            "success_text": "¡Inicio de sesión exitoso!",
+            "failed": "Error de inicio de sesión",
+            "invalid_credentials": "Credenciales inválidas"
+        }
+    },
+    "user": {
+        "title": "Usuario",
+        "create": "Crear Usuario",
+        "preferences": {
+            "title": "Preferencias",
+            "language": "Idioma",
+            "currency": "Moneda",
+            "save": "Guardar Preferencias",
+            "success": "Preferencias actualizadas con éxito",
+            "failed": "Error al actualizar preferencias"
+        },
+        "password": {
+            "title": "Actualizar Contraseña",
+            "current": "Contraseña Actual",
+            "new": "Nueva Contraseña",
+            "confirm": "Confirmar Nueva Contraseña",
+            "help": "La contraseña debe tener al menos 8 caracteres.",
+            "update": "Actualizar Contraseña",
+            "match_error": "Las nuevas contraseñas no coinciden",
+            "success": "Contraseña actualizada con éxito",
+            "failed": "Error al actualizar la contraseña"
+        },
+        "create_modal": {
+            "title": "Crear Nuevo Usuario",
+            "header": "Nuevo Usuario",
+            "description": "Cree un nuevo usuario ingresando su dirección de correo electrónico. Se asignará una contraseña predeterminada.",
+            "email": "Dirección de Correo Electrónico",
+            "submit": "Crear Usuario",
+            "success": "¡Usuario creado con éxito!",
+            "failed": "Error al crear usuario"
+        }
+    },
+    "pagination": {
+        "previous": "Anterior",
+        "next": "Siguiente"
+    },
+    "payment_methods": {
+        "title": "Métodos de Pago",
+        "new": "Nuevo Método",
+        "edit": "Editar Método",
+        "filters": {
+            "clean": "Limpiar filtros",
+            "filter": "Filtrar",
+            "placeholder": "Nombre del método"
+        },
+        "form": {
+            "name_placeholder": "Nombre del método",
+            "limit_placeholder": "Límite de la tarjeta",
+            "turn_day_placeholder": "Día de cierre",
+            "select_type": "Seleccione el tipo",
+            "debt": "Débito",
+            "credit": "Crédito"
+        },
+        "table": {
+            "name": "Nombre",
+            "type": "Tipo",
+            "limit": "Límite",
+            "turn_day": "Día de Cierre",
+            "status": "Estado"
+        },
+        "notifications": {
+            "created": "Método de pago creado con éxito",
+            "create_error": "Error al crear método de pago",
+            "updated": "Método de pago editado con éxito",
+            "update_error": "Error al actualizar método de pago",
+            "load_error": "Error al cargar método de pago"
+        }
+    },
+    "expenses": {
+        "title": "Gastos",
+        "new": "Nuevo Gasto",
+        "edit": "Editar Gasto",
+        "filters": {
+            "clean": "Limpiar filtros",
+            "filter": "Filtrar",
+            "description_placeholder": "Nombre, descripción",
+            "max_value": "Valor máximo",
+            "methods": "Métodos",
+            "categories": "Categorías",
+            "current_month": "Mes actual",
+            "all_months": "Todos los meses"
+        },
+        "table": {
+            "name": "Nombre",
+            "description": "Descripción",
+            "value": "Valor",
+            "date": "Fecha",
+            "category": "Categoría",
+            "method": "Método de Pago",
+            "parcels": "Cuotas"
+        },
+        "form": {
+            "name_placeholder": "Nombre del gasto",
+            "description_placeholder": "Descripción del gasto",
+            "parcel_number_placeholder": "Número de cuotas",
+            "value_placeholder": "Valor del gasto",
+            "date_placeholder": "Fecha del gasto",
+            "select_method": "Seleccione el método",
+            "select_category": "Seleccione la categoría",
+            "parcel_number": "Número de cuotas"
+        },
+        "notifications": {
+            "created": "Gasto creado con éxito",
+            "create_error": "Error al crear gasto",
+            "updated": "Gasto editado con éxito",
+            "update_error": "Error al actualizar gasto",
+            "load_error": "Error al cargar gasto"
+        }
+    },
+    "incomes": {
+        "title": "Ingresos",
+        "new": "Nuevo Ingreso",
+        "edit": "Editar Ingreso",
+        "filters": {
+            "clean": "Limpiar filtros",
+            "filter": "Filtrar",
+            "description_placeholder": "Descripción",
+            "placeholder": "Nombre"
+        },
+        "table": {
+            "name": "Nombre",
+            "value": "Valor",
+            "entry_day": "Día de Entrada",
+            "source": "Fuente de Ingresos",
+            "type": "Tipo",
+            "status": "Estado"
+        },
+        "form": {
+            "name": "Nombre",
+            "value": "Valor",
+            "entry_day": "Día de Entrada",
+            "source": "Fuente de Ingresos",
+            "type": "Tipo de Ingreso",
+            "name_placeholder": "Nombre del Ingreso",
+            "value_placeholder": "Valor del Ingreso",
+            "entry_day_placeholder": "Día de Entrada",
+            "select_source": "Seleccione su ingreso",
+            "select_type": "Seleccione el tipo"
+        },
+        "notifications": {
+            "created": "Ingreso creado con éxito",
+            "create_error": "Error al crear ingreso",
+            "updated": "Ingreso editado con éxito",
+            "update_error": "Error al actualizar ingreso",
+            "load_error": "Error al cargar ingreso"
+        }
+    },
+    "income_types": {
+        "title": "Tipos de Ingresos",
+        "new": "Nuevo Tipo de Ingreso",
+        "edit": "Editar Tipo de Ingreso",
+        "form": {
+            "name": "Nombre",
+            "name_placeholder": "Nombre del Tipo de Ingreso"
+        },
+        "table": {
+            "code": "Código",
+            "name": "Nombre"
+        },
+        "notifications": {
+            "created": "Tipo de ingreso creado con éxito",
+            "updated": "Tipo de ingreso actualizado con éxito",
+            "load_error": "Error al cargar tipos de ingreso",
+            "create_error": "Error al crear tipo de ingreso",
+            "update_error": "Error al actualizar tipo de ingreso"
+        }
+    },
+    "income_sources": {
+        "title": "Fuentes de Ingresos",
+        "new": "Nueva Fuente de Ingreso",
+        "edit": "Editar Fuente de Ingreso",
+        "disable": "Desactivar Fuente de Ingreso",
+        "enable": "Activar Fuente de Ingreso",
+        "form": {
+            "name": "Nombre",
+            "name_placeholder": "Nombre de la Fuente de Ingreso"
+        },
+        "table": {
+            "name": "Nombre",
+            "status": "Estado"
+        },
+        "notifications": {
+            "created": "Fuente de ingreso creada con éxito",
+            "updated": "Fuente de ingreso actualizada con éxito",
+            "load_error": "Error al cargar fuentes de ingreso",
+            "create_error": "Error al crear fuente de ingreso",
+            "update_error": "Error al actualizar fuente de ingreso"
+        }
+    },
+    "savings": {
+        "title": "Ahorros",
+        "new": "Nuevo Ahorro",
+        "edit": "Editar Ahorro",
+        "filters": {
+            "clean": "Limpiar filtros",
+            "filter": "Filtrar",
+            "description_placeholder": "Descripción",
+            "min_date": "Fecha mínima",
+            "max_date": "Fecha máxima",
+            "min_value": "Valor mínimo",
+            "max_value": "Valor máximo"
+        },
+        "table": {
+            "date": "Fecha",
+            "value": "Valor",
+            "type": "Tipo",
+            "description": "Descripción"
+        },
+        "form": {
+            "value": "Valor",
+            "type": "Tipo",
+            "positive": "Positivo",
+            "negative": "Negativo",
+            "description_placeholder": "Descripción del ahorro",
+            "value_placeholder": "0,00"
+        },
+        "types": {
+            "increase": "Aumento",
+            "decrease": "Disminución"
+        },
+        "notifications": {
+            "created": "Ahorro creado con éxito",
+            "create_error": "Error al crear ahorro",
+            "updated": "Ahorro editado con éxito",
+            "update_error": "Error al actualizar ahorro",
+            "load_error": "Error al cargar ahorro"
+        }
+    }
+}

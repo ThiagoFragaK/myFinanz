@@ -1,8 +1,8 @@
 <template>
     <button 
-        v-tooltip="'Return'"
+        v-tooltip="$t('common.return')"
         type="button"
-        title="Return"
+        :title="$t('common.return')"
         class="btn btn-primary mb-4"
         @click="returnToTable"
         :disabled="showTable"
@@ -10,18 +10,18 @@
         <IconsLucide icon="ChevronLeft" />
     </button>
     <button
-        v-tooltip="'Filters'"
+        v-tooltip="$t('common.filters')"
         type="button"
-        title="Open filters"
+        :title="$t('common.filters')"
         class="btn btn-primary ms-2 mb-4"
         @click="toggleFilters"
     >
         <IconsLucide icon="Funnel" />
     </button>
     <button
-        v-tooltip="'New category'" 
+        v-tooltip="$t('categories.new_category')" 
         type="button"
-        title="New Category"
+        :title="$t('categories.new_category')"
         class="btn btn-primary ms-2 mb-4"
         @click="newCategory"
         :disabled="disableBtns"
@@ -29,9 +29,9 @@
         <IconsLucide icon="Plus" />
     </button>
     <button
-        v-tooltip="'Edit Category'" 
+        v-tooltip="$t('categories.edit_category')" 
         type="button"
-        title="Edit Category"
+        :title="$t('categories.edit_category')"
         class="btn btn-primary ms-2 mb-4"
         @click="editCategory"
         :disabled="hasntOnlyOneSelected"

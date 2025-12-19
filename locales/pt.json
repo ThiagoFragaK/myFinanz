@@ -1,0 +1,345 @@
+{
+    "common": {
+        "return": "Voltar",
+        "filters": "Filtros",
+        "icon": "Ícone",
+        "name": "Nome",
+        "description": "Descrição",
+        "save": "Salvar",
+        "cancel": "Cancelar",
+        "status_active": "Ativo",
+        "status_inactive": "Inativo",
+        "error": "Erro",
+        "success": "Sucesso",
+        "validation_error": "Erro de Validação",
+        "validation_text": "Um ou mais campos são inválidos."
+    },
+    "categories": {
+        "title": "Categorias",
+        "new_category": "Nova Categoria",
+        "edit_category": "Editar Categoria",
+        "failed_load": "Falha ao carregar categorias",
+        "form": {
+            "name_placeholder": "Nome da categoria",
+            "description_placeholder": "Descrição da categoria",
+            "icon_placeholder": "Ícone da categoria (Lucide)"
+        },
+        "filters": {
+            "clean": "Limpar filtros",
+            "filter": "Filtrar",
+            "placeholder": "Nome da categoria"
+        },
+        "notifications": {
+            "created": "Categoria criada com sucesso",
+            "create_error": "Falha ao criar categoria",
+            "updated": "Categoria editada com sucesso",
+            "update_error": "Falha ao atualizar categoria",
+            "load_error": "Falha ao carregar categoria"
+        }
+    },
+    "navbar": {
+        "home": "Início",
+        "settings": "Configurações",
+        "login": "Entrar",
+        "logout": "Sair"
+    },
+    "settings": {
+        "payment_methods": "Métodos de pagamento",
+        "categories": "Categorias",
+        "expenses": "Despesas",
+        "income": "Receitas",
+        "income_type": "Tipos de receita",
+        "income_sources": "Fontes de receita",
+        "savings": "Economias"
+    },
+    "home": {
+        "cards": {
+            "balance": "Saldo",
+            "income": "Receitas",
+            "expenses": "Despesas",
+            "savings": "Economias",
+            "new_income": "Nova receita",
+            "new_expense": "Nova despesa",
+            "last_expenses": "Últimas despesas",
+            "no_expenses": "Ainda não há despesas",
+            "previously": "Anteriormente",
+            "variation": "Variação"
+        },
+        "modals": {
+            "new_expense": "Nova despesa",
+            "new_income": "Nova receita",
+            "name": "Nome",
+            "description": "Descrição",
+            "value": "Valor",
+            "date": "Data",
+            "parcel_number": "Nº Parcelas",
+            "payment_method": "Método de pagamento",
+            "categories": "Categorias",
+            "income_source": "Fonte de renda",
+            "income_type": "Tipo de renda",
+            "entry_day": "Dia de entrada",
+            "placeholders": {
+                "expense_name": "Nome da despesa",
+                "description": "Descrição",
+                "expense_value": "Valor da despesa",
+                "parcel_number": "Número de parcelas",
+                "expense_date": "Data da despesa",
+                "select_method": "Selecione o método",
+                "select_category": "Selecione a categoria",
+                "select_source": "Selecione a fonte",
+                "select_type": "Selecione o tipo",
+                "income_name": "Nome da receita",
+                "income_value": "Valor da receita",
+                "entry_day": "Dia de entrada"
+            }
+        },
+        "graphs": {
+            "income": "Receitas",
+            "expense": "Despesas",
+            "balance": "Saldo"
+        }
+    },
+    "login": {
+        "checking_auth": "Verificando autenticação...",
+        "email": "Email",
+        "email_placeholder": "seu{'@'}email.com",
+        "password": "Senha",
+        "forgot_password": "Esqueceu a senha?",
+        "submit": "Entrar",
+        "notifications": {
+            "validation_error": "Erro de validação",
+            "validation_text": "Um ou mais campos são inválidos, corrija-os e tente novamente.",
+            "success": "Sucesso",
+            "success_text": "Login realizado com sucesso!",
+            "failed": "Falha no login",
+            "invalid_credentials": "Credenciais inválidas"
+        }
+    },
+    "user": {
+        "title": "Usuário",
+        "create": "Criar Usuário",
+        "preferences": {
+            "title": "Preferências",
+            "language": "Idioma",
+            "currency": "Moeda",
+            "save": "Salvar Preferências",
+            "success": "Preferências atualizadas com sucesso",
+            "failed": "Falha ao atualizar preferências"
+        },
+        "password": {
+            "title": "Atualizar Senha",
+            "current": "Senha Atual",
+            "new": "Nova Senha",
+            "confirm": "Confirmar Nova Senha",
+            "help": "A senha deve ter pelo menos 8 caracteres.",
+            "update": "Atualizar Senha",
+            "match_error": "As novas senhas não coincidem",
+            "success": "Senha atualizada com sucesso",
+            "failed": "Falha ao atualizar senha"
+        },
+        "create_modal": {
+            "title": "Criar Novo Usuário",
+            "header": "Novo Usuário",
+            "description": "Crie um novo usuário inserindo seu endereço de email. Uma senha padrão será atribuída.",
+            "email": "Endereço de Email",
+            "submit": "Criar Usuário",
+            "success": "Usuário criado com sucesso!",
+            "failed": "Falha ao criar usuário"
+        }
+    },
+    "pagination": {
+        "previous": "Anterior",
+        "next": "Próximo"
+    },
+    "payment_methods": {
+        "title": "Métodos de Pagamento",
+        "new": "Novo Método",
+        "edit": "Editar Método",
+        "filters": {
+            "clean": "Limpar filtros",
+            "filter": "Filtrar",
+            "placeholder": "Nome do método"
+        },
+        "form": {
+            "name_placeholder": "Nome do método",
+            "limit_placeholder": "Limite do cartão",
+            "turn_day_placeholder": "Dia de fechamento",
+            "select_type": "Selecione o tipo",
+            "debt": "Débito",
+            "credit": "Crédito"
+        },
+        "table": {
+            "name": "Nome",
+            "type": "Tipo",
+            "limit": "Limite",
+            "turn_day": "Dia de Fechamento",
+            "status": "Status"
+        },
+        "notifications": {
+            "created": "Método de pagamento criado com sucesso",
+            "create_error": "Falha ao criar método de pagamento",
+            "updated": "Método de pagamento editado com sucesso",
+            "update_error": "Falha ao atualizar método de pagamento",
+            "load_error": "Falha ao carregar método de pagamento"
+        }
+    },
+    "expenses": {
+        "title": "Despesas",
+        "new": "Nova Despesa",
+        "edit": "Editar Despesa",
+        "filters": {
+            "clean": "Limpar filtros",
+            "filter": "Filtrar",
+            "description_placeholder": "Nome, descrição",
+            "max_value": "Valor máximo",
+            "methods": "Métodos",
+            "categories": "Categorias",
+            "current_month": "Mês atual",
+            "all_months": "Todos os meses"
+        },
+        "table": {
+            "name": "Nome",
+            "description": "Descrição",
+            "value": "Valor",
+            "date": "Data",
+            "category": "Categoria",
+            "method": "Método de Pagamento",
+            "parcels": "Parcelas"
+        },
+        "form": {
+            "name_placeholder": "Nome da despesa",
+            "description_placeholder": "Descrição da despesa",
+            "parcel_number_placeholder": "Número de parcelas",
+            "value_placeholder": "Valor da despesa",
+            "date_placeholder": "Data da despesa",
+            "select_method": "Selecione o método",
+            "select_category": "Selecione a categoria",
+            "parcel_number": "Número de parcelas"
+        },
+        "notifications": {
+            "created": "Despesa criada com sucesso",
+            "create_error": "Falha ao criar despesa",
+            "updated": "Despesa editada com sucesso",
+            "update_error": "Falha ao atualizar despesa",
+            "load_error": "Falha ao carregar despesa"
+        }
+    },
+    "incomes": {
+        "title": "Receitas",
+        "new": "Nova Receita",
+        "edit": "Editar Receita",
+        "filters": {
+            "clean": "Limpar filtros",
+            "filter": "Filtrar",
+            "placeholder": "Nome"
+        },
+        "table": {
+            "name": "Nome",
+            "value": "Valor",
+            "entry_day": "Dia de Entrada",
+            "source": "Fonte de Renda",
+            "type": "Tipo",
+            "status": "Status"
+        },
+        "form": {
+            "name": "Nome",
+            "value": "Valor",
+            "entry_day": "Dia de Entrada",
+            "source": "Fonte de Renda",
+            "type": "Tipo de Renda",
+            "name_placeholder": "Nome da Renda",
+            "value_placeholder": "Valor da Renda",
+            "entry_day_placeholder": "Dia de Entrada",
+            "select_source": "Selecione sua renda",
+            "select_type": "Selecione o tipo"
+        },
+        "notifications": {
+            "created": "Receita criada com sucesso",
+            "create_error": "Falha ao criar receita",
+            "updated": "Receita editada com sucesso",
+            "update_error": "Falha ao atualizar receita",
+            "load_error": "Falha ao carregar receita"
+        }
+    },
+    "income_types": {
+        "title": "Tipos de Renda",
+        "new": "Novo Tipo de Renda",
+        "edit": "Editar Tipo de Renda",
+        "form": {
+            "name": "Nome",
+            "name_placeholder": "Nome do Tipo de Renda"
+        },
+        "table": {
+            "code": "Código",
+            "name": "Nome"
+        },
+        "notifications": {
+            "created": "Tipo de renda criado com sucesso",
+            "updated": "Tipo de renda atualizado com sucesso",
+            "load_error": "Falha ao carregar tipos de renda",
+            "create_error": "Falha ao criar tipo de renda",
+            "update_error": "Falha ao atualizar tipo de renda"
+        }
+    },
+    "income_sources": {
+        "title": "Fontes de Renda",
+        "new": "Nova Fonte de Renda",
+        "edit": "Editar Fonte de Renda",
+        "disable": "Desativar Fonte de Renda",
+        "enable": "Ativar Fonte de Renda",
+        "form": {
+            "name": "Nome",
+            "name_placeholder": "Nome da Fonte de Renda"
+        },
+        "table": {
+            "name": "Nome",
+            "status": "Status"
+        },
+        "notifications": {
+            "created": "Fonte de renda criada com sucesso",
+            "updated": "Fonte de renda atualizada com sucesso",
+            "load_error": "Falha ao carregar fontes de renda",
+            "create_error": "Falha ao criar fonte de renda",
+            "update_error": "Falha ao atualizar fonte de renda"
+        }
+    },
+    "savings": {
+        "title": "Economias",
+        "new": "Nova Economia",
+        "edit": "Editar Economia",
+        "filters": {
+            "clean": "Limpar filtros",
+            "filter": "Filtrar",
+            "description_placeholder": "Descrição",
+            "min_date": "Data mínima",
+            "max_date": "Data máxima",
+            "min_value": "Valor mínimo",
+            "max_value": "Valor máximo"
+        },
+        "table": {
+            "date": "Data",
+            "value": "Valor",
+            "type": "Tipo",
+            "description": "Descrição"
+        },
+        "form": {
+            "value": "Valor",
+            "type": "Tipo",
+            "positive": "Positivo",
+            "negative": "Negativo",
+            "description_placeholder": "Descrição da economia",
+            "value_placeholder": "0,00"
+        },
+        "types": {
+            "increase": "Aumento",
+            "decrease": "Diminuição"
+        },
+        "notifications": {
+            "created": "Economia criada com sucesso",
+            "create_error": "Falha ao criar economia",
+            "updated": "Economia editada com sucesso",
+            "update_error": "Falha ao atualizar economia",
+            "load_error": "Falha ao carregar economia"
+        }
+    }
+}

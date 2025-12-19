@@ -16,6 +16,8 @@
 import LoadingComponent from '@/components/global/LoadingComponent.vue';
 import { useAuthStore } from '@/stores/auth';
 
+import { useI18n } from 'vue-i18n';
+
 const currencyConfig = {
     BRL: { locale: 'pt-BR', currency: 'BRL' },
     EUR: { locale: 'de-DE', currency: 'EUR' },
@@ -30,7 +32,8 @@ export default {
     },
     setup() {
         const authStore = useAuthStore();
-        return { authStore };
+        const { t } = useI18n();
+        return { authStore, t };
     },
     data() {
         return {
@@ -45,7 +48,7 @@ export default {
             this.$axios.get(`dashboard/graph/savings`)
                 .then(({ data }) => {
                     this.dataList = [
-                        { name: 'Savings', data: data.data.data }
+                        { name: this.seriesName, data: data.data.data }
                     ];
                     this.graphOptions.xaxis.categories = data.data.dates;
                 })
@@ -53,6 +56,11 @@ export default {
                     this.isLoading = false;
                 });
         },
+    },
+    computed: {
+        seriesName() {
+            return this.t('home.cards.savings');
+        }
     },
     created() {
         const userCurrency = this.authStore.currency;

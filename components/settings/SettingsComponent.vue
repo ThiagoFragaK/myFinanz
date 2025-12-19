@@ -51,18 +51,18 @@
             CategoriesTab,
             SavingsTab,
         },
-        data() {
-            return {
-                tabs: [
-                    { name: "payment_methods", label: "Payment methods" },
-                    { name: "categories", label: "Categories" },
-                    { name: "expenses", label: "Expenses" },
-                    { name: "income", label: "Incomes" },
-                    { name: "income_type", label: "Incomes Types" },
-                    { name: "income_sources", label: "Incomes Sources" },
-                    { name: "savings", label: "Savings" },
-                ],
-            };
+        computed: {
+            tabs() {
+                return [
+                    { name: "payment_methods", label: this.$t('settings.payment_methods') },
+                    { name: "categories", label: this.$t('settings.categories') },
+                    { name: "expenses", label: this.$t('settings.expenses') },
+                    { name: "income", label: this.$t('settings.income') },
+                    { name: "income_type", label: this.$t('settings.income_type') },
+                    { name: "income_sources", label: this.$t('settings.income_sources') },
+                    { name: "savings", label: this.$t('settings.savings') },
+                ];
+            }
         },
     };
 </script>

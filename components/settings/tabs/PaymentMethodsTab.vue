@@ -1,7 +1,7 @@
 <template>
     <button 
+        v-tooltip="$t('common.return')"
         type="button"
-        title="Return"
         class="btn btn-primary mb-4"
         @click="returnToTable"
         :disabled="showTable"
@@ -9,8 +9,8 @@
         <IconsLucide icon="ChevronLeft" />
     </button>
     <button 
+        v-tooltip="$t('payment_methods.new')"
         type="button"
-        title="New Card"
         class="btn btn-primary ms-2 mb-4"
         @click="newCard"
         :disabled="disableBtns"
@@ -18,8 +18,8 @@
         <IconsLucide icon="Plus" />
     </button>
     <button 
+        v-tooltip="$t('payment_methods.edit')"
         type="button"
-        title="Edit Card"
         class="btn btn-primary ms-2 mb-4"
         @click="editCard"
         :disabled="hasntOnlyOneSelected"
@@ -27,20 +27,20 @@
         <IconsLucide icon="Pencil" />
     </button>
     <button 
+        v-tooltip="$t('payment_methods.disable')"
         type="button"
-        title="Disable Income"
         class="btn btn-primary ms-2 mb-4"
         :disabled="hasntOnlyOneSelected"
-        @click="disableIncome"
+        @click="disableCard"
     >
         <IconsLucide icon="CircleSlash" />
     </button>
     <button 
+        v-tooltip="$t('payment_methods.enable')"
         type="button"
-        title="Enable Income"
         class="btn btn-primary ms-2 mb-4"
         :disabled="hasntOnlyOneSelected"
-        @click="enableIncome"
+        @click="enableCard"
     >
         <IconsLucide icon="CircleCheckBig" />
     </button>
@@ -97,15 +97,15 @@
                 try {
                     await this.paymentMethodsService.disablePaymentMethod(this.selectedCard.id);
                     this.$notify({
-                        title: 'Success',
-                        text: 'Card disabled successfully',
+                        title: this.$t('common.success'),
+                        text: this.$t('payment_methods.notifications.updated'),
                         icon: 'success'
                     });
-                    this.$refs.IncomeTable.getIncomeSources();
+                    this.$refs.PaymentMethodsTable.getPaymentMethods();
                 } catch (error) {
                     this.$notify({
-                        title: 'Error',
-                        text: 'Failed to disable card',
+                        title: this.$t('common.error'),
+                        text: this.$t('payment_methods.notifications.update_error'),
                         icon: 'error'
                     });
                 }
@@ -114,15 +114,15 @@
                 try {
                     await this.paymentMethodsService.enablePaymentMethod(this.selectedCard.id);
                     this.$notify({
-                        title: 'Success',
-                        text: 'Card enabled successfully',
+                        title: this.$t('common.success'),
+                        text: this.$t('payment_methods.notifications.updated'),
                         icon: 'success'
                     });
-                    this.$refs.IncomeTable.getIncomeSources();
+                    this.$refs.PaymentMethodsTable.getPaymentMethods();
                 } catch (error) {
                     this.$notify({
-                        title: 'Error',
-                        text: 'Failed to enable card',
+                        title: this.$t('common.error'),
+                        text: this.$t('payment_methods.notifications.update_error'),
                         icon: 'error'
                     });
                 }

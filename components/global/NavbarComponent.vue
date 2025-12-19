@@ -58,7 +58,7 @@
         data() {
             return {
                 loginTabs: [
-                    { name: "/login", label: "Login" },
+                    { name: "/login", label: this.$t('navbar.login') },
                 ],
             };
         },
@@ -68,12 +68,12 @@
                 const userName = authStore.user?.name || 'User';
                 
                 return [
-                    { name: "/", label: "Home" },
+                    { name: "/", label: this.$t('navbar.home') },
                     // { name: "budget", label: "Budget" },
                     // { name: "reports", label: "Reports" },
-                    { name: "settings", label: "Settings" },
+                    { name: "settings", label: this.$t('navbar.settings') },
                     { name: "/user", label: userName },
-                    { name: "logout", label: "Logout" },
+                    { name: "logout", label: this.$t('navbar.logout') },
                 ];
             }
         },

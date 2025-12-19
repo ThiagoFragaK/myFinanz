@@ -27,10 +27,6 @@
             TableComponent
         },
         data: () => ({
-            columns: [
-                { key: "id", label: "Code" },
-                { key: "name", label: "Name" },
-            ],
             pagination: {
                 currentPage: 1,
                 totalPages: 1,
@@ -42,6 +38,14 @@
             isLoading: true,
             incomeTypesService: null
         }),
+        computed: {
+            columns() {
+                return [
+                     { key: "id", label: this.$t('income_types.table.code') },
+                     { key: "name", label: this.$t('income_types.table.name') },
+                ]
+            }
+        },
         methods: {
             async getIncomeTypes(page = 1) {
                 this.isLoading = true;

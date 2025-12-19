@@ -31,6 +31,11 @@ export const useAuthStore = defineStore('auth', {
                     this.role = user.role;
                     this.is_first_login = user.is_first_login;
 
+                    const { $i18n } = useNuxtApp();
+                    if ($i18n && $i18n.global) {
+                        $i18n.global.locale.value = this.language;
+                    }
+
                     if (process.client) {
                         localStorage.setItem('token', access_token);
                     }
@@ -91,6 +96,11 @@ export const useAuthStore = defineStore('auth', {
                             this.currency = response.data.currency || 'BRL';
                             this.role = response.data.role;
                             this.is_first_login = response.data.is_first_login;
+
+                            const { $i18n } = useNuxtApp();
+                            if ($i18n && $i18n.global) {
+                                $i18n.global.locale.value = this.language;
+                            }
                         } catch (error) {
                             console.error('Failed to fetch user data:', error);
                             this.token = null;
@@ -115,6 +125,11 @@ export const useAuthStore = defineStore('auth', {
                     this.language = language;
                     this.currency = currency;
                     this.user = response.data.user;
+
+                    const { $i18n } = useNuxtApp();
+                    if ($i18n && $i18n.global) {
+                        $i18n.global.locale.value = this.language;
+                    }
 
                     return { success: true };
                 }

@@ -45,7 +45,10 @@
                 this.isLoading = true;
                 this.$axios.get(`dashboard/graph/monthly`)
                     .then(({ data }) => {
-                        this.dataList = data.data.data;
+                        this.dataList = data.data.data.map(item => ({
+                            ...item,
+                            name: this.$t(item.name)
+                        }));
                         this.graphOptions.xaxis.categories = data.data.dates;
                     })
                     .finally(() => {
