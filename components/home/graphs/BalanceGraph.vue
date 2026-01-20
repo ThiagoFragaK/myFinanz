@@ -41,6 +41,10 @@
             };
         },
         methods: {
+            formatDate(dateString) {
+                const [year, month] = dateString.split('-');
+                return `${month}/${year}`;
+            },
             getMonthBalance() {
                 this.isLoading = true;
                 this.$axios.get(`dashboard/graph/monthly`)
@@ -49,7 +53,7 @@
                             ...item,
                             name: this.$t(item.name)
                         }));
-                        this.graphOptions.xaxis.categories = data.data.dates;
+                        this.graphOptions.xaxis.categories = data.data.dates.map(date => this.formatDate(date));
                     })
                     .finally(() => {
                         this.isLoading = false;
